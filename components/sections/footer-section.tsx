@@ -1,23 +1,13 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Github, Twitter, Linkedin } from "lucide-react"
 
 const footerLinks = {
-  product: [
-    { label: "Features", href: "#features" },
-    { label: "Pricing", href: "#pricing" },
-    { label: "Changelog", href: "#" },
-    { label: "Documentation", href: "#" },
-  ],
-  company: [
-    { label: "About", href: "#" },
-    { label: "Blog", href: "#" },
-    { label: "Careers", href: "#" },
-    { label: "Contact", href: "#" },
-  ],
-  legal: [
-    { label: "Privacy", href: "#" },
-    { label: "Terms", href: "#" },
-    { label: "Security", href: "#" },
+  navigation: [
+    { label: "Research", href: "/research" },
+    { label: "Projects", href: "/projects" },
+    { label: "Experience", href: "/experience" },
+    { label: "Contact", href: "/contact" },
   ],
 }
 
@@ -25,63 +15,40 @@ export function FooterSection() {
   return (
     <footer className="px-6 py-16 border-t border-zinc-900">
       <div className="max-w-5xl mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
           {/* Brand */}
-          <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="font-display text-xl font-semibold text-zinc-100">
-              Acme
+          <div className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-2 transition-transform hover:scale-105">
+              <Image
+                src="/images/bomb.png"
+                alt="Logo"
+                width={32}
+                height={32}
+                className="object-contain"
+              />
             </Link>
-            <p className="mt-4 text-sm text-zinc-500 max-w-xs">
-              Build faster, ship smarter. The platform for modern teams.
+            <p className="text-sm text-zinc-500">
+              Informatics Graduate | Quantitative Finance | Machine Learning
             </p>
           </div>
 
-          {/* Product Links */}
-          <div>
-            <h4 className="font-heading text-sm font-semibold text-zinc-100 mb-4">Product</h4>
-            <ul className="space-y-3">
-              {footerLinks.product.map((link) => (
-                <li key={link.label}>
-                  <Link href={link.href} className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Company Links */}
-          <div>
-            <h4 className="font-heading text-sm font-semibold text-zinc-100 mb-4">Company</h4>
-            <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
-                <li key={link.label}>
-                  <Link href={link.href} className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal Links */}
-          <div>
-            <h4 className="font-heading text-sm font-semibold text-zinc-100 mb-4">Legal</h4>
-            <ul className="space-y-3">
-              {footerLinks.legal.map((link) => (
-                <li key={link.label}>
-                  <Link href={link.href} className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Navigation Links */}
+          <nav className="flex items-center gap-6">
+            {footerLinks.navigation.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
         </div>
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-zinc-900 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-zinc-600">© {new Date().getFullYear()} Acme Inc. All rights reserved.</p>
+          <p className="text-sm text-zinc-600">© {new Date().getFullYear()} All rights reserved.</p>
           <div className="flex items-center gap-4">
             <Link href="#" className="text-zinc-500 hover:text-zinc-300 transition-colors" aria-label="GitHub">
               <Github className="w-5 h-5" />

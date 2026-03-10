@@ -11,9 +11,9 @@ const manrope = Manrope({
 })
 
 export const metadata: Metadata = {
-  title: "Liquid Metal Buttons | Premium UI Components",
+  title: "Personal Portfolio | Informatics Graduate",
   description:
-    "A collection of premium button components featuring animated liquid metal borders powered by Paper Shaders.",
+    "Personal portfolio of an informatics graduate with strong interest in quantitative finance and machine learning.",
   generator: "v0.app",
   icons: {
     icon: [
