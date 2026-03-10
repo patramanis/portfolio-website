@@ -18,10 +18,10 @@ export function HeroSection() {
           <div className="flex justify-center lg:justify-start order-2 lg:order-1">
             <LiquidMetalBorder
               borderRadius={24}
-              borderWidth={6}
+              borderWidth={3}
               opacity={0.85}
               speed={0.7}
-              className="shadow-2xl shadow-zinc-900/60 transition-all duration-500 hover:shadow-zinc-700/40 hover:scale-[1.02]"
+              className="shadow-2xl shadow-zinc-900/60 transition-all duration-500"
             >
               <div className="w-72 h-80 md:w-96 md:h-[440px] rounded-[18px] overflow-hidden bg-zinc-900">
                 <Image
@@ -29,7 +29,7 @@ export function HeroSection() {
                   alt="Profile photo"
                   width={400}
                   height={500}
-                  className="object-cover w-full h-full object-top transition-transform duration-700 hover:scale-105"
+                  className="object-cover w-full h-full object-top"
                   priority
                 />
               </div>
