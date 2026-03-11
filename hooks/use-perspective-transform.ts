@@ -14,6 +14,7 @@ export function usePerspectiveTransform(
 ) {
     const { maxRotation = 15, distance = 500, easing = 0.05 } = options
     const currentRotationRef = useRef({ x: 0, y: 0 })
+    const isHoveringRef = useRef(false)
 
     useEffect(() => {
         const element = elementRef.current
@@ -32,12 +33,17 @@ export function usePerspectiveTransform(
             const x = e.clientX - centerX
             const y = e.clientY - centerY
 
-            // Add smooth transition for scale only on first hover
-            if (currentRotationRef.current.x === 0 && currentRotationRef.current.y === 0) {
+            // Check if we just started hovering (came from mouseleave)
+            if (!isHoveringRef.current) {
+                isHoveringRef.current = true
+                // Cancel any ongoing reset animation
+                if (animationId) {
+                    cancelAnimationFrame(animationId)
+                }
+                // Enable scale transition for smooth zoom in
                 element.style.transition = 'scale 250ms ease-out'
-                // Apply scale with transition
                 element.style.scale = '1.02'
-                // Remove transition after animation completes so perspective distortion follows cursor smoothly
+                // Remove transition after animation completes
                 setTimeout(() => {
                     element.style.transition = ''
                 }, 250)
@@ -58,6 +64,7 @@ export function usePerspectiveTransform(
         }
 
         const handleMouseLeave = () => {
+            isHoveringRef.current = false
             // Add smooth transitions for both scale and transform on exit
             element.style.transition = 'scale 250ms ease-out, transform 200ms ease-out'
             element.style.scale = '1'
