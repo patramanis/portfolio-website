@@ -13,24 +13,24 @@ interface FloatingCloud {
 
 const clouds: FloatingCloud[] = [
     {
-        src: "/images/Welcome (2).png",
-        top: "50px",
-        left: "calc(100% - 260px)",
-        size: 240,
-        duration: 6,
-        delay: 0,
-    },
-    {
         src: "/images/Welcome (1).png",
-        top: "80px",
-        left: "-40px",
+        top: "20px",
+        left: "-30px",
         size: 180,
         duration: 7,
         delay: 1,
     },
     {
+        src: "/images/Welcome (2).png",
+        top: "40px",
+        left: "calc(100% - 180px)",
+        size: 240,
+        duration: 6,
+        delay: 0,
+    },
+    {
         src: "/images/Welcome (3).png",
-        top: "60px",
+        top: "-10px",
         left: "calc(50% - 75px)",
         size: 150,
         duration: 8,

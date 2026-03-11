@@ -19,7 +19,7 @@ export function HeroSection() {
   })
 
   return (
-    <section className="relative w-full min-h-[calc(100vh-80px)] mt-20 flex flex-col overflow-hidden">
+    <section className="relative w-full min-h-[calc(100vh-80px)] mt-20 pb-20 flex flex-col overflow-hidden">
       {/* Background Pattern with low opacity */}
       <div
         className="absolute inset-0 opacity-[0.08] pointer-events-none"
@@ -77,11 +77,11 @@ export function HeroSection() {
 
         {/* Right side (50%) - Text Content centered */}
         <div className="w-1/2 flex flex-col items-center justify-center overflow-hidden">
-          {/* Container for all 3 texts - centered, no overflow */}
-          <div className="flex flex-col gap-12 items-center justify-center w-full px-8">
+          {/* Container for all 3 texts - centered */}
+          <div className="flex flex-col gap-12 items-center justify-center w-full">
             {/* "Hi, I am Thomas" - Single line */}
             <div>
-              <div style={{ fontSize: "80px", lineHeight: "1", fontFamily: '"Cal Sans", system-ui, sans-serif', fontWeight: 700 }}>
+              <div style={{ fontSize: "80px", lineHeight: "1", fontFamily: '"Cal Sans", system-ui, sans-serif', fontWeight: 700, textAlign: "center" }}>
                 <span className="text-white">Hi, I am </span>
                 <span className="bg-gradient-to-r from-white via-white to-zinc-400 bg-clip-text text-transparent">
                   Thomas
@@ -90,14 +90,19 @@ export function HeroSection() {
               </div>
             </div>
 
-            {/* "Welcome to my website" - All words inline, "to" vertical */}
-            <div style={{ display: "flex", alignItems: "center", gap: "16px", justifyContent: "center" }}>
-              <span className="font-display text-7xl font-bold text-white leading-none">
+            {/* "Welcome to my website" - Grid layout */}
+            <div style={{ display: "grid", gridTemplateColumns: "auto auto auto", gridTemplateRows: "auto auto", gap: "2px", alignItems: "start", justifyContent: "center" }}>
+              {/* Welcome - bottom left */}
+              <span className="font-display text-7xl font-bold text-white leading-none" style={{ gridColumn: "1", gridRow: "2" }}>
                 Welcome
               </span>
+
+              {/* to - vertical, top center */}
               <span
-                className="font-display text-3xl font-bold"
+                className="font-display text-3xl font-bold text-center"
                 style={{
+                  gridColumn: "2",
+                  gridRow: "1",
                   background: "linear-gradient(135deg, #a1a1a1, #5a5a5a)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
@@ -105,18 +110,24 @@ export function HeroSection() {
                   writingMode: "vertical-rl",
                   textOrientation: "mixed",
                   transform: "rotate(180deg)",
-                  height: "fit-content"
+                  height: "auto",
                 }}
               >
                 to
               </span>
-              <span className="font-display text-3xl font-bold leading-none" style={{ background: "linear-gradient(135deg, #a1a1a1, #5a5a5a)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+
+              {/* my - bottom center */}
+              <span className="font-display text-3xl font-bold leading-none" style={{ gridColumn: "2", gridRow: "2", background: "linear-gradient(135deg, #a1a1a1, #5a5a5a)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                 my
               </span>
-              <ParticleText text="website" fontSize={120} />
+
+              {/* website - bottom right */}
+              <div style={{ gridColumn: "3", gridRow: "2" }}>
+                <ParticleText text="website" fontSize={120} />
+              </div>
             </div>
 
-            {/* Subheadline - Two lines */}
+            {/* Subheadline - Two lines exactly */}
             <p className="text-base md:text-lg text-zinc-500 text-center leading-relaxed" style={{ maxWidth: "360px" }}>
               I am an applied informatics graduate, with strong interest<br />
               in data science and quantitative finance.
@@ -126,7 +137,7 @@ export function HeroSection() {
       </div>
 
       {/* "More about me" - Bottom center of right container */}
-      <div className="relative z-10 w-1/2 ml-auto flex justify-center pb-8">
+      <div className="relative z-10 w-1/2 ml-auto flex justify-center">
         <div className="flex flex-col items-center animate-bounce cursor-pointer">
           <span className="text-sm text-zinc-400 font-medium tracking-wide transition-colors duration-300 hover:text-zinc-200">
             More about me
