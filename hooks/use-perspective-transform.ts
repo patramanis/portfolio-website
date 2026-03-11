@@ -48,6 +48,9 @@ export function usePerspectiveTransform(
         }
 
         const handleMouseLeave = () => {
+            // Add smooth transition only during reset
+            element.style.transition = 'transform 350ms ease-out'
+
             const resetRotation = () => {
                 currentRotationRef.current.x += (0 - currentRotationRef.current.x) * easing
                 currentRotationRef.current.y += (0 - currentRotationRef.current.y) * easing
@@ -66,6 +69,8 @@ export function usePerspectiveTransform(
                 } else {
                     element.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)"
                     currentRotationRef.current = { x: 0, y: 0 }
+                    // Remove transition after reset complete
+                    element.style.transition = ''
                 }
             }
 
