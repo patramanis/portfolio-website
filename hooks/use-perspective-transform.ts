@@ -12,7 +12,7 @@ export function usePerspectiveTransform(
     elementRef: RefObject<HTMLElement>,
     options: PerspectiveOptions = {}
 ) {
-    const { maxRotation = 15, distance = 500, easing = 0.1 } = options
+    const { maxRotation = 15, distance = 500, easing = 0.05 } = options
     const currentRotationRef = useRef({ x: 0, y: 0 })
 
     useEffect(() => {

@@ -5,22 +5,52 @@ import { ChevronDown } from "lucide-react"
 import { useRef } from "react"
 import { LiquidMetalBorder } from "@/components/ui/liquid-metal-border"
 import { FloatingClouds } from "@/components/ui/floating-clouds"
-import { ParticleText } from "@/components/ui/particle-text"
 import { usePerspectiveTransform } from "@/hooks/use-perspective-transform"
 
 export function HeroSection() {
   const profileImageRef = useRef<HTMLDivElement>(null)
 
-  // Apply perspective transform hook
   usePerspectiveTransform(profileImageRef, {
     maxRotation: 12,
     distance: 600,
-    easing: 0.15,
+    easing: 0.05,
   })
 
+  const greyGradient = {
+    background: "linear-gradient(135deg, #a1a1a1, #5a5a5a)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    backgroundClip: "text",
+  } as React.CSSProperties
+
   return (
-    <section className="relative w-full min-h-[calc(100vh-80px)] mt-20 flex flex-col overflow-hidden">
-      {/* Background Pattern with low opacity */}
+    <section className="relative w-full h-[calc(100vh-56px)] mt-14">
+      <style>{`
+        @keyframes gradientShift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        .animated-gradient-thomas {
+          animation: gradientShift 6s ease-in-out infinite;
+          background-size: 200% 200%;
+          background-image: linear-gradient(135deg, #ffffff 0%, #e0e0e0 25%, #ffffff 50%, #b8b8b8 75%, #ffffff 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .animated-gradient-secondary {
+          animation: gradientShift 5s ease-in-out infinite;
+          background-size: 200% 200%;
+          background-image: linear-gradient(135deg, #a1a1a1 0%, #d4d4d4 25%, #5a5a5a 50%, #d4d4d4 75%, #a1a1a1 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+      `}</style>
+      {/* Background Pattern */}
       <div
         className="absolute inset-0 opacity-[0.08] pointer-events-none"
         style={{
@@ -30,23 +60,22 @@ export function HeroSection() {
           backgroundRepeat: "no-repeat",
         }}
       />
-
-      {/* Background gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-zinc-900/30 via-transparent to-transparent pointer-events-none" />
 
-      {/* Main Content - Two equal 50% containers */}
-      <div className="relative z-10 flex flex-1 w-full">
-        {/* Left side (50%) - Profile Image centered */}
-        <div className="w-1/2 flex items-center justify-center overflow-hidden">
-          <div className="relative">
-            {/* Profile Image with Perspective Effect */}
+      {/* Floating Clouds - section level, full viewport width */}
+      <div className="absolute inset-0 pointer-events-none z-20">
+        <FloatingClouds />
+      </div>
+
+      {/* Two equal 50% containers filling the available space */}
+      <div className="relative z-10 flex w-full h-full">
+        {/* LEFT (50%) - Profile Image centered */}
+        <div className="w-1/2 flex items-center justify-center">
+          <div className="relative" style={{ transform: "translateX(-11%)" }}>
             <div
               ref={profileImageRef}
               className="relative transition-transform duration-100 ease-out"
-              style={{
-                transformStyle: "preserve-3d",
-                zIndex: 10,
-              }}
+              style={{ transformStyle: "preserve-3d", zIndex: 20 }}
             >
               <LiquidMetalBorder
                 borderRadius={24}
@@ -68,83 +97,94 @@ export function HeroSection() {
               </LiquidMetalBorder>
             </div>
 
-            {/* Floating Clouds - Positioned above image */}
-            <div className="absolute inset-0 pointer-events-none overflow-visible z-20">
-              <FloatingClouds />
-            </div>
           </div>
         </div>
 
-        {/* Right side (50%) - Text Content centered */}
-        <div className="w-1/2 flex flex-col items-center justify-center overflow-hidden">
-          {/* Container for all 3 texts - centered */}
-          <div className="flex flex-col gap-12 items-center justify-center w-full">
-            {/* "Hi, I am Thomas" - Single line */}
-            <div>
-              <div style={{ fontSize: "80px", lineHeight: "1", fontFamily: '"Cal Sans", system-ui, sans-serif', fontWeight: 700, textAlign: "center" }}>
+        {/* RIGHT (50%) - Text Content centered, More about me at bottom */}
+        <div className="w-1/2 relative flex flex-col items-center justify-center pr-[10%]" style={{ zIndex: 20, overflow: "visible" }}>
+          {/* Text group - centered in the container */}
+          <div className="flex flex-col gap-8" style={{ alignItems: "flex-start", position: "relative", zIndex: 20 }}>
+            {/* "Hi, I am Thomas." - slight right offset */}
+            <div style={{ paddingLeft: "20px" }}>
+              <div style={{ fontSize: "80px", lineHeight: "1", fontFamily: '"Cal Sans", system-ui, sans-serif', fontWeight: 700 }}>
                 <span className="text-white">Hi, I am </span>
-                <span className="bg-gradient-to-r from-white via-white to-zinc-400 bg-clip-text text-transparent">
+                <span className="animated-gradient-thomas">
                   Thomas
                 </span>
-                <span style={{ background: "linear-gradient(135deg, #a1a1a1, #5a5a5a)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>.</span>
+                <span style={greyGradient}>.</span>
               </div>
             </div>
 
-            {/* "Welcome to my website" - Grid layout with precise positioning */}
-            <div style={{ display: "grid", gridTemplateColumns: "auto auto", gridTemplateRows: "auto auto", gap: "3px", alignItems: "center", justifyItems: "start" }}>
-              {/* Welcome - top left */}
-              <span className="font-display text-7xl font-bold text-white leading-none" style={{ gridColumn: "1", gridRow: "1" }}>
-                Welcome
-              </span>
-
-              {/* to - vertical, top right */}
-              <span
-                className="font-display text-3xl font-bold"
-                style={{
-                  gridColumn: "2",
-                  gridRow: "1",
-                  marginLeft: "3px",
-                  background: "linear-gradient(135deg, #a1a1a1, #5a5a5a)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                  writingMode: "vertical-rl",
-                  textOrientation: "mixed",
-                  transform: "rotate(180deg)",
-                  height: "auto",
-                }}
-              >
-                to
-              </span>
-
-              {/* my - bottom left */}
-              <span className="font-display text-3xl font-bold leading-none" style={{ gridColumn: "1", gridRow: "2", marginTop: "3px", background: "linear-gradient(135deg, #a1a1a1, #5a5a5a)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-                my
-              </span>
-
-              {/* website - bottom right */}
-              <div style={{ gridColumn: "2", gridRow: "2", marginLeft: "3px", marginTop: "3px" }}>
-                <ParticleText text="website" fontSize={120} />
+            {/* "Welcome to my website" - shifted 7% left */}
+            <div style={{ transform: "translateX(-7%)" }}>
+              {/* Row 1: Welcome + to(vertical, right of Welcome) */}
+              <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                <span
+                  className="font-display font-bold text-white leading-none"
+                  style={{ fontSize: "72px" }}
+                >
+                  Welcome
+                </span>
+                <span
+                  className="font-display font-bold animated-gradient-secondary"
+                  style={{
+                    fontSize: "50px",
+                    writingMode: "vertical-rl",
+                    textOrientation: "mixed",
+                    marginLeft: "-2%",
+                    transform: "rotate(360deg)",
+                  }}
+                >
+                  to
+                </span>
+              </div>
+              {/* Row 2: my + website */}
+              <div style={{ display: "flex", alignItems: "center", gap: "3px", marginTop: "-4px" }}>
+                <span
+                  className="font-display font-bold leading-none animated-gradient-secondary"
+                  style={{
+                    fontSize: "40px",
+                    paddingBottom: "6px",
+                    marginTop: "11%",
+                    marginLeft: "1%%",
+                  }}
+                >
+                  my
+                </span>
+                <span
+                  className="font-display font-bold leading-none text-white"
+                  style={{
+                    fontSize: "120px",
+                    fontFamily: '"Cal Sans", system-ui, sans-serif',
+                    fontWeight: 700,
+                    lineHeight: 1,
+                    marginTop: "-2%",
+                  }}
+                >
+                  website
+                </span>
               </div>
             </div>
 
-            {/* Subheadline - Two lines exactly */}
-            <p className="text-base md:text-lg text-zinc-500 text-center leading-relaxed" style={{ maxWidth: "360px" }}>
-              I am an applied informatics graduate, with strong interest<br />
+            {/* Subheadline - Two lines */}
+            <p className="text-base md:text-xl text-zinc-500 leading-relaxed" style={{ paddingLeft: "30px" }}>
+              I am an applied informatics graduate, with interest<br />
               in data science and quantitative finance.
             </p>
           </div>
+
         </div>
       </div>
 
-      {/* "More about me" - Bottom center of right container */}
-      <div className="relative z-10 w-1/2 ml-auto flex justify-center pb-8">
-        <div className="flex flex-col items-center animate-bounce cursor-pointer">
-          <span className="text-sm text-zinc-400 font-medium tracking-wide transition-colors duration-300 hover:text-zinc-200">
-            More about me
-          </span>
-          <ChevronDown className="w-4 h-4 text-zinc-500 mt-1 transition-colors duration-300 hover:text-zinc-300" />
-        </div>
+      {/* "More about me" - center of gap between image and right edge, 5% up from bottom */}
+      <div
+        className="absolute flex flex-col items-center animate-bounce cursor-pointer z-30"
+        style={{ bottom: "5%", left: "64%", transform: "translateX(-50%)" }}
+      >
+        <span className="text-sm text-zinc-400 font-medium tracking-wide transition-colors duration-300 hover:text-zinc-200">
+          More about me
+        </span>
+        <ChevronDown className="w-4 h-4 text-zinc-500 mt-1 transition-colors duration-300 hover:text-zinc-300" />
       </div>
     </section>
   )
