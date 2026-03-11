@@ -74,7 +74,7 @@ export function HeroSection() {
           <div className="relative" style={{ transform: "translateX(-11%)" }}>
             <div
               ref={profileImageRef}
-              className="relative transition-transform duration-100 ease-out"
+              className="relative transition-transform duration-500 ease-in-out"
               style={{ transformStyle: "preserve-3d", zIndex: 20 }}
             >
               <LiquidMetalBorder
