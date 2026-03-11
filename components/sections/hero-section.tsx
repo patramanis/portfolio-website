@@ -19,7 +19,7 @@ export function HeroSection() {
   })
 
   return (
-    <section className="relative w-full min-h-[calc(100vh-80px)] mt-20 pb-20 flex flex-col overflow-hidden">
+    <section className="relative w-full min-h-[calc(100vh-80px)] mt-20 flex flex-col overflow-hidden">
       {/* Background Pattern with low opacity */}
       <div
         className="absolute inset-0 opacity-[0.08] pointer-events-none"
@@ -90,19 +90,20 @@ export function HeroSection() {
               </div>
             </div>
 
-            {/* "Welcome to my website" - Grid layout */}
-            <div style={{ display: "grid", gridTemplateColumns: "auto auto auto", gridTemplateRows: "auto auto", gap: "2px", alignItems: "start", justifyContent: "center" }}>
-              {/* Welcome - bottom left */}
-              <span className="font-display text-7xl font-bold text-white leading-none" style={{ gridColumn: "1", gridRow: "2" }}>
+            {/* "Welcome to my website" - Grid layout with precise positioning */}
+            <div style={{ display: "grid", gridTemplateColumns: "auto auto", gridTemplateRows: "auto auto", gap: "3px", alignItems: "center", justifyItems: "start" }}>
+              {/* Welcome - top left */}
+              <span className="font-display text-7xl font-bold text-white leading-none" style={{ gridColumn: "1", gridRow: "1" }}>
                 Welcome
               </span>
 
-              {/* to - vertical, top center */}
+              {/* to - vertical, top right */}
               <span
-                className="font-display text-3xl font-bold text-center"
+                className="font-display text-3xl font-bold"
                 style={{
                   gridColumn: "2",
                   gridRow: "1",
+                  marginLeft: "3px",
                   background: "linear-gradient(135deg, #a1a1a1, #5a5a5a)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
@@ -116,13 +117,13 @@ export function HeroSection() {
                 to
               </span>
 
-              {/* my - bottom center */}
-              <span className="font-display text-3xl font-bold leading-none" style={{ gridColumn: "2", gridRow: "2", background: "linear-gradient(135deg, #a1a1a1, #5a5a5a)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+              {/* my - bottom left */}
+              <span className="font-display text-3xl font-bold leading-none" style={{ gridColumn: "1", gridRow: "2", marginTop: "3px", background: "linear-gradient(135deg, #a1a1a1, #5a5a5a)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                 my
               </span>
 
               {/* website - bottom right */}
-              <div style={{ gridColumn: "3", gridRow: "2" }}>
+              <div style={{ gridColumn: "2", gridRow: "2", marginLeft: "3px", marginTop: "3px" }}>
                 <ParticleText text="website" fontSize={120} />
               </div>
             </div>
@@ -137,7 +138,7 @@ export function HeroSection() {
       </div>
 
       {/* "More about me" - Bottom center of right container */}
-      <div className="relative z-10 w-1/2 ml-auto flex justify-center">
+      <div className="relative z-10 w-1/2 ml-auto flex justify-center pb-8">
         <div className="flex flex-col items-center animate-bounce cursor-pointer">
           <span className="text-sm text-zinc-400 font-medium tracking-wide transition-colors duration-300 hover:text-zinc-200">
             More about me
