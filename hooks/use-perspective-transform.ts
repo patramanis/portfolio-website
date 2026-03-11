@@ -9,7 +9,7 @@ export interface PerspectiveOptions {
 }
 
 export function usePerspectiveTransform(
-    elementRef: RefObject<HTMLElement>,
+    elementRef: RefObject<HTMLDivElement | null>,
     options: PerspectiveOptions = {}
 ) {
     const { maxRotation = 15, distance = 500, easing = 0.05 } = options

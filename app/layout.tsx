@@ -43,7 +43,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <head>
         <link
-          href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Instrument+Sans:wght@400;500;600;700&family=Allura&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Instrument+Sans:wght@400;500;600;700&family=Allura&family=EB+Garamond:wght@400;700&display=swap"
           rel="stylesheet"
         />
       </head>

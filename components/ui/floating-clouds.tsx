@@ -22,7 +22,7 @@ const clouds: FloatingCloud[] = [
     },
     {
         src: "/images/Welcome (2).png",
-        top: "20px",
+        top: "240px",
         left: "calc(100% - 240px)",
         size: 240,
         duration: 6,

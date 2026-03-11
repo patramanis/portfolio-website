@@ -116,7 +116,7 @@ export function HeroSection() {
         </div>
 
         {/* RIGHT (50%) - Text Content centered, More about me at bottom */}
-        <div className="w-1/2 relative flex flex-col items-center justify-center pr-[10%]" style={{ zIndex: 20, overflow: "visible" }}>
+        <div className="w-1/2 relative flex flex-col justify-center pr-[10%]" style={{ zIndex: 20, overflow: "visible" }}>
           {/* Text group - centered in the container */}
           <div className="flex flex-col gap-8" style={{ alignItems: "flex-start", position: "relative", zIndex: 20 }}>
             {/* "Hi, I am Thomas." - slight right offset */}
@@ -130,8 +130,8 @@ export function HeroSection() {
               </div>
             </div>
 
-            {/* "Welcome to my website" - shifted 7% left */}
-            <div style={{ transform: "translateX(-7%)" }}>
+            {/* "Welcome to my website" - shifted 25% left */}
+            <div style={{ transform: "translateX(-20%)", paddingLeft: "10%" }}>
               {/* Row 1: Welcome + to(vertical, right of Welcome) */}
               <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
                 <span
@@ -161,7 +161,7 @@ export function HeroSection() {
                     fontSize: "40px",
                     paddingBottom: "6px",
                     marginTop: "-18%",
-                    marginLeft: "1%%",
+                    marginLeft: "1%",
                   }}
                 >
                   my

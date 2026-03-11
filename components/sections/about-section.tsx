@@ -1,33 +1,50 @@
 "use client"
 
-import { Code, TrendingUp, Brain, GraduationCap } from "lucide-react"
+import { Code, TrendingUp, Brain, Database } from "lucide-react"
 
 const interests = [
-  {
-    icon: TrendingUp,
-    title: "Quantitative Finance",
-    description: "Applying mathematical models and computational techniques to financial markets and trading strategies.",
-  },
   {
     icon: Brain,
     title: "Machine Learning",
     description: "Developing intelligent systems that learn from data to solve complex real-world problems.",
   },
   {
-    icon: Code,
-    title: "Software Development",
-    description: "Building robust, scalable applications with modern technologies and best practices.",
+    icon: Database,
+    title: "Data Engineering",
+    description: "Designing and managing data pipelines to ensure efficient data flow, storage, and processing.",
   },
   {
-    icon: GraduationCap,
-    title: "Academic Research",
-    description: "Exploring cutting-edge topics at the intersection of computer science and finance.",
+    icon: TrendingUp,
+    title: "Algorithmic Trading",
+    description: "Applying mathematical models and computational techniques to financial markets.",
+  },
+  {
+    icon: Code,
+    title: "Software Development",
+    description: "Building robust, scalable applications with modern technologies.",
   },
 ]
 
 export function AboutSection() {
   return (
     <section className="py-24 px-6 bg-zinc-950/50">
+      <style>{`
+        @keyframes glowFlicker {
+          0%, 85% {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(100, 200, 255, 0.6);
+          }
+          90% {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.56), 0 0 40px rgba(100, 200, 255, 0.42);
+          }
+          95%, 100% {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(100, 200, 255, 0.6);
+          }
+        }
+
+        .glow-interests {
+          animation: glowFlicker 4s ease-in-out infinite;
+        }
+      `}</style>
       <div className="max-w-5xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -38,14 +55,27 @@ export function AboutSection() {
             </span>
           </h2>
           <p className="text-lg text-zinc-500 max-w-2xl mx-auto leading-relaxed">
-            A passionate informatics graduate with a focus on leveraging technology
-            to solve complex problems in quantitative finance and machine learning.
+            Currently based in Thessaloniki, I am actively expanding my skills in informatics and
+            finance, while also working and volunteering. I am passionate about solving complex problems
+            and researching. Moreover, I am eager to contribute to impactful projects or initiatives.
           </p>
+        </div>
+
+        {/* My areas of interest heading */}
+        <div className="text-center mb-17 mt-10">
+          <h3
+            className="font-display text-2xl md:text-3xl font-bold text-zinc-100"
+            style={{
+              letterSpacing: "0.05em",
+            }}
+          >
+            My areas of interest
+          </h3>
         </div>
 
         {/* Interests Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {interests.map((interest, index) => (
+          {interests.map((interest) => (
             <div
               key={interest.title}
               className="group p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800/50 hover:border-zinc-700/50 transition-all duration-300 hover:bg-zinc-900/80"
