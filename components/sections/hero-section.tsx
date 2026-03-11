@@ -5,7 +5,6 @@ import { ChevronDown } from "lucide-react"
 import { useRef } from "react"
 import { LiquidMetalBorder } from "@/components/ui/liquid-metal-border"
 import { FloatingClouds } from "@/components/ui/floating-clouds"
-import { ParticleText } from "@/components/ui/particle-text"
 import { usePerspectiveTransform } from "@/hooks/use-perspective-transform"
 
 export function HeroSection() {
@@ -50,6 +49,22 @@ export function HeroSection() {
           -webkit-text-fill-color: transparent;
           background-clip: text;
         }
+
+        @keyframes glowFlicker {
+          0%, 85% {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(100, 200, 255, 0.6);
+          }
+          90% {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.56), 0 0 40px rgba(100, 200, 255, 0.42);
+          }
+          95%, 100% {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(100, 200, 255, 0.6);
+          }
+        }
+
+        .glow-website {
+          animation: glowFlicker 4s ease-in-out infinite;
+        }
       `}</style>
       {/* Background Pattern */}
       <div
@@ -61,7 +76,6 @@ export function HeroSection() {
           backgroundRepeat: "no-repeat",
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-zinc-900/30 via-transparent to-transparent pointer-events-none" />
 
       {/* Floating Clouds - section level, full viewport width */}
       <div className="absolute inset-0 pointer-events-none z-20">
@@ -146,25 +160,32 @@ export function HeroSection() {
                   style={{
                     fontSize: "40px",
                     paddingBottom: "6px",
-                    marginTop: "11%",
+                    marginTop: "-18%",
                     marginLeft: "1%%",
                   }}
                 >
                   my
                 </span>
-                <ParticleText
-                  text="website"
-                  fontSize={120}
-                  className="font-display font-bold leading-none text-white"
-                  style={{ marginTop: "-2%" }}
-                />
+                <span
+                  className="glow-website leading-none text-white"
+                  style={{
+                    fontFamily: "'Allura', cursive",
+                    fontSize: "120px",
+                    marginTop: "-2%",
+                    fontWeight: 400,
+                    marginLeft: "-2%",
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  website
+                </span>
               </div>
             </div>
 
             {/* Subheadline - Two lines */}
-            <p className="text-base md:text-xl text-zinc-500 leading-relaxed" style={{ paddingLeft: "30px" }}>
-              I am an applied informatics graduate, with interest<br />
-              in data science and quantitative finance.
+            <p className="text-base md:text-xl text-zinc-500 leading-relaxed" style={{ paddingLeft: "30px", marginTop: "-4%", marginLeft: "2.5%" }}>
+              I am an applied informatics graduate, with strong<br />
+              interest in data science and quantitative finance.
             </p>
           </div>
 
@@ -174,7 +195,7 @@ export function HeroSection() {
       {/* "More about me" - center of gap between image and right edge, 5% up from bottom */}
       <div
         className="absolute flex flex-col items-center animate-bounce cursor-pointer z-30"
-        style={{ bottom: "5%", left: "64%", transform: "translateX(-50%)" }}
+        style={{ bottom: "5%", left: "64.7%", transform: "translateX(-50%)" }}
       >
         <span className="text-sm text-zinc-400 font-medium tracking-wide transition-colors duration-300 hover:text-zinc-200">
           More about me
