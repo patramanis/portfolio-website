@@ -20,9 +20,10 @@ interface ParticleTextProps {
     text: string
     className?: string
     fontSize?: number
+    style?: React.CSSProperties
 }
 
-export function ParticleText({ text, className = "", fontSize = 120 }: ParticleTextProps) {
+export function ParticleText({ text, className = "", fontSize = 120, style }: ParticleTextProps) {
     const containerRef = useRef<HTMLDivElement>(null)
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const textCanvasRef = useRef<HTMLCanvasElement>(null)
@@ -30,8 +31,7 @@ export function ParticleText({ text, className = "", fontSize = 120 }: ParticleT
     const mouseRef = useRef({ x: 0, y: 0 })
     const animationIdRef = useRef<number>()
     const [isHovering, setIsHovering] = useState(false)
-    const [showText, setShowText] = useState(true)
-    const isInitializedRef = useRef(false)
+    const particleAlphaRef = useRef(0) // Track particle alpha for smooth fade
 
     useEffect(() => {
         const container = containerRef.current
@@ -71,8 +71,8 @@ export function ParticleText({ text, className = "", fontSize = 120 }: ParticleT
             const data = imageData.data
             particlesRef.current = []
 
-            // Sample pixels to create particles (smaller, sand-grain-like particles)
-            for (let i = 0; i < data.length; i += 120) {
+            // Sample more pixels to create dense particles (sand-grain-like)
+            for (let i = 0; i < data.length; i += 30) {
                 if (data[i + 3] > 100) {
                     const pixelIndex = i / 4
                     const x = pixelIndex % textCanvas.width
@@ -87,7 +87,7 @@ export function ParticleText({ text, className = "", fontSize = 120 }: ParticleT
                         ay: 0,
                         life: 1,
                         maxLife: 1,
-                        size: 0.8 + Math.random() * 0.4, // Smaller, sand-grain size
+                        size: 0.7 + Math.random() * 0.5, // Fine sand-grain particles
                         baseX: x,
                         baseY: y,
                     })
@@ -112,48 +112,57 @@ export function ParticleText({ text, className = "", fontSize = 120 }: ParticleT
             idleCounter++
             const time = idleCounter * 0.016 // ~60fps
 
+            // Smooth fade in/out of particles
+            if (isHovering) {
+                particleAlphaRef.current = Math.min(particleAlphaRef.current + 0.04, 1) // Fade in over ~250ms
+            } else {
+                particleAlphaRef.current = Math.max(particleAlphaRef.current - 0.04, 0) // Fade out over ~250ms
+            }
+
+            const particleAlpha = particleAlphaRef.current
+
             // Update and render particles
             particlesRef.current.forEach((particle) => {
-                // Continuous subtle idle animation
-                const idleOffsetX = Math.sin(time * 0.8 + particle.baseX * 0.01) * 0.8
-                const idleOffsetY = Math.cos(time * 0.8 + particle.baseY * 0.01) * 0.8
-
-                if (!isHovering) {
-                    particle.x = particle.baseX + idleOffsetX
-                    particle.y = particle.baseY + idleOffsetY
-                } else {
-                    // Magnetic effect - repel from cursor with smaller radius
+                if (isHovering && particleAlpha > 0) {
+                    // Magnetic repulsion effect - repel from cursor with small radius
                     const dx = particle.x - mouseRef.current.x
                     const dy = particle.y - mouseRef.current.y
                     const distance = Math.sqrt(dx * dx + dy * dy)
-                    const minDistance = 35 // Smaller repel radius
+                    const minDistance = 25 // Small repel radius for subtle effect
 
                     if (distance < minDistance && distance > 0) {
-                        const force = (minDistance - distance) / minDistance
+                        const force = (minDistance - distance) / minDistance * 0.6 // Limit repulsion strength
                         const angle = Math.atan2(dy, dx)
 
                         // Smooth repulsion
-                        particle.ax = Math.cos(angle) * force * 6
-                        particle.ay = Math.sin(angle) * force * 6
+                        particle.ax = Math.cos(angle) * force * 4
+                        particle.ay = Math.sin(angle) * force * 4
                     } else {
-                        // Friction - return to base position
-                        particle.ax = (particle.baseX - particle.x) * 0.08
-                        particle.ay = (particle.baseY - particle.y) * 0.08
+                        // Return to base position with friction
+                        particle.ax = (particle.baseX - particle.x) * 0.12
+                        particle.ay = (particle.baseY - particle.y) * 0.12
                     }
 
                     particle.vx += particle.ax
                     particle.vy += particle.ay
 
                     // Apply friction
-                    particle.vx *= 0.88
-                    particle.vy *= 0.88
+                    particle.vx *= 0.85
+                    particle.vy *= 0.85
 
                     particle.x += particle.vx
                     particle.y += particle.vy
+                } else {
+                    // Return smoothly to base position when not hovering
+                    particle.x += (particle.baseX - particle.x) * 0.15
+                    particle.y += (particle.baseY - particle.y) * 0.15
+                    particle.vx *= 0.9
+                    particle.vy *= 0.9
                 }
 
-                // Draw particle
-                ctx.fillStyle = "rgba(255, 255, 255, 0.85)"
+                // Draw particle with smooth alpha transition
+                const alpha = 0.8 * particleAlpha
+                ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`
                 ctx.beginPath()
                 ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
                 ctx.fill()
@@ -165,7 +174,6 @@ export function ParticleText({ text, className = "", fontSize = 120 }: ParticleT
 
         const handleMouseEnter = () => {
             setIsHovering(true)
-            setShowText(false)
             if (particlesRef.current.length === 0) {
                 createParticlesFromText()
             }
@@ -176,14 +184,11 @@ export function ParticleText({ text, className = "", fontSize = 120 }: ParticleT
 
         const handleMouseLeave = () => {
             setIsHovering(false)
-            setShowText(true)
-            idleCounter = 0
         }
 
-        // Initialize particles for idle animation
-        if (!isInitializedRef.current) {
+        // Initialize particles for particle effect
+        if (particlesRef.current.length === 0) {
             createParticlesFromText()
-            isInitializedRef.current = true
             frameId = requestAnimationFrame(animate)
         }
 
@@ -199,25 +204,23 @@ export function ParticleText({ text, className = "", fontSize = 120 }: ParticleT
                 cancelAnimationFrame(frameId)
             }
         }
-    }, [text, fontSize, isHovering])
+    }, [text, fontSize])
 
     return (
-        <div ref={containerRef} className={`relative cursor-pointer overflow-visible ${className}`}>
-            {/* Text display (shown by default, hidden on hover) */}
-            {showText && (
-                <div
-                    className="font-display font-bold leading-none text-white select-none"
-                    style={{
-                        fontSize: `${fontSize}px`,
-                        fontFamily: '"Cal Sans", system-ui, sans-serif',
-                        fontWeight: 700,
-                        lineHeight: 1,
-                        whiteSpace: "nowrap",
-                    }}
-                >
-                    {text}
-                </div>
-            )}
+        <div ref={containerRef} className={`relative cursor-pointer overflow-visible ${className}`} style={style}>
+            {/* Text display (always visible, overlaid by particles) */}
+            <div
+                className="font-display font-bold leading-none text-white select-none"
+                style={{
+                    fontSize: `${fontSize}px`,
+                    fontFamily: '"Cal Sans", system-ui, sans-serif',
+                    fontWeight: 700,
+                    lineHeight: 1,
+                    whiteSpace: "nowrap",
+                }}
+            >
+                {text}
+            </div>
 
             {/* Particle canvas - positioned absolutely to overlay text */}
             <canvas

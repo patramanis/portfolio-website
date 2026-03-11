@@ -5,6 +5,7 @@ import { ChevronDown } from "lucide-react"
 import { useRef } from "react"
 import { LiquidMetalBorder } from "@/components/ui/liquid-metal-border"
 import { FloatingClouds } from "@/components/ui/floating-clouds"
+import { ParticleText } from "@/components/ui/particle-text"
 import { usePerspectiveTransform } from "@/hooks/use-perspective-transform"
 
 export function HeroSection() {
@@ -151,18 +152,12 @@ export function HeroSection() {
                 >
                   my
                 </span>
-                <span
+                <ParticleText
+                  text="website"
+                  fontSize={120}
                   className="font-display font-bold leading-none text-white"
-                  style={{
-                    fontSize: "120px",
-                    fontFamily: '"Cal Sans", system-ui, sans-serif',
-                    fontWeight: 700,
-                    lineHeight: 1,
-                    marginTop: "-2%",
-                  }}
-                >
-                  website
-                </span>
+                  style={{ marginTop: "-2%" }}
+                />
               </div>
             </div>
 
