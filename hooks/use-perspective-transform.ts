@@ -32,6 +32,11 @@ export function usePerspectiveTransform(
             const x = e.clientX - centerX
             const y = e.clientY - centerY
 
+            // Add smooth transition for scale only on first hover
+            if (currentRotationRef.current.x === 0 && currentRotationRef.current.y === 0) {
+                element.style.transition = 'scale 250ms ease-out'
+            }
+
             // Calculate rotation angles
             const rotationY = (x / distance) * maxRotation
             const rotationX = (-y / distance) * maxRotation
@@ -43,13 +48,14 @@ export function usePerspectiveTransform(
         perspective(800px)
         rotateX(${currentRotationRef.current.x}deg)
         rotateY(${currentRotationRef.current.y}deg)
-        scale(1.02)
       `
+            // Use scale property separately for smooth transition
+            element.style.scale = '1.02'
         }
 
         const handleMouseLeave = () => {
-            // Add smooth transition only during reset
-            element.style.transition = 'transform 350ms ease-out'
+            // Add smooth transition for both transform and scale on reset
+            element.style.transition = 'transform 250ms ease-out, scale 250ms ease-out'
 
             const resetRotation = () => {
                 currentRotationRef.current.x += (0 - currentRotationRef.current.x) * easing
@@ -63,11 +69,11 @@ export function usePerspectiveTransform(
             perspective(800px)
             rotateX(${currentRotationRef.current.x}deg)
             rotateY(${currentRotationRef.current.y}deg)
-            scale(1.02)
           `
                     animationId = requestAnimationFrame(resetRotation)
                 } else {
-                    element.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)"
+                    element.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg)"
+                    element.style.scale = '1'
                     currentRotationRef.current = { x: 0, y: 0 }
                     // Remove transition after reset complete
                     element.style.transition = ''
