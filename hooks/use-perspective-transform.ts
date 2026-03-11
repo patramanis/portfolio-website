@@ -35,6 +35,12 @@ export function usePerspectiveTransform(
             // Add smooth transition for scale only on first hover
             if (currentRotationRef.current.x === 0 && currentRotationRef.current.y === 0) {
                 element.style.transition = 'scale 250ms ease-out'
+                // Apply scale with transition
+                element.style.scale = '1.02'
+                // Remove transition after animation completes so perspective distortion follows cursor smoothly
+                setTimeout(() => {
+                    element.style.transition = ''
+                }, 250)
             }
 
             // Calculate rotation angles
@@ -49,13 +55,12 @@ export function usePerspectiveTransform(
         rotateX(${currentRotationRef.current.x}deg)
         rotateY(${currentRotationRef.current.y}deg)
       `
-            // Use scale property separately for smooth transition
-            element.style.scale = '1.02'
         }
 
         const handleMouseLeave = () => {
-            // Add smooth transition for both transform and scale on reset
-            element.style.transition = 'transform 250ms ease-out, scale 250ms ease-out'
+            // Add smooth transitions for both scale and transform on exit
+            element.style.transition = 'scale 250ms ease-out, transform 200ms ease-out'
+            element.style.scale = '1'
 
             const resetRotation = () => {
                 currentRotationRef.current.x += (0 - currentRotationRef.current.x) * easing
@@ -73,7 +78,6 @@ export function usePerspectiveTransform(
                     animationId = requestAnimationFrame(resetRotation)
                 } else {
                     element.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg)"
-                    element.style.scale = '1'
                     currentRotationRef.current = { x: 0, y: 0 }
                     // Remove transition after reset complete
                     element.style.transition = ''
