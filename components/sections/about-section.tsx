@@ -1,6 +1,7 @@
 "use client"
 
 import { Code, Brain, Database, Boxes } from "lucide-react"
+import { useRef, useEffect, useState } from "react"
 
 const interests = [
   {
@@ -26,6 +27,26 @@ const interests = [
 ]
 
 export function AboutSection() {
+  const headingRef = useRef<HTMLHeadingElement>(null)
+  const [gradientPos, setGradientPos] = useState({ x: 50, y: 50 })
+  const randomAngleRef = useRef(0)
+
+  useEffect(() => {
+    let animationFrame: number
+    const animateRandom = () => {
+      randomAngleRef.current += 0.02
+      const gradientX = 50 + Math.cos(randomAngleRef.current) * 25
+      const gradientY = 50 + Math.sin(randomAngleRef.current) * 25
+      setGradientPos({ x: gradientX, y: gradientY })
+      animationFrame = requestAnimationFrame(animateRandom)
+    }
+
+    animationFrame = requestAnimationFrame(animateRandom)
+
+    return () => {
+      cancelAnimationFrame(animationFrame)
+    }
+  }, [])
   return (
     <section className="py-24 px-6" style={{ backgroundImage: "url('/images/sxf.png')", backgroundSize: "cover", backgroundPosition: "top" }} data-about-section>
       <div className="max-w-5xl mx-auto">
@@ -47,7 +68,16 @@ export function AboutSection() {
         {/* My areas of interest heading */}
         <div className="text-center mb-12 mt-10">
           <h3
-            className="font-display text-2xl md:text-3xl font-bold text-zinc-100"
+            ref={headingRef}
+            className="font-display text-2xl md:text-3xl font-bold"
+            style={{
+              letterSpacing: "0.05em",
+              backgroundImage: `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, rgb(255, 255, 255) 0%, rgb(100, 100, 100) 50%, rgb(30, 30, 30) 100%)`,
+              backgroundClip: "text",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundSize: "200% 200%",
+            }}
           >
             My areas of interest
           </h3>
