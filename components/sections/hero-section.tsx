@@ -198,7 +198,7 @@ export function HeroSection() {
             {/* Subheadline - Two lines */}
             <p className="text-base md:text-xl text-zinc-500 leading-relaxed" style={{ paddingLeft: "30px", marginTop: "-4%", marginLeft: "2.5%" }}>
               I am an applied informatics graduate, with strong<br />
-              interest in data science and quantitative finance.
+              interest in data science and quantitative analysis.
             </p>
           </div>
 

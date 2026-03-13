@@ -3,7 +3,6 @@ import type { Metadata } from "next"
 import { Manrope } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { LenisProvider } from "@/components/providers/lenis-provider"
-import { WireframeBackground } from "@/components/ui/wireframe-background"
 import "./globals.css"
 
 const manrope = Manrope({
@@ -49,7 +48,6 @@ export default function RootLayout({
         />
       </head>
       <body className={`${manrope.variable} font-sans antialiased text-zinc-100`}>
-        <WireframeBackground />
         <LenisProvider>{children}</LenisProvider>
         <Analytics />
       </body>

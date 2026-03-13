@@ -33,11 +33,10 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`px-4 py-1.5 text-sm rounded-full transition-all duration-300 ${
-                  isActive
-                    ? "bg-zinc-100 text-zinc-900 font-medium"
+                className={`px-4 py-1.5 text-sm rounded-full transition-all duration-300 ${isActive
+                    ? "text-zinc-100 font-medium"
                     : "text-zinc-400 hover:text-zinc-100"
-                }`}
+                  }`}
               >
                 {link.label}
               </Link>

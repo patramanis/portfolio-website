@@ -1,7 +1,6 @@
 "use client"
 
-import { Code, TrendingUp, Brain, Database } from "lucide-react"
-import { useRef, useEffect, useState } from "react"
+import { Code, Brain, Database, Boxes } from "lucide-react"
 
 const interests = [
   {
@@ -15,9 +14,9 @@ const interests = [
     description: "Designing and managing data pipelines to ensure efficient data flow, storage, and processing.",
   },
   {
-    icon: TrendingUp,
-    title: "Algorithmic Trading",
-    description: "Applying mathematical models and computational techniques to financial markets.",
+    icon: Boxes,
+    title: "Modeling",
+    description: "Applying mathematical models and computational techniques, especially to financial markets.",
   },
   {
     icon: Code,
@@ -27,41 +26,8 @@ const interests = [
 ]
 
 export function AboutSection() {
-  const headingRef = useRef<HTMLHeadingElement>(null)
-  const [gradientPos, setGradientPos] = useState({ x: 50, y: 50 })
-  const randomAngleRef = useRef(0)
-
-  useEffect(() => {
-    let animationFrame: number
-    const animateRandom = () => {
-      randomAngleRef.current += 0.02
-      const gradientX = 50 + Math.cos(randomAngleRef.current) * 25
-      const gradientY = 50 + Math.sin(randomAngleRef.current) * 25
-      setGradientPos({ x: gradientX, y: gradientY })
-      animationFrame = requestAnimationFrame(animateRandom)
-    }
-
-    animationFrame = requestAnimationFrame(animateRandom)
-
-    return () => {
-      cancelAnimationFrame(animationFrame)
-    }
-  }, [])
   return (
-    <section className="py-24 px-6 bg-zinc-950/50" data-about-section>
-      <style>{`
-        @keyframes glowFlicker {
-          0%, 85% {
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(100, 200, 255, 0.6);
-          }
-          90% {
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.56), 0 0 40px rgba(100, 200, 255, 0.42);
-          }
-          95%, 100% {
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(100, 200, 255, 0.6);
-          }
-        }
-      `}</style>
+    <section className="py-24 px-6" style={{ backgroundImage: "url('/images/sxf.png')", backgroundSize: "cover", backgroundPosition: "top" }} data-about-section>
       <div className="max-w-5xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -71,7 +37,7 @@ export function AboutSection() {
               Me
             </span>
           </h2>
-          <p className="text-lg text-zinc-500 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-zinc-500 max-w-2xl mx-auto leading-relaxed text-center text-justify">
             Currently based in Thessaloniki, I am actively expanding my skills in informatics and
             finance, while also working and volunteering. I am passionate about solving complex problems
             and researching. Moreover, I am eager to contribute to impactful projects or initiatives.
@@ -81,16 +47,7 @@ export function AboutSection() {
         {/* My areas of interest heading */}
         <div className="text-center mb-12 mt-10">
           <h3
-            ref={headingRef}
-            className="font-display text-2xl md:text-3xl font-bold"
-            style={{
-              letterSpacing: "0.05em",
-              backgroundImage: `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, rgb(255, 255, 255) 0%, rgb(100, 100, 100) 50%, rgb(30, 30, 30) 100%)`,
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundSize: "200% 200%",
-            }}
+            className="font-display text-2xl md:text-3xl font-bold text-zinc-100"
           >
             My areas of interest
           </h3>
