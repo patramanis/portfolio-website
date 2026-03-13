@@ -66,17 +66,6 @@ export function HeroSection() {
           animation: glowFlicker 4s ease-in-out infinite;
         }
       `}</style>
-      {/* Background Pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.08] pointer-events-none"
-        style={{
-          backgroundImage: "url('/images/Welcome.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
-
       {/* Floating Clouds - section level, full viewport width */}
       <div className="absolute inset-0 pointer-events-none z-20">
         <FloatingClouds />

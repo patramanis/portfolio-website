@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Github, Twitter, Linkedin } from "lucide-react"
+import { Github, X, Linkedin } from "lucide-react"
 
 const footerLinks = {
   navigation: [
@@ -53,8 +53,8 @@ export function FooterSection() {
             <Link href="#" className="text-zinc-500 hover:text-zinc-300 transition-colors" aria-label="GitHub">
               <Github className="w-5 h-5" />
             </Link>
-            <Link href="#" className="text-zinc-500 hover:text-zinc-300 transition-colors" aria-label="Twitter">
-              <Twitter className="w-5 h-5" />
+            <Link href="#" className="text-zinc-500 hover:text-zinc-300 transition-colors" aria-label="X">
+              <X className="w-5 h-5" />
             </Link>
             <Link href="#" className="text-zinc-500 hover:text-zinc-300 transition-colors" aria-label="LinkedIn">
               <Linkedin className="w-5 h-5" />
