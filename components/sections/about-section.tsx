@@ -48,7 +48,7 @@ export function AboutSection() {
     }
   }, [])
   return (
-    <section className="py-24 px-6 bg-zinc-950/50">
+    <section className="py-24 px-6 bg-zinc-950/50" data-about-section>
       <style>{`
         @keyframes glowFlicker {
           0%, 85% {
@@ -65,7 +65,7 @@ export function AboutSection() {
       <div className="max-w-5xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight mb-6">
+          <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight mb-6" data-about-heading>
             <span className="text-zinc-100">About </span>
             <span className="bg-gradient-to-r from-zinc-500 via-zinc-300 to-zinc-500 bg-clip-text text-transparent">
               Me

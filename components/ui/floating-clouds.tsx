@@ -14,25 +14,25 @@ interface FloatingCloud {
 const clouds: FloatingCloud[] = [
     {
         src: "/images/Welcome (1).png",
-        top: "10px",
-        left: "-20px",
-        size: 180,
+        top: "180px",
+        left: "120px",
+        size: 240,
         duration: 7,
         delay: 1,
     },
     {
         src: "/images/Welcome (2).png",
-        top: "240px",
-        left: "calc(100% - 240px)",
-        size: 240,
+        top: "330px",
+        left: "calc(98% - 290px)",
+        size: 290,
         duration: 6,
         delay: 0,
     },
     {
         src: "/images/Welcome (3).png",
-        top: "-5px",
-        left: "calc(50% - 75px)",
-        size: 150,
+        top: "100px",
+        left: "calc(41% - 75px)",
+        size: 200,
         duration: 8,
         delay: 0.5,
     },
@@ -40,7 +40,7 @@ const clouds: FloatingCloud[] = [
 
 export function FloatingClouds() {
     return (
-        <div className="absolute inset-0 pointer-events-none overflow-visible">
+        <div className="absolute -inset-20 pointer-events-none overflow-visible">
             <style>{`
         @keyframes float1 {
           0%, 100% { transform: translateY(0px) translateX(0px); }

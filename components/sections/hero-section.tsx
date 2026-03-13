@@ -2,19 +2,43 @@
 
 import Image from "next/image"
 import { ChevronDown } from "lucide-react"
-import { useRef } from "react"
+import { useRef, useState, useEffect } from "react"
 import { LiquidMetalBorder } from "@/components/ui/liquid-metal-border"
 import { FloatingClouds } from "@/components/ui/floating-clouds"
 import { usePerspectiveTransform } from "@/hooks/use-perspective-transform"
 
 export function HeroSection() {
   const profileImageRef = useRef<HTMLDivElement>(null)
+  const moreAboutMeRef = useRef<HTMLDivElement>(null)
+  const [opacity, setOpacity] = useState(1)
 
   usePerspectiveTransform(profileImageRef, {
     maxRotation: 12,
     distance: 600,
     easing: 0.05,
   })
+
+  useEffect(() => {
+    const aboutHeading = document.querySelector('[data-about-heading]')
+    if (!aboutHeading) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Calculate opacity based on intersection ratio
+        // When "About Me" is completely off-screen below: opacity = 1
+        // When "About Me" is entering the viewport from bottom: opacity fades out
+        // When "About Me" is fully visible: opacity = 0
+        const newOpacity = 1 - entry.intersectionRatio
+        setOpacity(newOpacity)
+      },
+      {
+        threshold: Array.from({ length: 101 }, (_, i) => i / 100),
+      }
+    )
+
+    observer.observe(aboutHeading)
+    return () => observer.disconnect()
+  }, [])
 
   const greyGradient = {
     background: "linear-gradient(135deg, #a1a1a1, #5a5a5a)",
@@ -24,7 +48,7 @@ export function HeroSection() {
   } as React.CSSProperties
 
   return (
-    <section className="relative w-full h-[calc(100vh-56px)] mt-14">
+    <section className="relative w-full h-[calc(100vh-56px)] mt-14 overflow-hidden">
       <style>{`
         @keyframes gradientShift {
           0% { background-position: 0% 50%; }
@@ -183,8 +207,15 @@ export function HeroSection() {
 
       {/* "More about me" - center of gap between image and right edge, 5% up from bottom */}
       <div
-        className="absolute flex flex-col items-center animate-bounce cursor-pointer z-30"
-        style={{ bottom: "5%", left: "64.7%", transform: "translateX(-50%)" }}
+        ref={moreAboutMeRef}
+        className="absolute flex flex-col items-center animate-bounce cursor-pointer z-30 transition-opacity duration-300"
+        style={{
+          bottom: "5%",
+          left: "64.7%",
+          transform: "translateX(-50%)",
+          opacity: opacity,
+          pointerEvents: opacity < 0.1 ? 'none' : 'auto'
+        }}
       >
         <span className="text-sm text-zinc-400 font-medium tracking-wide transition-colors duration-300 hover:text-zinc-200">
           More about me
