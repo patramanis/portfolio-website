@@ -9,22 +9,22 @@ const socials = [
   {
     icon: Github,
     name: "GitHub",
-    href: "https://github.com",
+    href: "https://github.com/patramanis",
   },
   {
     icon: Linkedin,
     name: "LinkedIn",
-    href: "https://linkedin.com",
+    href: "https://www.linkedin.com/in/patramanis/",
   },
   {
     icon: X,
     name: "X.com",
-    href: "https://x.com",
+    href: "https://x.com/TPatramanis",
   },
   {
     icon: Mail,
     name: "Email",
-    href: "mailto:contact@example.com",
+    href: "mailto:thomaspatramanis@gmail.com",
   },
 ]
 
