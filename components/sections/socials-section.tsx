@@ -9,25 +9,21 @@ const socials = [
     icon: Github,
     name: "GitHub",
     href: "https://github.com",
-    color: "hover:text-zinc-300",
   },
   {
     icon: Linkedin,
     name: "LinkedIn",
     href: "https://linkedin.com",
-    color: "hover:text-zinc-300",
   },
   {
     icon: X,
     name: "X.com",
     href: "https://x.com",
-    color: "hover:text-zinc-300",
   },
   {
     icon: Mail,
     name: "Email",
     href: "mailto:contact@example.com",
-    color: "hover:text-zinc-300",
   },
 ]
 
@@ -60,7 +56,7 @@ export function SocialsSection() {
   }
 
   return (
-    <section className="py-24 px-10 relative z-10 bg-transparent" data-socials-section>
+    <section className="py-24 px-10 relative z-10 bg-transparent">
       <div className="max-w-5xl mx-auto">
         {/* Section Header */}
         <div className="mb-16 relative z-5" style={{ zIndex: 5 }}>
@@ -91,10 +87,6 @@ export function SocialsSection() {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-zinc-800/50 border border-zinc-700/50 cursor-pointer transition-colors duration-300 hover:bg-zinc-700/50 hover:border-zinc-600/50"
-                style={{
-                  flex: getItemFlex(index),
-                }}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 animate={{
@@ -106,45 +98,34 @@ export function SocialsSection() {
                   damping: 25,
                   mass: 1,
                 }}
+                style={{
+                  flex: getItemFlex(index),
+                }}
+                className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-zinc-800/50 border border-zinc-700/50 cursor-pointer transition-colors duration-300 hover:bg-zinc-700/50 hover:border-zinc-600/50"
               >
-                {social.name === "X.com" ? (
-                  <motion.div
-                    animate={{
-                      filter: hoveredIndex === index
-                        ? "drop-shadow(0 0 12px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 24px rgba(255, 255, 255, 0.3))"
-                        : "drop-shadow(0 0 0px rgba(255, 255, 255, 0))"
-                    }}
-                    transition={{
-                      duration: 0.3,
-                    }}
-                  >
-                    <img
-                      src="/images/xlogo.png"
-                      alt="X"
-                      style={{
-                        width: "31px",
-                        height: "31px",
-                        filter: "invert(1) brightness(1.2)",
-                        opacity: 0.7,
-                      }}
-                    />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    animate={{
-                      filter: hoveredIndex === index
-                        ? "drop-shadow(0 0 12px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 24px rgba(255, 255, 255, 0.3))"
-                        : "drop-shadow(0 0 0px rgba(255, 255, 255, 0))"
-                    }}
-                    transition={{
-                      duration: 0.3,
-                    }}
-                  >
-                    <Icon className={`w-8 h-8 text-zinc-400 transition-colors ${social.color}`} />
-                  </motion.div>
-                )}
+                {/* Icon */}
+                <motion.div
+                  animate={{
+                    filter: hoveredIndex === index
+                      ? social.name === "X.com"
+                        ? "drop-shadow(0 0 16px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 32px rgba(255, 255, 255, 0.6))"
+                        : "drop-shadow(0 0 16px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 32px rgba(255, 255, 255, 0.4))"
+                      : "drop-shadow(0 0 0px rgba(255, 255, 255, 0))"
+                  }}
+                  transition={{
+                    duration: 0.3,
+                  }}
+                >
+                  {social.name === "X.com" ? (
+                    <Icon className="w-8 h-8 text-zinc-100 hover:text-zinc-50 transition-colors" strokeWidth={2.5} />
+                  ) : (
+                    <Icon className="w-8 h-8 text-zinc-200 hover:text-zinc-100 transition-colors" />
+                  )}
+                </motion.div>
+
+                {/* Label */}
                 <motion.span
-                  className="text-sm font-medium text-zinc-400 group-hover:text-zinc-300 transition-colors"
+                  className="text-sm font-medium text-zinc-400 hover:text-zinc-300 transition-colors"
                   animate={{
                     textShadow: hoveredIndex === index
                       ? "0 0 8px rgba(255, 255, 255, 0.5), 0 0 16px rgba(255, 255, 255, 0.25)"
