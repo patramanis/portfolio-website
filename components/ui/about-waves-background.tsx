@@ -19,18 +19,23 @@ export function AboutWavesBackground() {
 
       canvas.width = document.documentElement.clientWidth
 
-      // Υπολόγισε το ύψος μέχρι το τέλος της σελίδας
+      // Μηδένισε πρώτα το canvas ώστε το scrollHeight να μετράει μόνο το flow content
+      canvas.style.height = '0px'
+
       const parentRect = parentElement.getBoundingClientRect()
       const parentOffsetTop = window.scrollY + parentRect.top
-      const totalPageHeight = document.documentElement.scrollHeight
+      // Τώρα το scrollHeight δεν περιλαμβάνει το ίδιο το canvas
+      const contentHeight = document.documentElement.scrollHeight
 
+      // Canvas ξεκινά από parentOffsetTop - 195 (λόγω top: -195px)
+      // Θέλουμε να τελειώνει ακριβώς στο τέλος του content
+      const canvasTopFromPageTop = parentOffsetTop - 195
       const newHeight = Math.max(
-        totalPageHeight - parentOffsetTop - 100,
-        window.innerHeight * 3.5
+        contentHeight - canvasTopFromPageTop,
+        window.innerHeight
       )
 
       canvas.height = newHeight
-      // Ορίστε και το CSS height ώστε να ταιριάζει με το internal resolution
       canvas.style.height = newHeight + 'px'
     }
 
@@ -51,9 +56,9 @@ export function AboutWavesBackground() {
 
       // Fill below waves following the wave curve with irregular waves
       const gradient = ctx.createLinearGradient(0, waveStartHeight, 0, height)
-      gradient.addColorStop(0, "rgba(20, 20, 20, 0.5)")
-      gradient.addColorStop(0.5, "rgba(10, 10, 10, 0.3)")
-      gradient.addColorStop(1, "rgba(5, 5, 5, 0.15)")
+      gradient.addColorStop(0, "rgba(10, 10, 10, 0.68)")
+      gradient.addColorStop(0.5, "rgba(44, 44, 44, 0.4)")
+      gradient.addColorStop(1, "rgba(5, 5, 5, 0.74)")
 
       ctx.fillStyle = gradient
       ctx.beginPath()

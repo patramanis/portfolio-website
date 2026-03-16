@@ -62,7 +62,7 @@ export function StatsSection() {
   }, [])
 
   return (
-    <section className="py-24 px-10 relative z-10 bg-transparent" data-stats-section>
+    <section className="py-24 px-10 relative z-10 bg-transparent" data-stats-section style={{ marginTop: "-40px" }}>
       <ScreenBackground />
       <div className="max-w-5xl mx-auto relative z-10 mt-20">
         {/* Section Header */}

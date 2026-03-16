@@ -57,7 +57,7 @@ export function SocialsSection() {
   }
 
   return (
-    <section className="py-24 px-10 relative z-10 bg-transparent pt-56" data-socials-section style={{ minHeight: "calc(100vh - 100px)", overflowX: "clip" }}>
+    <section className="py-24 px-10 relative z-10 bg-transparent pt-56" data-socials-section style={{ overflowX: "clip", paddingBottom: "56px" }}>
       <WaveGradientBackground />
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Section Header */}
