@@ -148,7 +148,7 @@ export function HeroSection() {
               <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
                 <span
                   className="font-display font-bold text-white leading-none"
-                  style={{ fontSize: "72px" }}
+                  style={{ fontSize: "72px", letterSpacing: "0.03em" }}
                 >
                   Welcome
                 </span>
@@ -186,7 +186,7 @@ export function HeroSection() {
                     marginTop: "-2%",
                     fontWeight: 400,
                     marginLeft: "-2%",
-                    letterSpacing: "-0.01em",
+                    letterSpacing: "0.02em",
                   }}
                 >
                   website

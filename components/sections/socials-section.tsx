@@ -60,7 +60,7 @@ export function SocialsSection() {
       <div className="max-w-5xl mx-auto">
         {/* Section Header */}
         <div className="mb-16 relative z-5" style={{ zIndex: 5 }}>
-          <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-zinc-100">
+          <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-zinc-100" style={{ letterSpacing: "0.03em" }}>
             <span
               style={{
                 letterSpacing: "0.05em",

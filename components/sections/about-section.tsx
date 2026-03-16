@@ -51,8 +51,8 @@ export function AboutSection() {
     <section className="py-24 px-10 relative z-10" data-about-section>
       <div className="max-w-5xl mx-auto">
         {/* Section Header */}
-        <div className="mb-16 mx-auto" style={{ maxWidth: 'calc(42rem + 60px)' }}>
-          <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight mb-6 text-right" data-about-heading>
+        <div className="mb-16 mx-auto" style={{ maxWidth: 'calc(42rem + 100px)' }}>
+          <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight mb-6 text-right" data-about-heading style={{ letterSpacing: "0.03em" }}>
             <span className="text-zinc-100">About </span>
             <span
               style={{
@@ -68,13 +68,13 @@ export function AboutSection() {
             </span>
           </h2>
           <p className="text-lg text-zinc-500 leading-relaxed text-center text-justify">
-            I am a recent BSc graduate in Applied Informatics at the University of Macedonia. I focus on building computational systems that turn data into valuable insights, with strong interest in financial markets and quantitative finance.
+            Recently completed my BSc in Applied Informatics at the University of Macedonia. I focus on building computational systems that turn data into valuable insights, with strong interest in financial markets and quantitative finance.
           </p>
         </div>
 
         {/* My areas of interest heading */}
         <div className="text-center mb-12 mt-10">
-          <h3 ref={headingRef} className="font-display text-2xl md:text-3xl font-bold">
+          <h3 ref={headingRef} className="font-display text-2xl md:text-3xl font-bold" style={{ letterSpacing: "0.03em" }}>
             <span
               style={{
                 letterSpacing: "0.05em",
@@ -103,7 +103,7 @@ export function AboutSection() {
                   <interest.icon className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="font-display text-xl font-semibold text-zinc-100 mb-2">
+                  <h3 className="font-display text-xl font-semibold text-zinc-100 mb-2" style={{ letterSpacing: "0.03em" }}>
                     {interest.title}
                   </h3>
                   <p className="text-zinc-500 leading-relaxed">

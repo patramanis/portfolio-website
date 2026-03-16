@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { useRef, useEffect, useState } from "react"
 import { WaveCard } from "@/components/ui/wave-card"
+import { ScreenBackground } from "@/components/ui/screen-background"
 
 const stats = [
   { target: 1, label: "Research Project", href: "/portfolio" },
@@ -62,10 +63,11 @@ export function StatsSection() {
 
   return (
     <section className="py-24 px-10 relative z-10 bg-transparent" data-stats-section>
-      <div className="max-w-5xl mx-auto">
+      <ScreenBackground />
+      <div className="max-w-5xl mx-auto relative z-10 mt-20">
         {/* Section Header */}
         <div className="mb-16 relative z-5" style={{ zIndex: 5 }}>
-          <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-zinc-100">
+          <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-zinc-100" style={{ letterSpacing: "0.03em" }}>
             My stats <span
               style={{
                 letterSpacing: "0.05em",
@@ -87,7 +89,7 @@ export function StatsSection() {
               <Link key={stat.label} href={stat.href}>
                 <WaveCard>
                   <div className="p-6 rounded-2xl bg-zinc-800/50 border border-zinc-700/50 cursor-pointer transition-all duration-300 hover:bg-zinc-700/50 hover:border-zinc-600/50">
-                    <div className="text-4xl font-bold text-zinc-100 mb-2">
+                    <div className="text-4xl font-bold text-zinc-100 mb-2" style={{ letterSpacing: "0.03em" }}>
                       <AnimatedCounter target={stat.target} />
                     </div>
                     <p className="text-zinc-500">{stat.label}</p>
@@ -103,7 +105,7 @@ export function StatsSection() {
               <Link key={stat.label} href={stat.href}>
                 <WaveCard>
                   <div className="p-6 rounded-2xl bg-zinc-800/50 border border-zinc-700/50 cursor-pointer transition-all duration-300 hover:bg-zinc-700/50 hover:border-zinc-600/50">
-                    <div className="text-4xl font-bold text-zinc-100 mb-2">
+                    <div className="text-4xl font-bold text-zinc-100 mb-2" style={{ letterSpacing: "0.03em" }}>
                       <AnimatedCounter target={stat.target} />
                     </div>
                     <p className="text-zinc-500">{stat.label}</p>
