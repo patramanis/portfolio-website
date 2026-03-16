@@ -102,6 +102,7 @@ export function SocialsSection() {
                 }}
                 style={{
                   flex: getItemFlex(index),
+                  clipPath: "inset(0 round 16px)",
                 }}
                 className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-zinc-800/50 border border-zinc-700/50 cursor-pointer transition-colors duration-300 hover:bg-zinc-700/50 hover:border-zinc-600/50"
               >
