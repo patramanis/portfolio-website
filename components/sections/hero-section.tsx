@@ -111,14 +111,16 @@ export function HeroSection() {
                 opacity={0.85}
                 speed={0.7}
               >
-                <div className="w-72 h-80 md:w-96 md:h-[440px] rounded-[18px] overflow-hidden bg-zinc-900">
+                <div className="w-72 h-80 md:w-96 md:h-[440px] rounded-[18px] overflow-hidden bg-zinc-900 select-none">
                   <Image
                     src="/images/profile.png"
                     alt="Profile photo"
                     width={400}
                     height={500}
-                    className="object-cover w-full h-full object-top"
+                    className="object-cover w-full h-full object-top select-none"
                     priority
+                    draggable={false}
+                    onContextMenu={(e) => e.preventDefault()}
                   />
                 </div>
               </LiquidMetalBorder>
