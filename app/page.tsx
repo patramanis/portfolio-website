@@ -2,6 +2,7 @@ import { Navbar } from "@/components/ui/navbar"
 import { HeroSection } from "@/components/sections/hero-section"
 import { AboutSection } from "@/components/sections/about-section"
 import { StatsSection } from "@/components/sections/stats-section"
+import { SocialsSection } from "@/components/sections/socials-section"
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <StatsSection />
+      <SocialsSection />
     </main>
   )
 }

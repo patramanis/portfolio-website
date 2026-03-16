@@ -76,19 +76,20 @@ export function AboutSection() {
 
         {/* My areas of interest heading */}
         <div className="text-center mb-12 mt-10">
-          <h3
-            ref={headingRef}
-            className="font-display text-2xl md:text-3xl font-bold"
-            style={{
-              letterSpacing: "0.05em",
-              backgroundImage: `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, rgb(255, 255, 255) 0%, rgb(100, 100, 100) 50%, rgb(30, 30, 30) 100%)`,
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundSize: "200% 200%",
-            }}
-          >
-            My areas of interest
+          <h3 ref={headingRef} className="font-display text-2xl md:text-3xl font-bold">
+            <span
+              style={{
+                letterSpacing: "0.05em",
+                backgroundImage: `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, rgb(255, 255, 255) 0%, rgb(100, 100, 100) 50%, rgb(30, 30, 30) 100%)`,
+                backgroundClip: "text",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundSize: "200% 200%",
+              }}
+            >
+              My
+            </span>
+            <span className="text-zinc-100"> areas of interest</span>
           </h3>
         </div>
 
@@ -97,10 +98,10 @@ export function AboutSection() {
           {interests.map((interest) => (
             <div
               key={interest.title}
-              className="group p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800/50 hover:border-zinc-700/50 transition-all duration-300 hover:bg-zinc-900/80"
+              className="group p-6 rounded-2xl bg-zinc-800/50 border border-zinc-700/50 hover:border-zinc-600/50 transition-all duration-300 hover:bg-zinc-700/50"
             >
               <div className="flex items-start gap-4">
-                <div className="p-3 rounded-xl bg-zinc-800/50 text-zinc-400 group-hover:text-zinc-300 transition-colors">
+                <div className="p-3 rounded-xl bg-zinc-700/50 text-zinc-400 group-hover:text-zinc-300 transition-colors">
                   <interest.icon className="w-6 h-6" />
                 </div>
                 <div>
