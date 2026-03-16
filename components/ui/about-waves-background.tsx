@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from "react"
 
-export function WaveGradientBackground() {
+export function AboutWavesBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const lastFrameTimeRef = useRef(0)
 
@@ -14,37 +14,57 @@ export function WaveGradientBackground() {
     if (!ctx) return
 
     const handleResize = () => {
-      canvas.width = document.documentElement.clientWidth
       const parentElement = canvas.parentElement
-      const parentRect = parentElement?.getBoundingClientRect()
-      const remainingHeight = window.innerHeight - (parentRect?.top || 0)
-      canvas.height = Math.max(parentElement?.offsetHeight || 600, remainingHeight)
+      if (!parentElement) return
+
+      canvas.width = document.documentElement.clientWidth
+
+      // Υπολόγισε το ύψος μέχρι το τέλος της σελίδας
+      const parentRect = parentElement.getBoundingClientRect()
+      const parentOffsetTop = window.scrollY + parentRect.top
+      const totalPageHeight = document.documentElement.scrollHeight
+
+      const newHeight = Math.max(
+        totalPageHeight - parentOffsetTop - 100,
+        window.innerHeight * 3.5
+      )
+
+      canvas.height = newHeight
+      // Ορίστε και το CSS height ώστε να ταιριάζει με το internal resolution
+      canvas.style.height = newHeight + 'px'
     }
 
+    // Κάλεσε handleResize αρχικά
     handleResize()
+
+    // Περίμενε λίγο και ξανακάλεσε για να σιγουρευτείς ότι το layout είναι έτοιμο
+    const timeoutId = setTimeout(() => {
+      handleResize()
+    }, 100)
+
     window.addEventListener("resize", handleResize)
 
     const drawWaves = (time: number) => {
       const width = canvas.width
       const height = canvas.height
-      const waveStartHeight = height * 0.2
+      const waveStartHeight = height * 0.15
 
       // Fill below waves following the wave curve with irregular waves
       const gradient = ctx.createLinearGradient(0, waveStartHeight, 0, height)
-      gradient.addColorStop(0, "rgba(166, 166, 166, 0.56)")
-      gradient.addColorStop(0.5, "rgba(100, 100, 100, 0.25)")
-      gradient.addColorStop(1, "rgba(70, 70, 70, 0.1)")
+      gradient.addColorStop(0, "rgba(20, 20, 20, 0.5)")
+      gradient.addColorStop(0.5, "rgba(10, 10, 10, 0.3)")
+      gradient.addColorStop(1, "rgba(5, 5, 5, 0.15)")
 
       ctx.fillStyle = gradient
       ctx.beginPath()
 
       const step = 4
-      const wave1Amp = 35
-      const wave1Freq = 0.007
-      const wave2Amp = 25
-      const wave2Freq = 0.011
-      const wave3Amp = 15
-      const wave3Freq = 0.005
+      const wave1Amp = 15
+      const wave1Freq = 0.008
+      const wave2Amp = 10
+      const wave2Freq = 0.012
+      const wave3Amp = 6
+      const wave3Freq = 0.006
 
       ctx.moveTo(0, waveStartHeight +
         Math.sin(0 * wave1Freq + time) * wave1Amp +
@@ -70,7 +90,7 @@ export function WaveGradientBackground() {
     const animate = (currentTime: number) => {
       if (currentTime - lastFrameTimeRef.current >= frameInterval) {
         lastFrameTimeRef.current = currentTime
-        const time = currentTime * 0.0002
+        const time = currentTime * 0.0004
 
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         drawWaves(time)
@@ -83,6 +103,7 @@ export function WaveGradientBackground() {
 
     return () => {
       window.removeEventListener("resize", handleResize)
+      clearTimeout(timeoutId)
     }
   }, [])
 
@@ -91,15 +112,14 @@ export function WaveGradientBackground() {
       ref={canvasRef}
       style={{
         position: "absolute",
-        top: 0,
-        left: 0,
+        top: "-195px",
+        left: "0",
         width: "100%",
-        height: "100%",
         pointerEvents: "none",
         zIndex: 0,
         opacity: 0.5,
-        transform: "scaleX(1.01) scaleY(1.01)",
-        transformOrigin: "left top",
+        transform: "scaleX(1.01)",
+        transformOrigin: "left center",
       }}
     />
   )

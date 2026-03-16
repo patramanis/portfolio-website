@@ -2,6 +2,7 @@
 
 import { Code, Brain, Database, Boxes } from "lucide-react"
 import { useRef, useEffect, useState } from "react"
+import { AboutWavesBackground } from "@/components/ui/about-waves-background"
 
 const interests = [
   {
@@ -48,8 +49,9 @@ export function AboutSection() {
     }
   }, [])
   return (
-    <section className="py-24 px-10 relative z-10" data-about-section>
-      <div className="max-w-5xl mx-auto">
+    <section className="px-10 pb-24 z-10 overflow-visible min-h-screen" style={{ position: "relative", marginTop: "-100px", paddingTop: "240px" }} data-about-section>
+      <AboutWavesBackground />
+      <div className="max-w-5xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="mb-16 mx-auto" style={{ maxWidth: 'calc(42rem + 100px)' }}>
           <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight mb-6 text-right" data-about-heading style={{ letterSpacing: "0.03em" }}>

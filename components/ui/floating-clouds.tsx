@@ -40,8 +40,7 @@ const clouds: FloatingCloud[] = [
 
 export function FloatingClouds() {
     return (
-        <div className="absolute -inset-20 pointer-events-none overflow-visible" style={{ zIndex: 9999 }}>
-            <style>{`
+        <div className="absolute -inset-20 pointer-events-none overflow-visible" style={{ zIndex: 9999 }}>            <style>{`
         @keyframes float1 {
           0%, 100% { transform: translateY(0px) translateX(0px); }
           25% { transform: translateY(-8px) translateX(4px); }

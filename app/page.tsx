@@ -6,7 +6,7 @@ import { SocialsSection } from "@/components/sections/socials-section"
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-transparent">
+    <main className="min-h-screen bg-transparent" style={{ overflowX: "clip", marginBottom: "-20px" }}>
       <Navbar />
       <HeroSection />
       <AboutSection />

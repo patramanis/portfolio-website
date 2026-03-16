@@ -4,7 +4,6 @@ import { Manrope } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { LenisProvider } from "@/components/providers/lenis-provider"
 import { LavaLampBackground } from "@/components/ui/lava-lamp-background"
-import { SxfBackground } from "@/components/ui/sxf-background"
 import "./globals.css"
 
 const manrope = Manrope({
@@ -51,7 +50,6 @@ export default function RootLayout({
       </head>
       <body className={`${manrope.variable} font-sans antialiased text-zinc-100`}>
         <LavaLampBackground />
-        <SxfBackground />
         <LenisProvider>{children}</LenisProvider>
         <Analytics />
       </body>
