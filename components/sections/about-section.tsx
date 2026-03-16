@@ -7,22 +7,22 @@ const interests = [
   {
     icon: Brain,
     title: "Machine Learning",
-    description: "Developing intelligent systems that learn from data to solve complex real-world problems.",
+    description: "Built a full ML pipeline in Python and trained ensemble models to forecast sector excess returns across nine S&P 500 sector ETFs.",
+  },
+  {
+    icon: Boxes,
+    title: "Quantitative Modeling",
+    description: "Engineered uncertainty-driven features from macroeconomic and technical indicators to capture regime dynamics across equity sectors.",
   },
   {
     icon: Database,
     title: "Data Engineering",
-    description: "Designing and managing data pipelines to ensure efficient data flow, storage, and processing.",
-  },
-  {
-    icon: Boxes,
-    title: "Modeling",
-    description: "Applying mathematical models and computational techniques, especially to financial markets.",
+    description: "Building a data platform to automate KPI tracking, streamline data flows, and generate reports.",
   },
   {
     icon: Code,
     title: "Software Development",
-    description: "Building robust, scalable applications with modern technologies.",
+    description: "Built web applications, mobile apps, and data-driven tools using Python, Java, JavaScript, SQL, and C. ",
   },
 ]
 
@@ -68,9 +68,7 @@ export function AboutSection() {
             </span>
           </h2>
           <p className="text-lg text-zinc-500 leading-relaxed text-center text-justify">
-            Currently based in Thessaloniki, I am actively expanding my skills in informatics and
-            finance, while also working and volunteering. I am passionate about solving complex problems
-            and researching. Moreover, I am eager to contribute to projects or initiatives.
+            I am a recent BSc graduate in Applied Informatics at the University of Macedonia. I focus on building computational systems that turn data into valuable insights, with strong interest in financial markets and quantitative finance.
           </p>
         </div>
 
