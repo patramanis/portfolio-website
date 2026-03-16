@@ -3,6 +3,7 @@
 import { Github, Linkedin, Mail, X } from "lucide-react"
 import { useRef, useEffect, useState } from "react"
 import { motion } from "framer-motion"
+import { WaveGradientBackground } from "@/components/ui/wave-gradient-background"
 
 const socials = [
   {
@@ -56,10 +57,11 @@ export function SocialsSection() {
   }
 
   return (
-    <section className="py-24 px-10 relative z-10 bg-transparent">
-      <div className="max-w-5xl mx-auto">
+    <section className="py-24 px-10 relative z-10 bg-transparent overflow-hidden pt-56">
+      <WaveGradientBackground />
+      <div className="max-w-5xl mx-auto relative z-10">
         {/* Section Header */}
-        <div className="mb-16 relative z-5" style={{ zIndex: 5 }}>
+        <div className="mb-16 relative z-5 mt-16" style={{ zIndex: 5 }}>
           <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-zinc-100" style={{ letterSpacing: "0.03em" }}>
             <span
               style={{

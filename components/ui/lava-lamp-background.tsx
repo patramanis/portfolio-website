@@ -34,6 +34,9 @@ export function LavaLampBackground() {
       gradientX += (targetX - gradientX) * 0.01
       gradientY += (targetY - gradientY) * 0.01
 
+      // Clear canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
       // Create gradient
       const gradient = ctx.createLinearGradient(
         gradientX,
@@ -42,9 +45,9 @@ export function LavaLampBackground() {
         gradientY + canvas.height
       )
 
-      gradient.addColorStop(0, "#0a0a0a")
-      gradient.addColorStop(0.5, "#151515")
-      gradient.addColorStop(1, "#0f0f0f")
+      gradient.addColorStop(0, "#2a2a2a")
+      gradient.addColorStop(0.5, "#1f1f1f")
+      gradient.addColorStop(1, "#252525")
 
       ctx.fillStyle = gradient
       ctx.fillRect(0, 0, canvas.width, canvas.height)

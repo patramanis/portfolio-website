@@ -71,8 +71,8 @@ export function ParticleText({ text, className = "", fontSize = 120, style }: Pa
             const data = imageData.data
             particlesRef.current = []
 
-            // Sample more pixels to create dense particles (sand-grain-like)
-            for (let i = 0; i < data.length; i += 30) {
+            // Sample pixels to create particles (reduced sampling = 50 instead of 30)
+            for (let i = 0; i < data.length; i += 50) {
                 if (data[i + 3] > 100) {
                     const pixelIndex = i / 4
                     const x = pixelIndex % textCanvas.width
@@ -87,7 +87,7 @@ export function ParticleText({ text, className = "", fontSize = 120, style }: Pa
                         ay: 0,
                         life: 1,
                         maxLife: 1,
-                        size: 0.7 + Math.random() * 0.5, // Fine sand-grain particles
+                        size: 0.7 + Math.random() * 0.5,
                         baseX: x,
                         baseY: y,
                     })
@@ -127,11 +127,13 @@ export function ParticleText({ text, className = "", fontSize = 120, style }: Pa
                     // Magnetic repulsion effect - repel from cursor with small radius
                     const dx = particle.x - mouseRef.current.x
                     const dy = particle.y - mouseRef.current.y
-                    const distance = Math.sqrt(dx * dx + dy * dy)
-                    const minDistance = 25 // Small repel radius for subtle effect
+                    const distSquared = dx * dx + dy * dy
+                    const minDistance = 25
+                    const minDistSquared = minDistance * minDistance
 
-                    if (distance < minDistance && distance > 0) {
-                        const force = (minDistance - distance) / minDistance * 0.6 // Limit repulsion strength
+                    if (distSquared < minDistSquared && distSquared > 0) {
+                        const distance = Math.sqrt(distSquared)
+                        const force = (minDistance - distance) / minDistance * 0.6
                         const angle = Math.atan2(dy, dx)
 
                         // Smooth repulsion

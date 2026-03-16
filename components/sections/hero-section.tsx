@@ -32,7 +32,7 @@ export function HeroSection() {
         setOpacity(newOpacity)
       },
       {
-        threshold: Array.from({ length: 101 }, (_, i) => i / 100),
+        threshold: [0, 0.2, 0.4, 0.6, 0.8, 1],
       }
     )
 
@@ -128,7 +128,7 @@ export function HeroSection() {
         </div>
 
         {/* RIGHT (50%) - Text Content centered, More about me at bottom */}
-        <div className="w-1/2 relative flex flex-col justify-center pr-[10%]" style={{ zIndex: 20 }}>
+        <div className="w-1/2 relative flex flex-col justify-center overflow-visible" style={{ zIndex: 20, paddingRight: "40px" }}>
           {/* Text group - centered in the container */}
           <div className="flex flex-col gap-8" style={{ alignItems: "flex-start", position: "relative", zIndex: 20 }}>
             {/* "Hi, I am Thomas." - slight right offset */}
@@ -158,7 +158,8 @@ export function HeroSection() {
                     fontSize: "50px",
                     writingMode: "vertical-rl",
                     textOrientation: "mixed",
-                    marginLeft: "-2%",
+                    marginLeft: "calc(-2% - 5px)",
+                    marginTop: "2px",
                     transform: "rotate(360deg)",
                   }}
                 >
