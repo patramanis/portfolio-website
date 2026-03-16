@@ -5,8 +5,7 @@ import Image from "next/image"
 import { usePathname } from "next/navigation"
 
 const navLinks = [
-  { href: "/research", label: "Research" },
-  { href: "/projects", label: "Projects" },
+  { href: "/portfolio", label: "Portfolio" },
   { href: "/experience", label: "Experience" },
   { href: "/contact", label: "Contact" },
 ]
@@ -34,8 +33,8 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 className={`px-4 py-1.5 text-sm rounded-full transition-all duration-300 ${isActive
-                    ? "text-zinc-100 font-medium"
-                    : "text-zinc-400 hover:text-zinc-100"
+                  ? "text-zinc-100 font-medium"
+                  : "text-zinc-400 hover:text-zinc-100"
                   }`}
               >
                 {link.label}

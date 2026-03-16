@@ -48,7 +48,7 @@ export function HeroSection() {
   } as React.CSSProperties
 
   return (
-    <section className="relative w-full h-[calc(100vh-56px)] mt-14 overflow-hidden">
+    <section className="relative w-full h-[calc(100vh-56px)] mt-14">
       <style>{`
         @keyframes gradientShift {
           0% { background-position: 0% 50%; }
@@ -110,7 +110,6 @@ export function HeroSection() {
                 borderWidth={3}
                 opacity={0.85}
                 speed={0.7}
-                className="shadow-2xl shadow-zinc-900/60"
               >
                 <div className="w-72 h-80 md:w-96 md:h-[440px] rounded-[18px] overflow-hidden bg-zinc-900">
                   <Image
@@ -129,7 +128,7 @@ export function HeroSection() {
         </div>
 
         {/* RIGHT (50%) - Text Content centered, More about me at bottom */}
-        <div className="w-1/2 relative flex flex-col justify-center pr-[10%]" style={{ zIndex: 20, overflow: "visible" }}>
+        <div className="w-1/2 relative flex flex-col justify-center pr-[10%]" style={{ zIndex: 20 }}>
           {/* Text group - centered in the container */}
           <div className="flex flex-col gap-8" style={{ alignItems: "flex-start", position: "relative", zIndex: 20 }}>
             {/* "Hi, I am Thomas." - slight right offset */}

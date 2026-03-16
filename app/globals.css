@@ -121,11 +121,14 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   html {
-    @apply bg-zinc-900;
+    @apply bg-transparent;
   }
+
   body {
-    @apply text-foreground bg-zinc-900;
+    @apply text-foreground bg-transparent;
+    overflow-y: auto;
   }
 }
 
@@ -146,6 +149,8 @@ html::-webkit-scrollbar {
 /* Hide scrollbar for IE, Edge and Firefox */
 .scrollbar-hidden,
 html {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }

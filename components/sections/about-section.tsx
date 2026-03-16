@@ -48,20 +48,29 @@ export function AboutSection() {
     }
   }, [])
   return (
-    <section className="py-24 px-6" style={{ backgroundImage: "url('/images/sxf.png')", backgroundSize: "cover", backgroundPosition: "top" }} data-about-section>
+    <section className="py-24 px-10 relative z-10" data-about-section>
       <div className="max-w-5xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight mb-6" data-about-heading>
+        <div className="mb-16 mx-auto" style={{ maxWidth: 'calc(42rem + 60px)' }}>
+          <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight mb-6 text-right" data-about-heading>
             <span className="text-zinc-100">About </span>
-            <span className="bg-gradient-to-r from-zinc-500 via-zinc-300 to-zinc-500 bg-clip-text text-transparent">
+            <span
+              style={{
+                letterSpacing: "0.05em",
+                backgroundImage: `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, rgb(200, 200, 200) 0%, rgb(100, 100, 100) 50%, rgb(50, 50, 50) 100%)`,
+                backgroundClip: "text",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundSize: "200% 200%",
+              }}
+            >
               Me
             </span>
           </h2>
-          <p className="text-lg text-zinc-500 max-w-2xl mx-auto leading-relaxed text-center text-justify">
+          <p className="text-lg text-zinc-500 leading-relaxed text-center text-justify">
             Currently based in Thessaloniki, I am actively expanding my skills in informatics and
             finance, while also working and volunteering. I am passionate about solving complex problems
-            and researching. Moreover, I am eager to contribute to impactful projects or initiatives.
+            and researching. Moreover, I am eager to contribute to projects or initiatives.
           </p>
         </div>
 

@@ -4,8 +4,7 @@ import { Github, X, Linkedin } from "lucide-react"
 
 const footerLinks = {
   navigation: [
-    { label: "Research", href: "/research" },
-    { label: "Projects", href: "/projects" },
+    { label: "Portfolio", href: "/portfolio" },
     { label: "Experience", href: "/experience" },
     { label: "Contact", href: "/contact" },
   ],
