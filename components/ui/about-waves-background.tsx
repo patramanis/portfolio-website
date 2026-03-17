@@ -91,6 +91,7 @@ export function AboutWavesBackground() {
     }
 
     const frameInterval = 1000 / 30
+    let rafId: number
 
     const animate = (currentTime: number) => {
       if (currentTime - lastFrameTimeRef.current >= frameInterval) {
@@ -101,14 +102,15 @@ export function AboutWavesBackground() {
         drawWaves(time)
       }
 
-      requestAnimationFrame(animate)
+      rafId = requestAnimationFrame(animate)
     }
 
-    requestAnimationFrame(animate)
+    rafId = requestAnimationFrame(animate)
 
     return () => {
       window.removeEventListener("resize", handleResize)
       clearTimeout(timeoutId)
+      cancelAnimationFrame(rafId)
     }
   }, [])
 

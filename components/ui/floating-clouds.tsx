@@ -93,8 +93,9 @@ export function FloatingClouds() {
                         alt="floating cloud"
                         width={cloud.size}
                         height={cloud.size}
-                        className="object-contain drop-shadow-lg"
+                        className="object-contain drop-shadow-lg select-none"
                         priority
+                        draggable={false}
                     />
                 </div>
             ))}

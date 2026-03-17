@@ -66,6 +66,7 @@ export function WaveGradientBackground() {
     }
 
     const frameInterval = 1000 / 30
+    let rafId: number
 
     const animate = (currentTime: number) => {
       if (currentTime - lastFrameTimeRef.current >= frameInterval) {
@@ -76,13 +77,14 @@ export function WaveGradientBackground() {
         drawWaves(time)
       }
 
-      requestAnimationFrame(animate)
+      rafId = requestAnimationFrame(animate)
     }
 
-    requestAnimationFrame(animate)
+    rafId = requestAnimationFrame(animate)
 
     return () => {
       window.removeEventListener("resize", handleResize)
+      cancelAnimationFrame(rafId)
     }
   }, [])
 

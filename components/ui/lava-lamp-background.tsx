@@ -23,8 +23,15 @@ export function LavaLampBackground() {
     let gradientY = 0
     let targetX = 0
     let targetY = 0
+    let lastFrameTime = 0
+    const frameInterval = 1000 / 30
+    let rafId: number
 
-    const animate = () => {
+    const animate = (currentTime: number) => {
+      rafId = requestAnimationFrame(animate)
+      if (currentTime - lastFrameTime < frameInterval) return
+      lastFrameTime = currentTime
+
       // Every 4 seconds, pick a new random target
       const time = Date.now() * 0.0002
       targetX = Math.sin(time * 0.5) * 200
@@ -51,14 +58,13 @@ export function LavaLampBackground() {
 
       ctx.fillStyle = gradient
       ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-      requestAnimationFrame(animate)
     }
 
-    animate()
+    rafId = requestAnimationFrame(animate)
 
     return () => {
       window.removeEventListener("resize", setCanvasSize)
+      cancelAnimationFrame(rafId)
     }
   }, [])
 

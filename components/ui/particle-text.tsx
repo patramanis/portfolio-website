@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 
 interface Particle {
     x: number
@@ -29,8 +29,7 @@ export function ParticleText({ text, className = "", fontSize = 120, style }: Pa
     const textCanvasRef = useRef<HTMLCanvasElement>(null)
     const particlesRef = useRef<Particle[]>([])
     const mouseRef = useRef({ x: 0, y: 0 })
-    const animationIdRef = useRef<number>()
-    const [isHovering, setIsHovering] = useState(false)
+    const isHoveringRef = useRef(false)
     const particleAlphaRef = useRef(0) // Track particle alpha for smooth fade
 
     useEffect(() => {
@@ -110,21 +109,21 @@ export function ParticleText({ text, className = "", fontSize = 120, style }: Pa
             ctx.clearRect(0, 0, canvas.width, canvas.height)
 
             idleCounter++
-            const time = idleCounter * 0.016 // ~60fps
+
+            const hovering = isHoveringRef.current
 
             // Smooth fade in/out of particles
-            if (isHovering) {
-                particleAlphaRef.current = Math.min(particleAlphaRef.current + 0.04, 1) // Fade in over ~250ms
+            if (hovering) {
+                particleAlphaRef.current = Math.min(particleAlphaRef.current + 0.04, 1)
             } else {
-                particleAlphaRef.current = Math.max(particleAlphaRef.current - 0.04, 0) // Fade out over ~250ms
+                particleAlphaRef.current = Math.max(particleAlphaRef.current - 0.04, 0)
             }
 
             const particleAlpha = particleAlphaRef.current
 
-            // Update and render particles
+            // Update all particles
             particlesRef.current.forEach((particle) => {
-                if (isHovering && particleAlpha > 0) {
-                    // Magnetic repulsion effect - repel from cursor with small radius
+                if (hovering && particleAlpha > 0) {
                     const dx = particle.x - mouseRef.current.x
                     const dy = particle.y - mouseRef.current.y
                     const distSquared = dx * dx + dy * dy
@@ -136,46 +135,42 @@ export function ParticleText({ text, className = "", fontSize = 120, style }: Pa
                         const force = (minDistance - distance) / minDistance * 0.6
                         const angle = Math.atan2(dy, dx)
 
-                        // Smooth repulsion
                         particle.ax = Math.cos(angle) * force * 4
                         particle.ay = Math.sin(angle) * force * 4
                     } else {
-                        // Return to base position with friction
                         particle.ax = (particle.baseX - particle.x) * 0.12
                         particle.ay = (particle.baseY - particle.y) * 0.12
                     }
 
                     particle.vx += particle.ax
                     particle.vy += particle.ay
-
-                    // Apply friction
                     particle.vx *= 0.85
                     particle.vy *= 0.85
-
                     particle.x += particle.vx
                     particle.y += particle.vy
                 } else {
-                    // Return smoothly to base position when not hovering
                     particle.x += (particle.baseX - particle.x) * 0.15
                     particle.y += (particle.baseY - particle.y) * 0.15
                     particle.vx *= 0.9
                     particle.vy *= 0.9
                 }
-
-                // Draw particle with smooth alpha transition
-                const alpha = 0.8 * particleAlpha
-                ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`
-                ctx.beginPath()
-                ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
-                ctx.fill()
             })
 
-            // Continuous animation loop (always update)
+            // Batch all particles into a single draw call
+            const alpha = 0.8 * particleAlpha
+            ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`
+            ctx.beginPath()
+            particlesRef.current.forEach((particle) => {
+                ctx.moveTo(particle.x + particle.size, particle.y)
+                ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
+            })
+            ctx.fill()
+
             frameId = requestAnimationFrame(animate)
         }
 
         const handleMouseEnter = () => {
-            setIsHovering(true)
+            isHoveringRef.current = true
             if (particlesRef.current.length === 0) {
                 createParticlesFromText()
             }
@@ -185,7 +180,7 @@ export function ParticleText({ text, className = "", fontSize = 120, style }: Pa
         }
 
         const handleMouseLeave = () => {
-            setIsHovering(false)
+            isHoveringRef.current = false
         }
 
         // Initialize particles for particle effect

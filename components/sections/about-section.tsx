@@ -1,7 +1,7 @@
 "use client"
 
 import { Code, Brain, Database, Boxes } from "lucide-react"
-import { useRef, useEffect, useState } from "react"
+import { useRef, useEffect } from "react"
 import { AboutWavesBackground } from "@/components/ui/about-waves-background"
 
 const interests = [
@@ -29,7 +29,8 @@ const interests = [
 
 export function AboutSection() {
   const headingRef = useRef<HTMLHeadingElement>(null)
-  const [gradientPos, setGradientPos] = useState({ x: 50, y: 50 })
+  const meRef = useRef<HTMLSpanElement>(null)
+  const myRef = useRef<HTMLSpanElement>(null)
   const randomAngleRef = useRef(0)
 
   useEffect(() => {
@@ -38,12 +39,15 @@ export function AboutSection() {
       randomAngleRef.current += 0.02
       const gradientX = 50 + Math.cos(randomAngleRef.current) * 25
       const gradientY = 50 + Math.sin(randomAngleRef.current) * 25
-      setGradientPos({ x: gradientX, y: gradientY })
+      if (meRef.current) {
+        meRef.current.style.backgroundImage = `radial-gradient(circle at ${gradientX}% ${gradientY}%, rgb(200, 200, 200) 0%, rgb(100, 100, 100) 50%, rgb(50, 50, 50) 100%)`
+      }
+      if (myRef.current) {
+        myRef.current.style.backgroundImage = `radial-gradient(circle at ${gradientX}% ${gradientY}%, rgb(255, 255, 255) 0%, rgb(100, 100, 100) 50%, rgb(30, 30, 30) 100%)`
+      }
       animationFrame = requestAnimationFrame(animateRandom)
     }
-
     animationFrame = requestAnimationFrame(animateRandom)
-
     return () => {
       cancelAnimationFrame(animationFrame)
     }
@@ -57,9 +61,10 @@ export function AboutSection() {
           <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight mb-6 text-right" data-about-heading style={{ letterSpacing: "0.03em" }}>
             <span className="text-zinc-100">About </span>
             <span
+              ref={meRef}
               style={{
                 letterSpacing: "0.05em",
-                backgroundImage: `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, rgb(200, 200, 200) 0%, rgb(100, 100, 100) 50%, rgb(50, 50, 50) 100%)`,
+                backgroundImage: `radial-gradient(circle at 75% 50%, rgb(200, 200, 200) 0%, rgb(100, 100, 100) 50%, rgb(50, 50, 50) 100%)`,
                 backgroundClip: "text",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
@@ -78,9 +83,10 @@ export function AboutSection() {
         <div className="text-center mb-12 mt-10">
           <h3 ref={headingRef} className="font-display text-2xl md:text-3xl font-bold" style={{ letterSpacing: "0.03em" }}>
             <span
+              ref={myRef}
               style={{
                 letterSpacing: "0.05em",
-                backgroundImage: `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, rgb(255, 255, 255) 0%, rgb(100, 100, 100) 50%, rgb(30, 30, 30) 100%)`,
+                backgroundImage: `radial-gradient(circle at 75% 50%, rgb(255, 255, 255) 0%, rgb(100, 100, 100) 50%, rgb(30, 30, 30) 100%)`,
                 backgroundClip: "text",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
