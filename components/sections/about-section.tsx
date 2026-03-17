@@ -28,7 +28,6 @@ const interests = [
 ]
 
 export function AboutSection() {
-  const headingRef = useRef<HTMLHeadingElement>(null)
   const meRef = useRef<HTMLSpanElement>(null)
   const myRef = useRef<HTMLSpanElement>(null)
   const randomAngleRef = useRef(0)
@@ -81,7 +80,7 @@ export function AboutSection() {
 
         {/* My areas of interest heading */}
         <div className="text-center mb-12 mt-10">
-          <h3 ref={headingRef} className="font-display text-2xl md:text-3xl font-bold" style={{ letterSpacing: "0.03em" }}>
+          <h3 className="font-display text-2xl md:text-3xl font-bold" style={{ letterSpacing: "0.03em" }}>
             <span
               ref={myRef}
               style={{
