@@ -52,9 +52,9 @@ export function LavaLampBackground() {
         gradientY + canvas.height
       )
 
-      gradient.addColorStop(0, "#2a2a2a")
-      gradient.addColorStop(0.5, "#1f1f1f")
-      gradient.addColorStop(1, "#252525")
+      gradient.addColorStop(0, "#1e1e1e")
+      gradient.addColorStop(0.5, "#161616")
+      gradient.addColorStop(1, "#1a1a1a")
 
       ctx.fillStyle = gradient
       ctx.fillRect(0, 0, canvas.width, canvas.height)

@@ -1,22 +1,14 @@
 import { Navbar } from "@/components/ui/navbar"
 import { FooterSection } from "@/components/sections/footer-section"
+import { ExperienceSection } from "@/components/sections/experience-section"
+import { NodeNetworkBackground } from "@/components/ui/node-network-background"
 
 export default function ExperiencePage() {
   return (
-    <main className="min-h-screen bg-zinc-950">
+    <main className="min-h-screen bg-transparent">
+      <NodeNetworkBackground />
       <Navbar />
-      <section className="min-h-screen flex flex-col items-center justify-center px-6 pt-24 pb-20">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="font-display text-5xl md:text-7xl font-bold tracking-tight mb-6">
-            <span className="bg-gradient-to-r from-zinc-500 via-zinc-300 to-zinc-500 bg-clip-text text-transparent">
-              Experience
-            </span>
-          </h1>
-          <p className="text-lg md:text-xl text-zinc-500 max-w-2xl mx-auto leading-relaxed">
-            My professional journey and educational background.
-          </p>
-        </div>
-      </section>
+      <ExperienceSection />
       <FooterSection />
     </main>
   )
