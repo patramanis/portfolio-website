@@ -7,7 +7,7 @@ const MAX_DIST = 160
 const BASE_SPEED = 0.11
 const MOUSE_RADIUS = 140
 const PULSE_INTERVAL = 700
-const MAX_ROT = 12
+const MAX_ROT = 5
 const ROT_LERP = 0.10
 const SCALE_BUFFER = 1.15
 
