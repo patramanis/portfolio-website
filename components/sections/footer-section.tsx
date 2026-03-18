@@ -12,9 +12,9 @@ const footerLinks = {
 
 export function FooterSection() {
   return (
-    <footer className="px-6 py-16 border-t border-zinc-900">
+    <footer className="px-6 py-6 border-t border-zinc-900">
       <div className="max-w-5xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-4">
           {/* Brand */}
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-2 transition-transform hover:scale-105">
@@ -46,7 +46,7 @@ export function FooterSection() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-zinc-900 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="pt-4 border-t border-zinc-900 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-zinc-600">© {new Date().getFullYear()} All rights reserved.</p>
           <div className="flex items-center gap-4">
             <Link href="https://github.com/patramanis" target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-zinc-300 transition-colors" aria-label="GitHub">

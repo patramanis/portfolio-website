@@ -5,7 +5,7 @@ import { NodeNetworkBackground } from "@/components/ui/node-network-background"
 
 export default function ExperiencePage() {
   return (
-    <main className="min-h-screen bg-transparent">
+    <main className="bg-transparent">
       <NodeNetworkBackground />
       <Navbar />
       <ExperienceSection />
