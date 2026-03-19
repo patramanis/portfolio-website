@@ -15,45 +15,57 @@ export function ScrollRevealCard({
   isLast = false,
 }: ScrollRevealCardProps) {
   const ref = useRef<HTMLDivElement>(null)
+  const rafRef = useRef<number | null>(null)
+  const viewportHRef = useRef(0)
   const scrollProgress = useMotionValue(initiallyVisible ? 0.5 : 0)
 
   useEffect(() => {
-    const updateProgress = () => {
+    viewportHRef.current = window.innerHeight
+
+    const tick = () => {
+      rafRef.current = null
       const el = ref.current
       if (!el) return
       const rect = el.getBoundingClientRect()
-      const viewportH = window.innerHeight
-      const cardH = rect.height
-      // 0 = top of card at viewport bottom (just entering)
-      // 1 = bottom of card at viewport top (just exiting)
-      const totalRange = viewportH + cardH
-      const raw = (viewportH - rect.top) / totalRange
+      const vh = viewportHRef.current
+      const raw = (vh - rect.top) / (vh + rect.height)
       scrollProgress.set(Math.max(0, Math.min(1, raw)))
     }
 
-    updateProgress()
-    window.addEventListener("scroll", updateProgress, { passive: true })
-    window.addEventListener("resize", updateProgress, { passive: true })
+    const onScroll = () => {
+      if (rafRef.current !== null) return
+      rafRef.current = requestAnimationFrame(tick)
+    }
+
+    const onResize = () => {
+      viewportHRef.current = window.innerHeight
+      onScroll()
+    }
+
+    tick()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("resize", onResize, { passive: true })
     return () => {
-      window.removeEventListener("scroll", updateProgress)
-      window.removeEventListener("resize", updateProgress)
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", onResize)
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
     }
   }, [scrollProgress])
 
-  // Entry zone: 0–25% | Neutral: 25–75% | Exit zone: 75–100%
+  // Entry zone: 0–35% | Neutral: 35–75% | Exit zone: 75–100%
   const rotateX = useTransform(
     scrollProgress,
-    [0, 0.25, 0.75, 1.0],
+    [0, 0.35, 0.75, 1.0],
     [initiallyVisible ? 0 : -9, 0, 0, isLast ? 0 : 9],
   )
   const scale = useTransform(
     scrollProgress,
-    [0, 0.25, 0.75, 1.0],
+    [0, 0.35, 0.75, 1.0],
     [initiallyVisible ? 1 : 1.04, 1, 1, isLast ? 1 : 0.97],
   )
   const opacity = useTransform(
     scrollProgress,
-    [0, 0.20, 0.80, 1.0],
+    [0, 0.30, 0.80, 1.0],
     [initiallyVisible ? 1 : 0.5, 1, 1, isLast ? 1 : 0.5],
   )
 

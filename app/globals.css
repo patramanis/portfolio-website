@@ -96,6 +96,30 @@
   font-family: "Cal Sans", var(--font-manrope), system-ui, sans-serif;
 }
 
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.exp-gradient {
+  animation: gradientShift 5s ease-in-out infinite;
+  background-size: 200% 200%;
+  background-image: linear-gradient(135deg, #a1a1a1 0%, #d4d4d4 25%, #5a5a5a 50%, #d4d4d4 75%, #a1a1a1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline;
+}
+
 /* Hide scrollbar */
 html::-webkit-scrollbar {
   display: none;

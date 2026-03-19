@@ -48,6 +48,23 @@ interface S {
 }
 
 // ── draw ─────────────────────────────────────────────────────────────────────
+
+// Rounded-rect path (clockwise, matching R = 16 px) — module-level to avoid
+// re-creating a closure on every animation frame.
+function buildRoundedRectPath(ctx: CanvasRenderingContext2D, w: number, h: number): void {
+  ctx.beginPath()
+  ctx.moveTo(R, 0)
+  ctx.lineTo(w - R, 0)
+  ctx.arcTo(w, 0, w, R, R)
+  ctx.lineTo(w, h - R)
+  ctx.arcTo(w, h, w - R, h, R)
+  ctx.lineTo(R, h)
+  ctx.arcTo(0, h, 0, h - R, R)
+  ctx.lineTo(0, R)
+  ctx.arcTo(0, 0, R, 0, R)
+  ctx.closePath()
+}
+
 function drawBorder(
   ctx: CanvasRenderingContext2D,
   w: number,
@@ -63,21 +80,6 @@ function drawBorder(
   // Dash geometry — symmetric spread centred on st.centerT
   const drawnLen = full ? P + 4 : st.progress * P
   const rawStart = (st.centerT - st.progress / 2) * P
-
-  // Rounded-rect path (clockwise, matching R = 16 px)
-  const buildPath = () => {
-    ctx.beginPath()
-    ctx.moveTo(R, 0)
-    ctx.lineTo(w - R, 0)
-    ctx.arcTo(w, 0, w, R, R)
-    ctx.lineTo(w, h - R)
-    ctx.arcTo(w, h, w - R, h, R)
-    ctx.lineTo(R, h)
-    ctx.arcTo(0, h, 0, h - R, R)
-    ctx.lineTo(0, R)
-    ctx.arcTo(0, 0, R, 0, R)
-    ctx.closePath()
-  }
 
   // Fixed diagonal gradient — always covers full card, no dark gaps.
   // Shimmer is achieved via a pulsing shadowBlur/shadowColor instead of
@@ -95,15 +97,15 @@ function drawBorder(
 
   // Normalise rawStart into [0, P) — Canvas % can return negatives for negative inputs
   const adjStart = ((rawStart % P) + P) % P
-  const arcEnd   = adjStart + drawnLen   // may be > P when arc crosses the seam
+  const arcEnd = adjStart + drawnLen   // may be > P when arc crosses the seam
 
-  ctx.lineWidth   = 1.5
+  ctx.lineWidth = 1.5
   ctx.strokeStyle = grad
-  ctx.shadowBlur  = 4 + 7 * pulse
+  ctx.shadowBlur = 4 + 7 * pulse
   ctx.shadowColor = `rgba(195, 210, 230, ${0.35 + 0.30 * pulse})`
 
   ctx.save()
-  buildPath()   // path persists across multiple stroke() calls
+  buildRoundedRectPath(ctx, w, h)   // path persists across multiple stroke() calls
 
   if (full) {
     // Full border — no dashing needed
@@ -143,6 +145,7 @@ interface LiquidBorderCardProps {
 export function LiquidBorderCard({ children, className = "" }: LiquidBorderCardProps) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const cvRef = useRef<HTMLCanvasElement>(null)
+  const ctxRef = useRef<CanvasRenderingContext2D | null>(null)
   const state = useRef<S>({ progress: 0, centerT: 0, targetT: 0, shimmerT: 0, hovering: false })
   const rafId = useRef<number | null>(null)
   const prevMs = useRef<number>(0)
@@ -155,6 +158,7 @@ export function LiquidBorderCard({ children, className = "" }: LiquidBorderCardP
     const sync = () => {
       cv.width = wrap.offsetWidth
       cv.height = wrap.offsetHeight
+      ctxRef.current = cv.getContext("2d")
     }
     sync()
     const ro = new ResizeObserver(sync)
@@ -191,11 +195,9 @@ export function LiquidBorderCard({ children, className = "" }: LiquidBorderCardP
       st.shimmerT += SHIMMER_SPEED * dt
 
       // draw
+      const ctx = ctxRef.current
       const cv = cvRef.current
-      if (cv) {
-        const ctx = cv.getContext("2d")
-        if (ctx) drawBorder(ctx, cv.width, cv.height, st)
-      }
+      if (ctx && cv) drawBorder(ctx, cv.width, cv.height, st)
 
       // continue if there is still something to animate
       if (st.progress > 0 || st.hovering) {

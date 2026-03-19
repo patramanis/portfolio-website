@@ -1,8 +1,5 @@
-"use client"
-
 import Link from "next/link"
 import { FileCode2, ExternalLink } from "lucide-react"
-import React from "react"
 import { LiquidBorderCard } from "@/components/ui/liquid-border-card"
 import { ExperienceDivider } from "@/components/ui/experience-divider"
 import { ScrollRevealCard } from "@/components/ui/scroll-reveal-card"
@@ -10,22 +7,6 @@ import { ScrollRevealCard } from "@/components/ui/scroll-reveal-card"
 export function ExperienceSection() {
   return (
     <section className="relative z-10 px-6 md:px-12 pt-32" style={{ paddingBottom: '24px' }}>
-      <style>{`
-        @keyframes gradientShift {
-          0%   { background-position: 0% 50%; }
-          50%  { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        .exp-gradient {
-          animation: gradientShift 5s ease-in-out infinite;
-          background-size: 200% 200%;
-          background-image: linear-gradient(135deg, #a1a1a1 0%, #d4d4d4 25%, #5a5a5a 50%, #d4d4d4 75%, #a1a1a1 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          display: inline;
-        }
-      `}</style>
 
       <div className="max-w-5xl mx-auto">
 
@@ -99,7 +80,7 @@ export function ExperienceSection() {
 
             {/* Tradi Art — Present */}
             <ScrollRevealCard>
-              <LiquidBorderCard className="bg-zinc-900/75 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
+              <LiquidBorderCard className="bg-zinc-800/70 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
                 <div className="bg-black/20 rounded-xl p-5 mb-6">
                   <div className="flex items-baseline justify-between gap-4 flex-wrap mb-1">
                     <h3 className="font-display text-2xl font-semibold text-white">Operations Coordinator</h3>
@@ -196,7 +177,7 @@ export function ExperienceSection() {
 
             {/* 1. Finance Club UoM — Present */}
             <ScrollRevealCard>
-              <LiquidBorderCard className="bg-zinc-900/75 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
+              <LiquidBorderCard className="bg-zinc-800/70 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
                 <div className="bg-black/20 rounded-xl p-5 mb-6">
                   <div className="flex items-baseline justify-between gap-4 flex-wrap mb-1">
                     <h3 className="font-display text-2xl font-semibold text-white">Associate</h3>
@@ -215,7 +196,7 @@ export function ExperienceSection() {
 
             {/* 2. Data Engineer AIESEC — Present */}
             <ScrollRevealCard>
-              <LiquidBorderCard className="bg-zinc-900/75 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
+              <LiquidBorderCard className="bg-zinc-800/70 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
                 <div className="bg-black/20 rounded-xl p-5 mb-6">
                   <div className="flex items-baseline justify-between gap-4 flex-wrap mb-1">
                     <h3 className="font-display text-2xl font-semibold text-white">Data Engineer</h3>
