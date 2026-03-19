@@ -12,12 +12,12 @@ export function ExperienceSection() {
 
         {/* ── EDUCATIONAL EXPERIENCE ─────────────────────────────── */}
         <div>
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-8">
+          <h2 data-edu-heading className="font-display text-4xl md:text-5xl font-bold mb-8">
             <span className="text-white">Educational </span>
             <span className="exp-gradient">Experience</span>
           </h2>
 
-          <ScrollRevealCard initiallyVisible>
+          <ScrollRevealCard>
             <LiquidBorderCard className="bg-zinc-900/75 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
               <div className="bg-black/20 rounded-xl p-5 mb-6">
                 <div className="flex items-baseline justify-between gap-4 flex-wrap mb-1">
