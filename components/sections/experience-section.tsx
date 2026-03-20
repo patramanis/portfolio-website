@@ -6,7 +6,7 @@ import { ScrollRevealCard } from "@/components/ui/scroll-reveal-card"
 
 export function ExperienceSection() {
   return (
-    <section className="relative z-10 px-6 md:px-12 pt-32" style={{ paddingBottom: '24px' }}>
+    <section className="relative z-10 px-6 md:px-12 pt-8" style={{ paddingBottom: '24px' }}>
 
       <div className="max-w-5xl mx-auto">
 
