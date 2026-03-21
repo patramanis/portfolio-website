@@ -17,54 +17,80 @@ export function ExperienceSection() {
             <span className="exp-gradient">Experience</span>
           </h2>
 
-          <ScrollRevealCard>
-            <LiquidBorderCard className="bg-zinc-900/75 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
-              <div className="bg-black/20 rounded-xl p-5 mb-6">
-                <div className="flex items-baseline justify-between gap-4 flex-wrap mb-1">
-                  <h3 className="font-display text-2xl font-semibold">
-                    <span className="exp-gradient">BSc in </span>
-                    <span className="text-white">Applied Informatics - Information Systems</span>
-                  </h3>
-                  <span className="exp-gradient text-base md:text-xl font-bold whitespace-nowrap leading-relaxed">Sep 2021 – Feb 2026</span>
+          <div className="space-y-6">
+            <ScrollRevealCard>
+              <LiquidBorderCard className="bg-zinc-800/70 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
+                <div className="bg-black/20 rounded-xl p-5 mb-6">
+                  <div className="flex items-baseline justify-between gap-4 flex-wrap mb-1">
+                    <h3 className="font-display text-2xl font-semibold">
+                      <span className="exp-gradient">MSc in </span>
+                      <span className="text-white">Computational Science</span>
+                    </h3>
+                    <span className="exp-gradient text-base md:text-xl font-bold whitespace-nowrap leading-relaxed">Starting Sep 2026</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="font-display text-2xl font-semibold text-zinc-300 leading-relaxed">University of Amsterdam</span>
+                    <span className="exp-gradient text-base md:text-xl font-bold leading-relaxed">Amsterdam, Netherlands</span>
+                  </div>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="font-display text-2xl font-semibold text-zinc-300 leading-relaxed">University of Macedonia</span>
-                  <span className="exp-gradient text-base md:text-xl font-bold leading-relaxed">Thessaloniki, Greece</span>
+                <ul className="ml-4 space-y-3">
+                  <li className="flex gap-2 text-base md:text-xl text-zinc-400 leading-relaxed">
+                    <span className="shrink-0">•</span>
+                    <span><span className="font-bold">Specialization:</span> Computational Finance.</span>
+                  </li>
+                </ul>
+              </LiquidBorderCard>
+            </ScrollRevealCard>
+
+            <ScrollRevealCard>
+              <LiquidBorderCard className="bg-zinc-900/75 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
+                <div className="bg-black/20 rounded-xl p-5 mb-6">
+                  <div className="flex items-baseline justify-between gap-4 flex-wrap mb-1">
+                    <h3 className="font-display text-2xl font-semibold">
+                      <span className="exp-gradient">BSc in </span>
+                      <span className="text-white">Applied Informatics - Information Systems</span>
+                    </h3>
+                    <span className="exp-gradient text-base md:text-xl font-bold whitespace-nowrap leading-relaxed">Sep 2021 – Feb 2026</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="font-display text-2xl font-semibold text-zinc-300 leading-relaxed">University of Macedonia</span>
+                    <span className="exp-gradient text-base md:text-xl font-bold leading-relaxed">Thessaloniki, Greece</span>
+                  </div>
                 </div>
-              </div>
 
-              <ul className="ml-4 space-y-3 mb-8">
-                <li className="flex gap-2 text-base md:text-xl text-zinc-400 leading-relaxed">
-                  <span className="shrink-0">•</span>
-                  <span><span className="font-bold">GPA:</span> 7.4/10.</span>
-                </li>
-                <li className="flex gap-2 text-base md:text-xl text-zinc-400 leading-relaxed">
-                  <span className="shrink-0">•</span>
-                  <span><span className="font-bold">Focused Coursework:</span> Data Structures, Algorithms, System Analysis &amp; Design, Operations Research, Mathematical Analysis.</span>
-                </li>
-                <li className="text-base md:text-xl text-zinc-500 leading-relaxed">
-                  Exceeded degree requirements (265/240 ECTS) to undertake an optional quantitative research thesis and complete additional advanced coursework.
-                </li>
-              </ul>
+                <ul className="ml-4 space-y-3 mb-8">
+                  <li className="flex gap-2 text-base md:text-xl text-zinc-400 leading-relaxed">
+                    <span className="shrink-0">•</span>
+                    <span><span className="font-bold">GPA:</span> 7.4/10.</span>
+                  </li>
+                  <li className="flex gap-2 text-base md:text-xl text-zinc-400 leading-relaxed">
+                    <span className="shrink-0">•</span>
+                    <span><span className="font-bold">Focused Coursework:</span> Data Structures, Algorithms, System Analysis &amp; Design, Operations Research, Mathematical Analysis.</span>
+                  </li>
+                  <li className="text-base md:text-xl text-zinc-500 leading-relaxed">
+                    Exceeded degree requirements (265/240 ECTS) to undertake an optional quantitative research thesis and complete additional advanced coursework.
+                  </li>
+                </ul>
 
-              <div className="border-t border-zinc-700/50 pt-6">
-                <Link
-                  href="https://github.com/patramanis/dissertation"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 group w-fit"
-                >
-                  <FileCode2
-                    size={28}
-                    className="text-zinc-400 group-hover:text-zinc-200 transition-colors duration-200"
-                  />
-                  <span className="font-display text-xl font-semibold tracking-wider text-white group-hover:text-zinc-300 transition-colors duration-200">
-                    My Thesis Project
-                  </span>
-                </Link>
-              </div>
-            </LiquidBorderCard>
-          </ScrollRevealCard>
+                <div className="border-t border-zinc-700/50 pt-6">
+                  <Link
+                    href="https://github.com/patramanis/dissertation"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 group w-fit"
+                  >
+                    <FileCode2
+                      size={28}
+                      className="text-zinc-400 group-hover:text-zinc-200 transition-colors duration-200"
+                    />
+                    <span className="font-display text-xl font-semibold tracking-wider text-white group-hover:text-zinc-300 transition-colors duration-200">
+                      My Thesis Project
+                    </span>
+                  </Link>
+                </div>
+              </LiquidBorderCard>
+            </ScrollRevealCard>
+          </div>
         </div>
 
         <ExperienceDivider />

@@ -58,20 +58,21 @@ export function ScrollRevealCard({
     [0, 0.35, 0.75, 1.0],
     [initiallyVisible ? 0 : -9, 0, 0, isLast ? 0 : 9],
   )
-  const scale = useTransform(
-    scrollProgress,
-    [0, 0.35, 0.75, 1.0],
-    [initiallyVisible ? 1 : 1.04, 1, 1, isLast ? 1 : 0.97],
-  )
   const opacity = useTransform(
     scrollProgress,
-    [0, 0.30, 0.80, 1.0],
-    [initiallyVisible ? 1 : 0.5, 1, 1, isLast ? 1 : 0.5],
+    [0, 0.15, 0.85, 1.0],
+    [initiallyVisible ? 1 : 0.2, 1, 1, isLast ? 1 : 0.2],
   )
+  const blurPx = useTransform(
+    scrollProgress,
+    [0, 0.15, 0.85, 1.0],
+    [initiallyVisible ? 0 : 12, 0, 0, isLast ? 0 : 12],
+  )
+  const filter = useTransform(blurPx, (v) => `blur(${v}px)`)
 
   return (
     <div ref={ref} style={{ perspective: "1200px" }}>
-      <motion.div style={{ rotateX, scale, opacity, transformOrigin: "center center" }}>
+      <motion.div style={{ rotateX, opacity, filter, transformOrigin: "center center" }}>
         {children}
       </motion.div>
     </div>
