@@ -109,14 +109,17 @@ export function PortfolioHeroSection() {
     }
   }, [])
 
-  // ── Fade "My journey so far" as user scrolls down ──
+  // ── Fade "More details" when Projects heading enters view ──
   useEffect(() => {
-    const onScroll = () => {
-      const ratio = Math.min(window.scrollY / (window.innerHeight * 0.5), 1)
-      setOpacity(1 - ratio)
-    }
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
+    const heading = document.querySelector("[data-projects-heading]")
+    if (!heading) return
+
+    const io = new IntersectionObserver(
+      ([entry]) => setOpacity(1 - entry.intersectionRatio),
+      { threshold: [0, 0.2, 0.4, 0.6, 0.8, 1] }
+    )
+    io.observe(heading)
+    return () => io.disconnect()
   }, [])
 
   return (
@@ -134,9 +137,8 @@ export function PortfolioHeroSection() {
         style={{ top: "64%", transform: "translateY(-50%)", opacity: "80%" }}
       >
         <p className="max-w-4xl text-justify font-display text-zinc-950 leading-snug" style={{ fontSize: '25px' }}>
-          Constantly looking to learn and make an impact. Actively seeking out
-          challenges that help me grow; whether through professional roles,
-          research, or volunteering.
+          Always building, always learning. I am actively sharpening my skills
+          in AI and data analysis to tackle real-world problems through hands-on projects.
         </p>
       </div>
 
@@ -151,7 +153,7 @@ export function PortfolioHeroSection() {
         }}
       >
         <span className="text-sm font-medium tracking-wide text-zinc-400">
-          My journey so far
+          More details
         </span>
         <ChevronDown className="w-4 h-4 text-zinc-500 mt-1" />
       </div>
