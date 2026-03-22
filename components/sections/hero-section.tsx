@@ -106,7 +106,8 @@ export function HeroSection() {
       }
       const sectionRect = section.getBoundingClientRect()
       const subRect = sub.getBoundingClientRect()
-      const textCenterX = subRect.left - sectionRect.left + subRect.width / 2
+      const pl = parseFloat(window.getComputedStyle(sub).paddingLeft) || 0
+      const textCenterX = subRect.left - sectionRect.left + pl + (subRect.width - pl) / 2
       setCtaLeft(`${textCenterX - cta.offsetWidth / 2}px`)
     }
     update()
