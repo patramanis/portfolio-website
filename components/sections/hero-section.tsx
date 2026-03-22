@@ -9,8 +9,63 @@ import { FloatingClouds } from "@/components/ui/floating-clouds"
 import { usePerspectiveTransform } from "@/hooks/use-perspective-transform"
 import { useTopSectionReady } from "@/components/providers/top-section-ready-provider"
 
+// ── Module-level constants & components ──────────────────────────────────────
+// Defined outside HeroSection so React never treats them as new types on re-render.
+// Inline definitions inside a component body cause full unmount/remount cycles.
+
+const GREY_GRADIENT: React.CSSProperties = {
+  background: "linear-gradient(135deg, #a1a1a1, #5a5a5a)",
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+  backgroundClip: "text",
+}
+
+function TitleBlock() {
+  return (
+    <div
+      className="hero-title-text"
+      style={{
+        lineHeight: "1",
+        fontFamily: '"Cal Sans", system-ui, sans-serif',
+        fontWeight: 700,
+        whiteSpace: "nowrap",
+      }}
+    >
+      <span className="text-white">Hi, I am </span>
+      <span className="animated-gradient-thomas">Thomas</span>
+      <span style={GREY_GRADIENT}>.</span>
+    </div>
+  )
+}
+
+function CtaContent({ scrollOpacity }: { scrollOpacity: number }) {
+  return (
+    <div
+      className="flex flex-col items-center animate-bounce transition-opacity duration-300"
+      style={{
+        opacity: scrollOpacity,
+        pointerEvents: scrollOpacity < 0.1 ? "none" : "auto",
+      }}
+    >
+      <span className="text-sm text-zinc-400 font-medium tracking-wide transition-colors duration-300 hover:text-zinc-200">
+        More about me
+      </span>
+      <ChevronDown className="w-4 h-4 text-zinc-500 mt-1 transition-colors duration-300 hover:text-zinc-300" />
+    </div>
+  )
+}
+
+const reveal = (delay: number) => ({
+  initial: { opacity: 0, scale: 0.88, y: 24 },
+  animate: { opacity: 1, scale: 1, y: 0 },
+  transition: { type: "spring" as const, stiffness: 300, damping: 24, delay },
+})
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 export function HeroSection() {
   const profileImageRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
   const [scrollOpacity, setScrollOpacity] = useState(1)
   const [ctaLeft, setCtaLeft] = useState<string | undefined>(undefined)
   const { markReady } = useTopSectionReady()
@@ -34,15 +89,15 @@ export function HeroSection() {
 
   // Position CTA so its visual center aligns with the subheadline text center.
   // Uses querySelector to avoid Framer Motion ref-forwarding quirks in React 19.
-  // Calculates left = textCenterX − ctaWidth/2 so no translateX is needed
-  // (Framer Motion replaces CSS transform with its own composed string).
+  // Observes only the hero section element (not the entire document) to avoid
+  // firing on every Lenis scroll micro-adjustment.
   useEffect(() => {
     const update = () => {
       if (window.innerWidth <= 900) {
         setCtaLeft(undefined)
         return
       }
-      const section = document.querySelector<HTMLElement>('.hero-section')
+      const section = sectionRef.current
       const sub = document.querySelector<HTMLElement>('.hero-subheadline')
       const cta = document.querySelector<HTMLElement>('.hero-cta-abs')
       if (!section || !sub || !cta) {
@@ -56,56 +111,15 @@ export function HeroSection() {
     }
     update()
     const ro = new ResizeObserver(update)
-    ro.observe(document.documentElement)
+    // Observe only the section itself, not document.documentElement.
+    // Lenis smooth scroll causes micro layout-changes on the root that would
+    // trigger setCtaLeft (and a full HeroSection re-render) on every scroll frame.
+    if (sectionRef.current) ro.observe(sectionRef.current)
     return () => ro.disconnect()
   }, [])
 
-  const greyGradient = {
-    background: "linear-gradient(135deg, #a1a1a1, #5a5a5a)",
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
-    backgroundClip: "text",
-  } as React.CSSProperties
-
-  const reveal = (delay: number) => ({
-    initial: { opacity: 0, scale: 0.88, y: 24 },
-    animate: { opacity: 1, scale: 1, y: 0 },
-    transition: { type: "spring" as const, stiffness: 300, damping: 24, delay },
-  })
-
-  const TitleBlock = () => (
-    <div
-      className="hero-title-text"
-      style={{
-        lineHeight: "1",
-        fontFamily: '"Cal Sans", system-ui, sans-serif',
-        fontWeight: 700,
-        whiteSpace: "nowrap",
-      }}
-    >
-      <span className="text-white">Hi, I am </span>
-      <span className="animated-gradient-thomas">Thomas</span>
-      <span style={greyGradient}>.</span>
-    </div>
-  )
-
-  const CtaContent = () => (
-    <div
-      className="flex flex-col items-center animate-bounce transition-opacity duration-300"
-      style={{
-        opacity: scrollOpacity,
-        pointerEvents: scrollOpacity < 0.1 ? "none" : "auto",
-      }}
-    >
-      <span className="text-sm text-zinc-400 font-medium tracking-wide transition-colors duration-300 hover:text-zinc-200">
-        More about me
-      </span>
-      <ChevronDown className="w-4 h-4 text-zinc-500 mt-1 transition-colors duration-300 hover:text-zinc-300" />
-    </div>
-  )
-
   return (
-    <section className="hero-section relative w-full mt-14">
+    <section ref={sectionRef} className="hero-section relative w-full mt-14">
       <style>{`
         /* ── Keyframes ── */
         @keyframes gradientShift {
@@ -506,12 +520,12 @@ export function HeroSection() {
 
       {/* CTA — absolute on desktop (Tier 1) */}
       <motion.div className="hero-cta-abs" {...reveal(0.37)} style={ctaLeft !== undefined ? { left: ctaLeft } : undefined}>
-        <CtaContent />
+        <CtaContent scrollOpacity={scrollOpacity} />
       </motion.div>
 
       {/* CTA — flow on medium/narrow (Tier 2+3) */}
       <motion.div className="hero-cta-flow relative" {...reveal(0.37)}>
-        <CtaContent />
+        <CtaContent scrollOpacity={scrollOpacity} />
       </motion.div>
     </section>
   )

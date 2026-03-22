@@ -9,7 +9,7 @@ import {
   type ReactNode,
 } from "react"
 import { useRouter, usePathname } from "next/navigation"
-import { useLenis } from "@studio-freight/react-lenis"
+import { useLenis } from "lenis/react"
 import { useLoading } from "./loading-provider"
 import { useTopSectionReady } from "./top-section-ready-provider"
 
@@ -60,9 +60,12 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const [transitionPhase, setTransitionPhase] = useState<TransitionPhase>("idle")
   const [transitionType,  setTransitionType]  = useState<TransitionType>("none")
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const lenisRef = useRef<any>(null)
-  useLenis((lenis) => { lenisRef.current = lenis })
+  // useLenis() without a callback returns the Lenis instance directly.
+  // The old @studio-freight API required a scroll callback to capture the instance;
+  // the new lenis/react API exposes it as a hook return value instead.
+  const lenis = useLenis()
+  const lenisRef = useRef(lenis)
+  lenisRef.current = lenis
 
   const navigateTo = useCallback(
     async (href: string) => {

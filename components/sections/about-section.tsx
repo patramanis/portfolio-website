@@ -66,13 +66,21 @@ function InterestBox({ interest }: { interest: Interest }) {
 }
 
 export function AboutSection() {
+  const sectionRef = useRef<HTMLElement>(null)
   const meRef = useRef<HTMLSpanElement>(null)
   const myRef = useRef<HTMLSpanElement>(null)
   const randomAngleRef = useRef(0)
 
   useEffect(() => {
-    let animationFrame: number
-    const animateRandom = () => {
+    let rafId: number
+    let lastTime = 0
+    const FRAME_INTERVAL = 1000 / 30 // 30fps — smooth enough for a gradient shift
+
+    const animate = (time: number) => {
+      rafId = requestAnimationFrame(animate)
+      if (time - lastTime < FRAME_INTERVAL) return
+      lastTime = time
+
       randomAngleRef.current += 0.02
       const gradientX = 50 + Math.cos(randomAngleRef.current) * 25
       const gradientY = 50 + Math.sin(randomAngleRef.current) * 25
@@ -82,15 +90,31 @@ export function AboutSection() {
       if (myRef.current) {
         myRef.current.style.backgroundImage = `radial-gradient(circle at ${gradientX}% ${gradientY}%, rgb(255, 255, 255) 0%, rgb(100, 100, 100) 50%, rgb(30, 30, 30) 100%)`
       }
-      animationFrame = requestAnimationFrame(animateRandom)
     }
-    animationFrame = requestAnimationFrame(animateRandom)
+
+    // Only run the RAF while the section is visible in the viewport.
+    // Without this guard the gradient animates at 30fps even while the user
+    // is on the hero section, wasting CPU on invisible DOM mutations.
+    const section = sectionRef.current
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          rafId = requestAnimationFrame(animate)
+        } else {
+          cancelAnimationFrame(rafId)
+        }
+      },
+      { threshold: 0, rootMargin: "100px" }
+    )
+    if (section) observer.observe(section)
+
     return () => {
-      cancelAnimationFrame(animationFrame)
+      cancelAnimationFrame(rafId)
+      observer.disconnect()
     }
   }, [])
   return (
-    <section className="about-section-root px-10 pb-24 z-10 overflow-visible min-h-screen" style={{ position: "relative", marginTop: "-100px", paddingTop: "240px" }} data-about-section>
+    <section ref={sectionRef} className="about-section-root px-10 pb-24 z-10 overflow-visible min-h-screen" style={{ position: "relative", marginTop: "-100px", paddingTop: "240px" }} data-about-section>
       <style>{`
         /* Ensure text never overlaps wave area — reduce paddingTop on narrow screens */
         @media (max-width: 1100px) {

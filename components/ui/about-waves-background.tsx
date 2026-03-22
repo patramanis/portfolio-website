@@ -13,8 +13,6 @@ export function AboutWavesBackground() {
     const ctx = canvas.getContext("2d", { alpha: true })
     if (!ctx) return
 
-    // Actual resize work — must run inside the RAF callback so that
-    // canvas.width= (clear) and drawWaves() happen in the same frame → no flash.
     const applyResize = () => {
       const parentElement = canvas.parentElement
       if (!parentElement) return
@@ -36,11 +34,9 @@ export function AboutWavesBackground() {
       canvas.style.height = newHeight + 'px'
     }
 
-    // Initial size immediately + after layout settles
     applyResize()
     const timeoutId = setTimeout(applyResize, 100)
 
-    // On resize: flag only — actual resize happens inside animate
     let needsResize = false
     const handleResize = () => { needsResize = true }
     window.addEventListener("resize", handleResize)
@@ -86,11 +82,10 @@ export function AboutWavesBackground() {
     let rafId: number
 
     const animate = (currentTime: number) => {
-      // Handle resize synchronously with draw → zero blank frames
       if (needsResize) {
         needsResize = false
         applyResize()
-        lastFrameTimeRef.current = 0 // force draw this frame
+        lastFrameTimeRef.current = 0
       }
 
       if (currentTime - lastFrameTimeRef.current >= frameInterval) {
@@ -103,12 +98,28 @@ export function AboutWavesBackground() {
       rafId = requestAnimationFrame(animate)
     }
 
-    rafId = requestAnimationFrame(animate)
+    // Gate: only run the RAF loop while the canvas is near the viewport.
+    // The about section loads below the fold; this prevents a permanent 30fps
+    // loop burning CPU while the user is still on the hero section.
+    const section = canvas.closest('section') ?? canvas.parentElement
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          lastFrameTimeRef.current = 0
+          rafId = requestAnimationFrame(animate)
+        } else {
+          cancelAnimationFrame(rafId)
+        }
+      },
+      { threshold: 0, rootMargin: "200px" }
+    )
+    if (section) observer.observe(section)
 
     return () => {
       window.removeEventListener("resize", handleResize)
       clearTimeout(timeoutId)
       cancelAnimationFrame(rafId)
+      observer.disconnect()
     }
   }, [])
 
