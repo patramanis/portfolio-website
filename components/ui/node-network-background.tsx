@@ -50,9 +50,24 @@ export function NodeNetworkBackground() {
     const nodes: Node[] = []
     const pulses: DataPulse[] = []
 
-    function resize() {
-      w = window.innerWidth
-      h = window.innerHeight
+    // Deferred resize: flag + pending dimensions — actual canvas resize
+    // happens inside draw() so the clear+redraw land in the same frame (no blank flash).
+    let needsResize = false
+    let nextW = w
+    let nextH = h
+
+    function applyResize() {
+      if (!needsResize) return
+      needsResize = false
+      const sx = nextW / w
+      const sy = nextH / h
+      // Proportionally redistribute nodes so they fill the new bounds evenly
+      for (const n of nodes) {
+        n.x *= sx
+        n.y *= sy
+      }
+      w = nextW
+      h = nextH
       canvas!.width = w
       canvas!.height = h
     }
@@ -109,6 +124,7 @@ export function NodeNetworkBackground() {
 
     function draw(ts: number) {
       animId = requestAnimationFrame(draw)
+      applyResize()          // resize + scale nodes before clearing → no blank frame
       ctx!.clearRect(0, 0, w, h)
       time += 0.010
 
@@ -221,11 +237,12 @@ export function NodeNetworkBackground() {
       }
     }
 
-    resize()
+    canvas.width = w
+    canvas.height = h
     init()
     animId = requestAnimationFrame(draw)
 
-    const onResize = () => { resize() }
+    const onResize = () => { nextW = window.innerWidth; nextH = window.innerHeight; needsResize = true }
     const onMove = (e: MouseEvent) => { mx = e.clientX; my = e.clientY }
     const onLeave = () => { mx = -9999; my = -9999 }
 

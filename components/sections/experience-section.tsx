@@ -19,42 +19,16 @@ export function ExperienceSection() {
 
           <div className="space-y-6">
             <ScrollRevealCard>
-              <LiquidBorderCard className="bg-zinc-800/70 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
-                <div className="bg-black/20 rounded-xl p-5 mb-6">
-                  <div className="flex items-baseline justify-between gap-4 flex-wrap mb-1">
-                    <h3 className="font-display text-2xl font-semibold">
-                      <span className="exp-gradient">MSc in </span>
-                      <span className="text-white">Computational Science</span>
-                    </h3>
-                    <span className="exp-gradient text-base md:text-xl font-bold whitespace-nowrap leading-relaxed">Starting Sep 2026</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="font-display text-2xl font-semibold text-zinc-300 leading-relaxed">University of Amsterdam</span>
-                    <span className="exp-gradient text-base md:text-xl font-bold leading-relaxed">Amsterdam, Netherlands</span>
-                  </div>
-                </div>
-                <ul className="ml-4 space-y-3">
-                  <li className="flex gap-2 text-base md:text-xl text-zinc-400 leading-relaxed">
-                    <span className="shrink-0">•</span>
-                    <span><span className="font-bold">Specialization:</span> Computational Finance.</span>
-                  </li>
-                </ul>
-              </LiquidBorderCard>
-            </ScrollRevealCard>
-
-            <ScrollRevealCard>
               <LiquidBorderCard className="bg-zinc-900/75 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
                 <div className="bg-black/20 rounded-xl p-5 mb-6">
-                  <div className="flex items-baseline justify-between gap-4 flex-wrap mb-1">
-                    <h3 className="font-display text-2xl font-semibold">
+                  <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-x-4 gap-y-1">
+                    <h3 className="font-display text-base sm:text-2xl font-semibold leading-snug sm:row-start-1 sm:col-start-1">
                       <span className="exp-gradient">BSc in </span>
                       <span className="text-white">Applied Informatics - Information Systems</span>
                     </h3>
-                    <span className="exp-gradient text-base md:text-xl font-bold whitespace-nowrap leading-relaxed">Sep 2021 – Feb 2026</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="font-display text-2xl font-semibold text-zinc-300 leading-relaxed">University of Macedonia</span>
-                    <span className="exp-gradient text-base md:text-xl font-bold leading-relaxed">Thessaloniki, Greece</span>
+                    <span className="font-display text-sm sm:text-2xl font-semibold text-zinc-300 sm:row-start-2 sm:col-start-1">University of Macedonia</span>
+                    <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold whitespace-nowrap sm:row-start-1 sm:col-start-2 sm:text-right">Sep 2021 – Feb 2026</span>
+                    <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold sm:row-start-2 sm:col-start-2 sm:text-right">Thessaloniki, Greece</span>
                   </div>
                 </div>
 
@@ -108,20 +82,18 @@ export function ExperienceSection() {
             <ScrollRevealCard>
               <LiquidBorderCard className="bg-zinc-800/70 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
                 <div className="bg-black/20 rounded-xl p-5 mb-6">
-                  <div className="flex items-baseline justify-between gap-4 flex-wrap mb-1">
-                    <h3 className="font-display text-2xl font-semibold text-white">Operations Coordinator</h3>
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-base md:text-xl text-zinc-500 font-medium">Contract based</span>
-                      <span className="font-display text-base md:text-xl font-bold text-white">·</span>
-                      <span className="exp-gradient text-base md:text-xl font-bold whitespace-nowrap leading-relaxed">Sep 2021 – Present</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-x-4 gap-y-1">
+                    <h3 className="font-display text-base sm:text-2xl font-semibold text-white leading-snug sm:row-start-1 sm:col-start-1">Operations Coordinator</h3>
+                    <span className="font-display text-sm sm:text-2xl font-semibold text-zinc-300 sm:row-start-2 sm:col-start-1">Tradi Art</span>
+                    <div className="flex items-baseline gap-1.5 sm:row-start-1 sm:col-start-2 sm:justify-end">
+                      <span className="text-xs sm:text-base md:text-xl text-zinc-500 font-medium">Contract based</span>
+                      <span className="text-xs sm:text-base md:text-xl font-bold text-white">·</span>
+                      <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold whitespace-nowrap">Sep 2021 – Present</span>
                     </div>
-                  </div>
-                  <div className="flex justify-between items-baseline">
-                    <span className="font-display text-2xl font-semibold text-zinc-300 leading-relaxed">Tradi Art</span>
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-base md:text-xl text-zinc-500 font-medium">Hybrid</span>
-                      <span className="font-display text-base md:text-xl font-bold text-white">·</span>
-                      <span className="exp-gradient text-base md:text-xl font-bold leading-relaxed">Ioannina, Epirus, Greece</span>
+                    <div className="flex items-baseline gap-1.5 sm:row-start-2 sm:col-start-2 sm:justify-end">
+                      <span className="text-xs sm:text-base md:text-xl text-zinc-500 font-medium">Hybrid</span>
+                      <span className="text-xs sm:text-base md:text-xl font-bold text-white">·</span>
+                      <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold">Ioannina, Epirus, Greece</span>
                     </div>
                   </div>
                 </div>
@@ -145,20 +117,18 @@ export function ExperienceSection() {
             <ScrollRevealCard>
               <LiquidBorderCard className="bg-zinc-900/75 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
                 <div className="bg-black/20 rounded-xl p-5 mb-6">
-                  <div className="flex items-baseline justify-between gap-4 flex-wrap mb-1">
-                    <h3 className="font-display text-2xl font-semibold text-white">Administrative &amp; Data Support</h3>
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-base md:text-xl text-zinc-500 font-medium">Seasonal</span>
-                      <span className="font-display text-base md:text-xl font-bold text-white">·</span>
-                      <span className="exp-gradient text-base md:text-xl font-bold whitespace-nowrap leading-relaxed">Jul 2023 – Sep 2024</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-x-4 gap-y-1">
+                    <h3 className="font-display text-base sm:text-2xl font-semibold text-white leading-snug sm:row-start-1 sm:col-start-1">Administrative &amp; Data Support</h3>
+                    <span className="font-display text-sm sm:text-2xl font-semibold text-zinc-300 sm:row-start-2 sm:col-start-1">Water Solutions</span>
+                    <div className="flex items-baseline gap-1.5 sm:row-start-1 sm:col-start-2 sm:justify-end">
+                      <span className="text-xs sm:text-base md:text-xl text-zinc-500 font-medium">Seasonal</span>
+                      <span className="text-xs sm:text-base md:text-xl font-bold text-white">·</span>
+                      <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold whitespace-nowrap">Jul 2023 – Sep 2024</span>
                     </div>
-                  </div>
-                  <div className="flex justify-between items-baseline">
-                    <span className="font-display text-2xl font-semibold text-zinc-300 leading-relaxed">Water Solutions</span>
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-base md:text-xl text-zinc-500 font-medium">On-site</span>
-                      <span className="font-display text-base md:text-xl font-bold text-white">·</span>
-                      <span className="exp-gradient text-base md:text-xl font-bold leading-relaxed">Rhodes, Greece</span>
+                    <div className="flex items-baseline gap-1.5 sm:row-start-2 sm:col-start-2 sm:justify-end">
+                      <span className="text-xs sm:text-base md:text-xl text-zinc-500 font-medium">On-site</span>
+                      <span className="text-xs sm:text-base md:text-xl font-bold text-white">·</span>
+                      <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold">Rhodes, Greece</span>
                     </div>
                   </div>
                 </div>
@@ -205,13 +175,11 @@ export function ExperienceSection() {
             <ScrollRevealCard>
               <LiquidBorderCard className="bg-zinc-800/70 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
                 <div className="bg-black/20 rounded-xl p-5 mb-6">
-                  <div className="flex items-baseline justify-between gap-4 flex-wrap mb-1">
-                    <h3 className="font-display text-2xl font-semibold text-white">Associate</h3>
-                    <span className="exp-gradient text-base md:text-xl font-bold whitespace-nowrap leading-relaxed">Oct 2025 – Present</span>
-                  </div>
-                  <div className="flex justify-between items-baseline">
-                    <span className="font-display text-2xl font-semibold text-zinc-300 leading-relaxed">Finance Club UoM</span>
-                    <span className="exp-gradient text-base md:text-xl font-bold leading-relaxed">Thessaloniki, Greece</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-x-4 gap-y-1">
+                    <h3 className="font-display text-base sm:text-2xl font-semibold text-white leading-snug sm:row-start-1 sm:col-start-1">Associate</h3>
+                    <span className="font-display text-sm sm:text-2xl font-semibold text-zinc-300 sm:row-start-2 sm:col-start-1">Finance Club UoM</span>
+                    <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold whitespace-nowrap sm:row-start-1 sm:col-start-2 sm:text-right">Oct 2025 – Present</span>
+                    <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold sm:row-start-2 sm:col-start-2 sm:text-right">Thessaloniki, Greece</span>
                   </div>
                 </div>
                 <p className="text-base md:text-xl text-zinc-500 leading-relaxed">
@@ -224,13 +192,11 @@ export function ExperienceSection() {
             <ScrollRevealCard>
               <LiquidBorderCard className="bg-zinc-800/70 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
                 <div className="bg-black/20 rounded-xl p-5 mb-6">
-                  <div className="flex items-baseline justify-between gap-4 flex-wrap mb-1">
-                    <h3 className="font-display text-2xl font-semibold text-white">Data Engineer</h3>
-                    <span className="exp-gradient text-base md:text-xl font-bold whitespace-nowrap leading-relaxed">Feb 2026 – Present</span>
-                  </div>
-                  <div className="flex justify-between items-baseline">
-                    <span className="font-display text-2xl font-semibold text-zinc-300 leading-relaxed">AIESEC in Greece</span>
-                    <span className="exp-gradient text-base md:text-xl font-bold leading-relaxed">Remote</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-x-4 gap-y-1">
+                    <h3 className="font-display text-base sm:text-2xl font-semibold text-white leading-snug sm:row-start-1 sm:col-start-1">Data Engineer</h3>
+                    <span className="font-display text-sm sm:text-2xl font-semibold text-zinc-300 sm:row-start-2 sm:col-start-1">AIESEC in Greece</span>
+                    <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold whitespace-nowrap sm:row-start-1 sm:col-start-2 sm:text-right">Feb 2026 – Present</span>
+                    <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold sm:row-start-2 sm:col-start-2 sm:text-right">Remote</span>
                   </div>
                 </div>
                 <p className="text-base md:text-xl text-zinc-500 leading-relaxed">
@@ -243,13 +209,11 @@ export function ExperienceSection() {
             <ScrollRevealCard>
               <LiquidBorderCard className="bg-zinc-900/75 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
                 <div className="bg-black/20 rounded-xl p-5 mb-6">
-                  <div className="flex items-baseline justify-between gap-4 flex-wrap mb-1">
-                    <h3 className="font-display text-2xl font-semibold text-white">Team Leader</h3>
-                    <span className="exp-gradient text-base md:text-xl font-bold whitespace-nowrap leading-relaxed">Feb 2025 – Jul 2025</span>
-                  </div>
-                  <div className="flex justify-between items-baseline">
-                    <span className="font-display text-2xl font-semibold text-zinc-300 leading-relaxed">AIESEC in Greece</span>
-                    <span className="exp-gradient text-base md:text-xl font-bold leading-relaxed">Thessaloniki, Greece</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-x-4 gap-y-1">
+                    <h3 className="font-display text-base sm:text-2xl font-semibold text-white leading-snug sm:row-start-1 sm:col-start-1">Team Leader</h3>
+                    <span className="font-display text-sm sm:text-2xl font-semibold text-zinc-300 sm:row-start-2 sm:col-start-1">AIESEC in Greece</span>
+                    <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold whitespace-nowrap sm:row-start-1 sm:col-start-2 sm:text-right">Feb 2025 – Jul 2025</span>
+                    <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold sm:row-start-2 sm:col-start-2 sm:text-right">Thessaloniki, Greece</span>
                   </div>
                 </div>
                 <p className="text-base md:text-xl text-zinc-500 leading-relaxed">
@@ -278,13 +242,11 @@ export function ExperienceSection() {
             <ScrollRevealCard>
               <LiquidBorderCard className="bg-zinc-900/75 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
                 <div className="bg-black/20 rounded-xl p-5 mb-6">
-                  <div className="flex items-baseline justify-between gap-4 flex-wrap mb-1">
-                    <h3 className="font-display text-2xl font-semibold text-white">Associate</h3>
-                    <span className="exp-gradient text-base md:text-xl font-bold whitespace-nowrap leading-relaxed">Sep 2024 – Feb 2025</span>
-                  </div>
-                  <div className="flex justify-between items-baseline">
-                    <span className="font-display text-2xl font-semibold text-zinc-300 leading-relaxed">AIESEC in Greece</span>
-                    <span className="exp-gradient text-base md:text-xl font-bold leading-relaxed">Thessaloniki, Greece</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-x-4 gap-y-1">
+                    <h3 className="font-display text-base sm:text-2xl font-semibold text-white leading-snug sm:row-start-1 sm:col-start-1">Associate</h3>
+                    <span className="font-display text-sm sm:text-2xl font-semibold text-zinc-300 sm:row-start-2 sm:col-start-1">AIESEC in Greece</span>
+                    <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold whitespace-nowrap sm:row-start-1 sm:col-start-2 sm:text-right">Sep 2024 – Feb 2025</span>
+                    <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold sm:row-start-2 sm:col-start-2 sm:text-right">Thessaloniki, Greece</span>
                   </div>
                 </div>
                 <p className="text-base md:text-xl text-zinc-500 leading-relaxed">
@@ -313,13 +275,11 @@ export function ExperienceSection() {
             <ScrollRevealCard isLast>
               <LiquidBorderCard className="bg-zinc-900/75 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
                 <div className="bg-black/20 rounded-xl p-5 mb-6">
-                  <div className="flex items-baseline justify-between gap-4 flex-wrap mb-1">
-                    <h3 className="font-display text-2xl font-semibold text-white">Volunteer Assistant</h3>
-                    <span className="exp-gradient text-base md:text-xl font-bold whitespace-nowrap leading-relaxed">Oct 2024</span>
-                  </div>
-                  <div className="flex justify-between items-baseline">
-                    <span className="font-display text-2xl font-semibold text-zinc-300 leading-relaxed">Thessaloniki Night Half Marathon</span>
-                    <span className="exp-gradient text-base md:text-xl font-bold leading-relaxed">Thessaloniki, Greece</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-x-4 gap-y-1">
+                    <h3 className="font-display text-base sm:text-2xl font-semibold text-white leading-snug sm:row-start-1 sm:col-start-1">Volunteer Assistant</h3>
+                    <span className="font-display text-sm sm:text-2xl font-semibold text-zinc-300 sm:row-start-2 sm:col-start-1">Thessaloniki Night Half Marathon</span>
+                    <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold whitespace-nowrap sm:row-start-1 sm:col-start-2 sm:text-right">Oct 2024</span>
+                    <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold sm:row-start-2 sm:col-start-2 sm:text-right">Thessaloniki, Greece</span>
                   </div>
                 </div>
                 <p className="text-base md:text-xl text-zinc-500 leading-relaxed">

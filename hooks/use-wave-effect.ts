@@ -50,9 +50,19 @@ export function useWaveEffect(
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    const { offsetWidth, offsetHeight } = containerRef.current
-    canvas.width = offsetWidth
-    canvas.height = offsetHeight
+    const syncSize = () => {
+      if (!containerRef.current) return
+      const { offsetWidth, offsetHeight } = containerRef.current
+      if (canvas.width !== offsetWidth || canvas.height !== offsetHeight) {
+        canvas.width = offsetWidth
+        canvas.height = offsetHeight
+      }
+    }
+
+    syncSize()
+
+    const resizeObserver = new ResizeObserver(syncSize)
+    resizeObserver.observe(containerRef.current)
 
     const animate = () => {
       stateRef.current.time += 0.01
@@ -102,6 +112,7 @@ export function useWaveEffect(
       if (animationIdRef.current) {
         cancelAnimationFrame(animationIdRef.current)
       }
+      resizeObserver.disconnect()
     }
   }, [canvasRef, containerRef])
 }

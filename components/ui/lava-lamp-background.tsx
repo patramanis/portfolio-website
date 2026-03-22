@@ -12,21 +12,32 @@ export function LavaLampBackground() {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    const setCanvasSize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-    }
-    setCanvasSize()
-    window.addEventListener("resize", setCanvasSize)
+    // Set initial size
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
 
     let gradientX = 0
     let gradientY = 0
     let lastFrameTime = 0
     const frameInterval = 1000 / 30
     let rafId: number
+    // Flag resize instead of calling setCanvasSize directly —
+    // canvas.width= clears the buffer; doing it inside the RAF callback
+    // means the clear + redraw happen in the same composited frame → no flash.
+    let needsResize = false
+    const handleResize = () => { needsResize = true }
+    window.addEventListener("resize", handleResize)
 
     const animate = (currentTime: number) => {
       rafId = requestAnimationFrame(animate)
+
+      if (needsResize) {
+        needsResize = false
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
+        lastFrameTime = 0 // force immediate redraw on this frame
+      }
+
       if (currentTime - lastFrameTime < frameInterval) return
       lastFrameTime = currentTime
 
@@ -53,7 +64,7 @@ export function LavaLampBackground() {
     rafId = requestAnimationFrame(animate)
 
     return () => {
-      window.removeEventListener("resize", setCanvasSize)
+      window.removeEventListener("resize", handleResize)
       cancelAnimationFrame(rafId)
     }
   }, [])

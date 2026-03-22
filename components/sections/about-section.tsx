@@ -90,7 +90,19 @@ export function AboutSection() {
     }
   }, [])
   return (
-    <section className="px-10 pb-24 z-10 overflow-visible min-h-screen" style={{ position: "relative", marginTop: "-100px", paddingTop: "240px" }} data-about-section>
+    <section className="about-section-root px-10 pb-24 z-10 overflow-visible min-h-screen" style={{ position: "relative", marginTop: "-100px", paddingTop: "240px" }} data-about-section>
+      <style>{`
+        /* Ensure text never overlaps wave area — reduce paddingTop on narrow screens */
+        @media (max-width: 1100px) {
+          .about-section-root { padding-top: 200px !important; }
+        }
+        @media (max-width: 900px) {
+          .about-section-root { padding-top: 160px !important; padding-left: 16px !important; padding-right: 16px !important; }
+        }
+        @media (max-width: 600px) {
+          .about-section-root { padding-top: 130px !important; }
+        }
+      `}</style>
       <AboutWavesBackground />
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Section Header */}

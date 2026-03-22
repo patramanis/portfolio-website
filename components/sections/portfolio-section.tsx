@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Github, FileText } from "lucide-react"
+import { ExternalLink, FileText } from "lucide-react"
 import { ExperienceDivider } from "@/components/ui/experience-divider"
 import { LiquidBorderCard } from "@/components/ui/liquid-border-card"
 import { ScrollRevealCard } from "@/components/ui/scroll-reveal-card"
@@ -20,16 +20,14 @@ export function PortfolioSection() {
             <ScrollRevealCard>
               <LiquidBorderCard className="bg-zinc-900/75 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
                 <div className="bg-black/20 rounded-xl p-5 mb-6">
-                  <div className="flex items-center justify-between gap-4 mb-1">
-                    <h3 className="font-display text-2xl font-semibold" style={{ maxWidth: "82%" }}>
+                  <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-x-4 gap-y-1">
+                    <h3 className="font-display text-base sm:text-2xl font-semibold leading-snug sm:row-start-1 sm:col-start-1">
                       <span className="text-white">Adaptive Filters in Machine Learning Models for Sector Rotation Forecasting: </span>
                       <span className="exp-gradient">A Comparative Study under Shifting Uncertainty Regimes</span>
                     </h3>
-                    <span className="exp-gradient text-base md:text-xl font-bold whitespace-nowrap leading-relaxed">Feb 2026</span>
-                  </div>
-                  <div className="flex justify-between items-baseline">
-                    <span className="font-display text-2xl font-semibold text-zinc-300 leading-relaxed">BSc Thesis</span>
-                    <span className="exp-gradient text-base md:text-xl font-bold leading-relaxed">Grade: 10/10</span>
+                    <span className="font-display text-sm sm:text-2xl font-semibold text-zinc-300 sm:row-start-2 sm:col-start-1">BSc Thesis</span>
+                    <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold whitespace-nowrap sm:row-start-1 sm:col-start-2 sm:text-right">Feb 2026</span>
+                    <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold sm:row-start-2 sm:col-start-2 sm:text-right">Grade: 10/10</span>
                   </div>
                 </div>
                 <p className="text-base md:text-xl text-zinc-500 leading-relaxed text-justify">
@@ -64,7 +62,7 @@ export function PortfolioSection() {
                     rel="noopener noreferrer"
                     className="flex items-center gap-4 group w-fit"
                   >
-                    <Github
+                    <ExternalLink
                       size={28}
                       className="text-zinc-400 group-hover:text-zinc-200 transition-colors duration-200"
                     />
@@ -90,15 +88,13 @@ export function PortfolioSection() {
             <ScrollRevealCard>
               <LiquidBorderCard className="bg-zinc-800/70 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
                 <div className="bg-black/20 rounded-xl p-5 mb-6">
-                  <div className="flex items-center justify-between gap-4 mb-1">
-                    <h3 className="font-display text-2xl font-semibold" style={{ maxWidth: "82%" }}>
+                  <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-x-4 gap-y-1">
+                    <h3 className="font-display text-base sm:text-2xl font-semibold leading-snug sm:row-start-1 sm:col-start-1">
                       <span className="text-white">Decentralized Trading: </span>
                       <span className="exp-gradient">Liquidity, Arbitrage &amp; Capital Efficiency</span>
                     </h3>
-                    <span className="exp-gradient text-base md:text-xl font-bold whitespace-nowrap leading-relaxed">Forthcoming, Apr 2026</span>
-                  </div>
-                  <div className="flex justify-between items-baseline">
-                    <span className="font-display text-2xl font-semibold text-zinc-300 leading-relaxed">Finance Club Magazine, University of Macedonia</span>
+                    <span className="font-display text-sm sm:text-2xl font-semibold text-zinc-300 sm:row-start-2 sm:col-start-1">Finance Club Magazine, University of Macedonia</span>
+                    <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold whitespace-nowrap sm:row-start-1 sm:col-start-2 sm:text-right">Forthcoming, Apr 2026</span>
                   </div>
                 </div>
                 <p className="text-sm text-zinc-500 italic mb-4">
@@ -113,15 +109,13 @@ export function PortfolioSection() {
             <ScrollRevealCard>
               <LiquidBorderCard className="bg-zinc-900/75 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
                 <div className="bg-black/20 rounded-xl p-5 mb-6">
-                  <div className="flex items-center justify-between gap-4 mb-1">
-                    <h3 className="font-display text-2xl font-semibold" style={{ maxWidth: "82%" }}>
+                  <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-x-4 gap-y-1">
+                    <h3 className="font-display text-base sm:text-2xl font-semibold leading-snug sm:row-start-1 sm:col-start-1">
                       <span className="text-white">Corporate &amp; Financial Overview </span>
                       <span className="exp-gradient">of Jumbo A.E.E.</span>
                     </h3>
-                    <span className="exp-gradient text-base md:text-xl font-bold whitespace-nowrap leading-relaxed">Oct 2023</span>
-                  </div>
-                  <div className="flex justify-between items-baseline">
-                    <span className="font-display text-2xl font-semibold text-zinc-300 leading-relaxed">Hellenic Investors Association (SED)</span>
+                    <span className="font-display text-sm sm:text-2xl font-semibold text-zinc-300 sm:row-start-2 sm:col-start-1">Hellenic Investors Association (SED)</span>
+                    <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold whitespace-nowrap sm:row-start-1 sm:col-start-2 sm:text-right">Oct 2023</span>
                   </div>
                 </div>
                 <p className="text-sm text-zinc-500 italic mb-4">
@@ -164,15 +158,15 @@ export function PortfolioSection() {
             <ScrollRevealCard>
               <LiquidBorderCard className="bg-zinc-900/75 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
                 <div className="bg-black/20 rounded-xl p-5 mb-6">
-                  <div className="flex items-baseline justify-between gap-4">
-                    <h3 className="font-display text-2xl font-semibold text-white">Best Team Leader</h3>
-                    <span className="text-base md:text-xl font-bold whitespace-nowrap leading-relaxed">
+                  <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-x-4 gap-y-1">
+                    <h3 className="font-display text-base sm:text-2xl font-semibold text-white leading-snug sm:row-start-1 sm:col-start-1">Best Team Leader</h3>
+                    <span className="font-display text-sm sm:text-2xl font-semibold text-zinc-300 sm:row-start-2 sm:col-start-1">AIESEC in Greece</span>
+                    <span className="text-xs sm:text-base md:text-xl font-bold whitespace-nowrap sm:row-start-1 sm:col-start-2 sm:text-right">
                       <span className="exp-gradient">April 2025</span>
-                      <span className="text-white mx-2"> &amp; </span>
+                      <span className="text-white mx-1">&amp;</span>
                       <span className="exp-gradient">June 2025</span>
                     </span>
                   </div>
-                  <span className="font-display text-2xl font-semibold text-zinc-300 leading-relaxed">AIESEC in Greece</span>
                 </div>
                 <p className="text-base md:text-xl text-zinc-500 leading-relaxed text-justify">
                   Recognized for achieving the highest overall performance among peers, evaluated against a comprehensive set of quantitative and qualitative KPIs. My team secured the #1 national ranking for three out of five months and maintained a top-3 standing nationally throughout the semester.
@@ -206,18 +200,14 @@ export function PortfolioSection() {
             <ScrollRevealCard>
               <LiquidBorderCard className="bg-zinc-900/75 backdrop-blur-sm ring-1 ring-zinc-700/40 rounded-2xl p-8">
                 <div className="bg-black/20 rounded-xl p-5 mb-6">
-                  <div className="flex items-center justify-between gap-4 mb-1">
-                    <h3 className="font-display text-2xl font-semibold text-white" style={{ maxWidth: "82%" }}>
-                      Project Recognition
-                    </h3>
-                    <span className="exp-gradient text-base md:text-xl font-bold whitespace-nowrap leading-relaxed">January 2025</span>
-                  </div>
-                  <div className="flex justify-between items-baseline">
-                    <span className="font-display text-2xl font-semibold text-zinc-300 leading-relaxed">University of Macedonia</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-x-4 gap-y-1">
+                    <h3 className="font-display text-base sm:text-2xl font-semibold text-white leading-snug sm:row-start-1 sm:col-start-1">Project Recognition</h3>
+                    <span className="font-display text-sm sm:text-2xl font-semibold text-zinc-300 sm:row-start-2 sm:col-start-1">University of Macedonia</span>
+                    <span className="exp-gradient text-xs sm:text-base md:text-xl font-bold whitespace-nowrap sm:row-start-1 sm:col-start-2 sm:text-right">January 2025</span>
                   </div>
                 </div>
                 <p className="text-base md:text-xl text-zinc-500 leading-relaxed text-justify">
-                  Our project was selected via a competitive voting process to be presented at Pfizer’s Center for Digital Innovation (CDI) in Thessaloniki.
+                  Our project was selected via a competitive voting process to be presented at Pfizer's Center for Digital Innovation (CDI) in Thessaloniki.
                 </p>
                 <div className="border border-zinc-600/50 bg-zinc-800/40 rounded-xl p-4 mt-6 max-w-[566px]">
                   <div className="grid grid-cols-3 gap-3">

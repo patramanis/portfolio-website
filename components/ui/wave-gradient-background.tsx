@@ -13,15 +13,14 @@ export function WaveGradientBackground() {
     const ctx = canvas.getContext("2d", { alpha: true })
     if (!ctx) return
 
-    const handleResize = () => {
-      canvas.width = document.documentElement.clientWidth
-      const parentElement = canvas.parentElement
-      const parentRect = parentElement?.getBoundingClientRect()
-      const remainingHeight = window.innerHeight - (parentRect?.top || 0)
-      canvas.height = Math.max(parentElement?.offsetHeight || 600, remainingHeight)
-    }
+    // Initial size immediately
+    canvas.width = document.documentElement.clientWidth
+    canvas.height = canvas.parentElement?.offsetHeight || 600
 
-    handleResize()
+    // Defer subsequent resizes into the RAF loop so the canvas clear and
+    // the redraw happen in the same frame — eliminates the blank-canvas flash.
+    let needsResize = false
+    const handleResize = () => { needsResize = true }
     window.addEventListener("resize", handleResize)
 
     const drawWaves = (time: number) => {
@@ -69,6 +68,13 @@ export function WaveGradientBackground() {
     let rafId: number
 
     const animate = (currentTime: number) => {
+      if (needsResize) {
+        needsResize = false
+        canvas.width = document.documentElement.clientWidth
+        canvas.height = canvas.parentElement?.offsetHeight || 600
+        lastFrameTimeRef.current = 0 // force draw this frame
+      }
+
       if (currentTime - lastFrameTimeRef.current >= frameInterval) {
         lastFrameTimeRef.current = currentTime
         const time = currentTime * 0.0002

@@ -32,6 +32,7 @@ export function PortfolioHeroSection() {
       if (W === 0 || H === 0) return
       canvas.width = W
       canvas.height = H
+      lastTime = 0 // force immediate redraw so canvas is never blank after resize
 
       const ctx = getContext()
       if (!ctx) return
@@ -92,7 +93,17 @@ export function PortfolioHeroSection() {
       }
     }
 
+    // Defer resize into the RAF loop so canvas clear + redraw happen in the
+    // same frame — eliminates blank-canvas flicker during rapid resizing.
+    let needsResize = false
+    const ro = new ResizeObserver(() => { needsResize = true })
+    ro.observe(canvas)
+
     const animate = (currentTime: number) => {
+      if (needsResize) {
+        needsResize = false
+        resize()
+      }
       if (currentTime - lastTime >= frameInterval) {
         lastTime = currentTime
         draw(currentTime * 0.0004)
@@ -108,9 +119,6 @@ export function PortfolioHeroSection() {
       resize()
       rafId = requestAnimationFrame(animate)
     })
-
-    const ro = new ResizeObserver(resize)
-    ro.observe(canvas)
 
     return () => {
       ro.disconnect()
@@ -145,7 +153,7 @@ export function PortfolioHeroSection() {
         className="absolute w-full flex flex-col items-center px-8"
         style={{ top: "64%", transform: "translateY(-50%)", opacity: "80%" }}
       >
-        <p className="max-w-4xl text-justify font-display text-zinc-950 leading-snug" style={{ fontSize: '25px' }}>
+        <p className="max-w-4xl text-justify font-display text-zinc-950 leading-snug" style={{ fontSize: 'clamp(14px, 2vw, 25px)' }}>
           Always building, always learning. I am actively sharpening my skills
           in AI and data analysis to tackle real-world problems through hands-on projects.
         </p>

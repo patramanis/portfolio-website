@@ -83,11 +83,12 @@
   }
 
   html {
-    @apply bg-transparent;
+    background-color: #1a1a1a;
   }
 
   body {
-    @apply text-foreground bg-transparent;
+    @apply text-foreground;
+    background-color: transparent;
     overflow-y: auto;
   }
 }

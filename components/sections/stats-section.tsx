@@ -82,7 +82,16 @@ export function StatsSection() {
   }, [])
 
   return (
-    <section className="py-24 px-10 relative z-10 bg-transparent" data-stats-section style={{ marginTop: "-40px" }}>
+    <section className="stats-section-root py-24 px-4 sm:px-10 relative z-10 bg-transparent" data-stats-section style={{ marginTop: "-40px", overflow: "hidden" }}>
+      <style>{`
+        /* When backgrounds disappear (1280px), bring the section up ~20% */
+        @media (max-width: 1280px) {
+          .stats-section-root {
+            margin-top: -140px !important;
+            padding-top: 60px !important;
+          }
+        }
+      `}</style>
       <ScreenBackground />
       <div className="max-w-5xl mx-auto relative z-10 mt-20">
         {/* Section Header */}
@@ -104,7 +113,7 @@ export function StatsSection() {
         {/* Stats Grid */}
         <div className="space-y-6 relative z-10" style={{ zIndex: 10 }}>
           {/* First Row - 2 items */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             {stats.slice(0, 2).map((stat) => (
               <Link key={stat.label} href={stat.href}>
                 <WaveCard>
@@ -120,7 +129,7 @@ export function StatsSection() {
           </div>
 
           {/* Second Row - 3 items */}
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
             {stats.slice(2).map((stat) => (
               <Link key={stat.label} href={stat.href}>
                 <WaveCard>
