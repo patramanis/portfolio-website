@@ -1,3 +1,8 @@
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Thomas - Experience",
+}
 import { ExperienceSection } from "@/components/sections/experience-section"
 import { ExperienceHeroSection } from "@/components/sections/experience-hero-section"
 import { NodeNetworkBackground } from "@/components/ui/node-network-background"

@@ -17,26 +17,17 @@ const manrope = Manrope({
 })
 
 export const metadata: Metadata = {
-  title: "Personal Portfolio | Informatics Graduate",
+  title: "Thomas Patramanis",
   description:
     "Personal portfolio of an informatics graduate with strong interest in quantitative finance and machine learning.",
   generator: "v0.app",
   icons: {
     icon: [
       {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
+        url: "/images/bomb.png",
       },
     ],
-    apple: "/apple-icon.png",
+    apple: "/images/bomb.png",
   },
 }
 
