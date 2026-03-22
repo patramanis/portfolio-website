@@ -8,8 +8,8 @@ interface WaveState {
 }
 
 export function useWaveEffect(
-  canvasRef: React.RefObject<HTMLCanvasElement>,
-  containerRef: React.RefObject<HTMLDivElement>,
+  canvasRef: React.RefObject<HTMLCanvasElement | null>,
+  containerRef: React.RefObject<HTMLDivElement | null>,
   isHovering: boolean
 ) {
   const stateRef = useRef<WaveState>({

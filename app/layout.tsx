@@ -21,7 +21,6 @@ export const metadata: Metadata = {
   title: "Thomas Patramanis",
   description:
     "Personal portfolio of an informatics graduate with strong interest in quantitative finance and machine learning.",
-  generator: "v0.app",
   icons: {
     icon: [
       {
