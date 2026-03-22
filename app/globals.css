@@ -141,3 +141,25 @@ html {
     transform: translateX(-50%);
   }
 }
+
+/* ── Loading screen – pure CSS (compositor-threaded, immune to main-thread JS) ─ */
+
+/* Logo bounce-in: 0 → overshoot → undershoot → settle */
+@keyframes bombPopIn {
+  0%   { transform: scale(0.01); opacity: 0; }
+  55%  { transform: scale(1.18); opacity: 1; animation-timing-function: ease-in-out; }
+  77%  { transform: scale(0.96); opacity: 1; animation-timing-function: ease-in-out; }
+  100% { transform: scale(1.00); opacity: 1; }
+}
+
+/* Logo zoom-out on exit */
+@keyframes bombExitAnim {
+  from { transform: scale(1);  opacity: 1; }
+  to   { transform: scale(90); opacity: 0; }
+}
+
+/* Background fade-out on exit */
+@keyframes loadingBgExit {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}

@@ -11,6 +11,7 @@ import {
 import { useRouter, usePathname } from "next/navigation"
 import { useLenis } from "@studio-freight/react-lenis"
 import { useLoading } from "./loading-provider"
+import { useTopSectionReady } from "./top-section-ready-provider"
 
 type TransitionType = "standard" | "sibling" | "none"
 // "waiting" = wave is opaque on screen, router.push fired, waiting for new Template to mount
@@ -54,6 +55,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const router   = useRouter()
   const pathname = usePathname()
   const { isTransitionDone } = useLoading()
+  const { reset: resetTopSection } = useTopSectionReady()
 
   const [transitionPhase, setTransitionPhase] = useState<TransitionPhase>("idle")
   const [transitionType,  setTransitionType]  = useState<TransitionType>("none")
@@ -86,13 +88,16 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
       window.scrollTo(0, 0)
       lenisRef.current?.scrollTo(0, { immediate: true })
 
+      // Reset top-section readiness so the new page must signal before revealing
+      resetTopSection()
+
       // Trigger Next.js navigation — unmounts old Template, mounts new one
       router.push(href)
 
       // Hold wave on screen until the new Template signals it has mounted
       setTransitionPhase("waiting")
     },
-    [transitionPhase, isTransitionDone, pathname, router]
+    [transitionPhase, isTransitionDone, pathname, router, resetTopSection]
   )
 
   // Called from Template's mount effect — new page is in the DOM, safe to reveal

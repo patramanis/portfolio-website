@@ -7,10 +7,12 @@ import { motion } from "framer-motion"
 import { LiquidMetalBorder } from "@/components/ui/liquid-metal-border"
 import { FloatingClouds } from "@/components/ui/floating-clouds"
 import { usePerspectiveTransform } from "@/hooks/use-perspective-transform"
+import { useTopSectionReady } from "@/components/providers/top-section-ready-provider"
 
 export function HeroSection() {
   const profileImageRef = useRef<HTMLDivElement>(null)
   const [scrollOpacity, setScrollOpacity] = useState(1)
+  const { markReady } = useTopSectionReady()
 
   usePerspectiveTransform(profileImageRef, {
     maxRotation: 12,
@@ -126,6 +128,7 @@ export function HeroSection() {
                     priority
                     draggable={false}
                     onContextMenu={(e) => e.preventDefault()}
+                    onLoad={markReady}
                   />
                 </div>
               </LiquidMetalBorder>

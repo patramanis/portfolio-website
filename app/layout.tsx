@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { LenisProvider } from "@/components/providers/lenis-provider"
 import { LoadingProvider } from "@/components/providers/loading-provider"
 import { PageTransitionProvider } from "@/components/providers/page-transition-provider"
+import { TopSectionReadyProvider } from "@/components/providers/top-section-ready-provider"
 import { LavaLampBackground } from "@/components/ui/lava-lamp-background"
 import { LoadingScreen } from "@/components/ui/loading-screen"
 import { WaveTransitionOverlay } from "@/components/ui/wave-transition-overlay"
@@ -46,15 +47,17 @@ export default function RootLayout({
       </head>
       <body className={`${manrope.variable} font-sans antialiased text-zinc-100`}>
         <LoadingProvider>
-          <LoadingScreen />
-          <LavaLampBackground />
-          <LenisProvider>
-            <PageTransitionProvider>
-              <WaveTransitionOverlay />
-              <Navbar />
-              {children}
-            </PageTransitionProvider>
-          </LenisProvider>
+          <TopSectionReadyProvider>
+            <LoadingScreen />
+            <LenisProvider>
+              <PageTransitionProvider>
+                <WaveTransitionOverlay />
+                <LavaLampBackground />
+                <Navbar />
+                {children}
+              </PageTransitionProvider>
+            </LenisProvider>
+          </TopSectionReadyProvider>
         </LoadingProvider>
         <Analytics />
       </body>

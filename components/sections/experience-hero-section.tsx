@@ -2,10 +2,14 @@
 
 import { useRef, useEffect, useState } from "react"
 import { ChevronDown } from "lucide-react"
+import { useTopSectionReady } from "@/components/providers/top-section-ready-provider"
 
 export function ExperienceHeroSection() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [opacity, setOpacity] = useState(1)
+  const { markReady } = useTopSectionReady()
+  const markReadyRef = useRef(markReady)
+  markReadyRef.current = markReady
 
   // ── Animated canvas: dark gradient box + inverted wave bottom + text cutout ──
   useEffect(() => {
@@ -18,6 +22,7 @@ export function ExperienceHeroSection() {
     let rafId: number
     const frameInterval = 1000 / 30
     let lastTime = 0
+    let firstFrameDrawn = false
 
     const getContext = () => canvas.getContext("2d")
 
@@ -98,6 +103,10 @@ export function ExperienceHeroSection() {
       if (currentTime - lastTime >= frameInterval) {
         lastTime = currentTime
         draw(currentTime * 0.0004)
+        if (!firstFrameDrawn) {
+          firstFrameDrawn = true
+          markReadyRef.current()
+        }
       }
       rafId = requestAnimationFrame(animate)
     }

@@ -1,131 +1,136 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
+import { useState, useEffect, useRef, useCallback } from "react"
 import Image from "next/image"
 import { useMarkDone } from "@/components/providers/loading-provider"
+import { useTopSectionReady } from "@/components/providers/top-section-ready-provider"
 
-const LOGO_SIZE = 100
-
-// Durations (ms → s for Framer Motion)
-const POP_IN_DURATION = 0.62   // total time for the 3-segment bounce
-const POP_OUT_DURATION = 0.72   // logo zoom-out
-const BG_FADE_DURATION = 0.45   // background opacity fade (0.4s earlier than before)
-// Reveal content slightly before the bg fully fades so the transition is seamless
-const REVEAL_DELAY_MS = 380
-const DONE_DELAY_MS = 760
+const LOGO_SIZE        = 100
+const REVEAL_DELAY_MS  = 380    // when to mark loading done (content starts appearing)
+const DONE_DELAY_MS    = 760    // when loading screen fully unmounts
+const MIN_DISPLAY_MS   = 1400   // minimum time loading screen is shown
+const POST_LOAD_GRACE_MS = 3000 // max extra wait for isReady after pageLoad
+const ABSOLUTE_MAX_MS  = 7000   // hard ceiling regardless of state
 
 export function LoadingScreen() {
-  const [phase, setPhase] = useState<"loading" | "exiting" | "done">("loading")
-  const [logoVisible, setLogoVisible] = useState(false)
+  const [isDone, setIsDone] = useState(false)
   const markDone = useMarkDone()
+  const { isReady } = useTopSectionReady()
 
-  // Trigger pop-in on first browser paint (avoids hydration timing issues)
+  const mountTimeRef   = useRef(Date.now())
+  const exitStartedRef = useRef(false)
+  const bgRef          = useRef<HTMLDivElement>(null)
+  const logoRef        = useRef<HTMLDivElement>(null)
+
+  // ── Pop-in: direct DOM mutation on the first animation frame ────────────
+  // Bypasses React's render cycle so the CSS animation starts on exactly the
+  // first compositor frame, with zero main-thread scheduling overhead.
   useEffect(() => {
-    const id = requestAnimationFrame(() => setLogoVisible(true))
+    const id = requestAnimationFrame(() => {
+      if (logoRef.current) {
+        logoRef.current.style.animation =
+          "bombPopIn 0.62s ease-out forwards"
+      }
+    })
     return () => cancelAnimationFrame(id)
   }, [])
 
-  // Schedule exit once the page is fully loaded
+  // ── beginExit: direct DOM mutations for the exit sequence ───────────────
+  // Applies CSS exit animations directly so no React re-render competes with
+  // the fade/zoom-out on the main thread.
+  const beginExit = useCallback(() => {
+    if (exitStartedRef.current) return
+    exitStartedRef.current = true
+
+    // Lock the logo at its settled state, then swap to the exit animation
+    if (logoRef.current) {
+      logoRef.current.style.transform = "scale(1)"
+      logoRef.current.style.opacity   = "1"
+      logoRef.current.style.animation =
+        "bombExitAnim 0.72s cubic-bezier(0.42, 0, 1, 1) forwards"
+    }
+
+    // Fade background out and disable pointer events
+    if (bgRef.current) {
+      bgRef.current.style.pointerEvents = "none"
+      bgRef.current.style.animation     =
+        "loadingBgExit 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards"
+    }
+
+    // Signal content to appear (slightly before bg fully fades for a seamless blend)
+    setTimeout(markDone, REVEAL_DELAY_MS)
+    // Remove DOM nodes once animations are done
+    setTimeout(() => setIsDone(true), DONE_DELAY_MS)
+  }, [markDone])
+
+  // ── Page-load tracking ───────────────────────────────────────────────────
+  const [pageLoaded, setPageLoaded] = useState(false)
   useEffect(() => {
-    const mountTime = Date.now()
-    let exitTimer: ReturnType<typeof setTimeout>
-    let revealTimer: ReturnType<typeof setTimeout>
-    let doneTimer: ReturnType<typeof setTimeout>
-
-    const beginExit = () => {
-      setPhase("exiting")
-      revealTimer = setTimeout(markDone, REVEAL_DELAY_MS)
-      doneTimer = setTimeout(() => setPhase("done"), DONE_DELAY_MS)
-    }
-
-    const scheduleExit = () => {
-      // Give pop-in spring a moment to fully settle before we fire exit
-      const elapsed = Date.now() - mountTime
-      const wait = Math.max(0, 1400 - elapsed)
-      exitTimer = setTimeout(beginExit, wait)
-    }
-
-    if (document.readyState === "complete") {
-      scheduleExit()
-    } else {
-      window.addEventListener("load", scheduleExit, { once: true })
-      const fallback = setTimeout(beginExit, 7000)
-      return () => {
-        clearTimeout(exitTimer)
-        clearTimeout(revealTimer)
-        clearTimeout(doneTimer)
-        clearTimeout(fallback)
-        window.removeEventListener("load", scheduleExit)
-      }
-    }
-
-    return () => {
-      clearTimeout(exitTimer)
-      clearTimeout(revealTimer)
-      clearTimeout(doneTimer)
-    }
+    if (document.readyState === "complete") { setPageLoaded(true); return }
+    const onLoad = () => setPageLoaded(true)
+    window.addEventListener("load", onLoad, { once: true })
+    return () => window.removeEventListener("load", onLoad)
   }, [])
 
-  if (phase === "done") return null
+  // ── Main gate: wait for BOTH pageLoaded AND isReady ──────────────────────
+  useEffect(() => {
+    if (!pageLoaded || !isReady) return
+    const elapsed = Date.now() - mountTimeRef.current
+    const wait    = Math.max(0, MIN_DISPLAY_MS - elapsed)
+    const t = setTimeout(beginExit, wait)
+    return () => clearTimeout(t)
+  }, [pageLoaded, isReady, beginExit])
 
-  const isExiting = phase === "exiting"
+  // ── Grace: if isReady never fires within 3s of pageLoad, proceed anyway ──
+  useEffect(() => {
+    if (!pageLoaded) return
+    const t = setTimeout(beginExit, POST_LOAD_GRACE_MS)
+    return () => clearTimeout(t)
+  }, [pageLoaded, beginExit])
 
-  const logoAnimate = isExiting
-    ? { scale: 90, opacity: 0 }
-    : logoVisible
-      ? { scale: [0.01, 1.18, 0.96, 1.00], opacity: [0, 1, 1, 1] }
-      : { scale: 0.01, opacity: 0 }
+  // ── Absolute fallback ────────────────────────────────────────────────────
+  useEffect(() => {
+    const t = setTimeout(beginExit, ABSOLUTE_MAX_MS)
+    return () => clearTimeout(t)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-  const logoTransition = isExiting
-    ? {
-      duration: POP_OUT_DURATION,
-      ease: [0.42, 0, 1, 1] as const,
-    }
-    : {
-      duration: POP_IN_DURATION,
-      times: [0, 0.55, 0.77, 1],
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ease: ["easeOut", "easeInOut", "easeInOut"] as any,
-    }
+  if (isDone) return null
 
   return (
     <>
-      <motion.div
-        initial={{ opacity: 1 }}
-        animate={{ opacity: isExiting ? 0 : 1 }}
-        transition={isExiting
-          ? { duration: BG_FADE_DURATION, ease: [0.4, 0, 0.2, 1] }
-          : { duration: 0 }
-        }
+      {/* Background — plain div, animation injected via ref when exiting */}
+      <div
+        ref={bgRef}
         style={{
           position: "fixed",
           inset: 0,
           zIndex: 9999,
           background:
             "radial-gradient(ellipse at 50% 46%, #1d1d1d 0%, #121212 52%, #080808 100%)",
-          pointerEvents: isExiting ? "none" : "all",
-          willChange: "opacity",
+          pointerEvents: "all",
         }}
       />
 
-      <motion.div
+      {/* Logo — starts invisible; pop-in CSS animation injected via ref on mount */}
+      <div
+        ref={logoRef}
         style={{
-          position: "fixed",
-          zIndex: 10000,
-          width: LOGO_SIZE,
-          height: LOGO_SIZE,
-          left: "50%",
-          top: "50%",
-          marginLeft: -LOGO_SIZE / 2,
-          marginTop: -LOGO_SIZE / 2,
+          position:      "fixed",
+          zIndex:        10000,
+          width:         LOGO_SIZE,
+          height:        LOGO_SIZE,
+          left:          "50%",
+          top:           "50%",
+          marginLeft:    -LOGO_SIZE / 2,
+          marginTop:     -LOGO_SIZE / 2,
           pointerEvents: "none",
-          willChange: "transform, opacity",
           transformOrigin: "70% 40%",
+          willChange:    "transform, opacity",
+          // Initial invisible state before RAF fires
+          transform:     "scale(0.01)",
+          opacity:       0,
         }}
-        initial={{ scale: 0.01, opacity: 0 }}
-        animate={logoAnimate}
-        transition={logoTransition}
       >
         <Image
           src="/images/bomb.png"
@@ -135,7 +140,7 @@ export function LoadingScreen() {
           style={{ width: "100%", height: "100%", objectFit: "contain" }}
           priority
         />
-      </motion.div>
+      </div>
     </>
   )
 }
