@@ -3,14 +3,14 @@
 import Image from "next/image"
 import { ChevronDown } from "lucide-react"
 import { useRef, useState, useEffect } from "react"
+import { motion } from "framer-motion"
 import { LiquidMetalBorder } from "@/components/ui/liquid-metal-border"
 import { FloatingClouds } from "@/components/ui/floating-clouds"
 import { usePerspectiveTransform } from "@/hooks/use-perspective-transform"
 
 export function HeroSection() {
   const profileImageRef = useRef<HTMLDivElement>(null)
-  const moreAboutMeRef = useRef<HTMLDivElement>(null)
-  const [opacity, setOpacity] = useState(1)
+  const [scrollOpacity, setScrollOpacity] = useState(1)
 
   usePerspectiveTransform(profileImageRef, {
     maxRotation: 12,
@@ -24,16 +24,9 @@ export function HeroSection() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Calculate opacity based on intersection ratio
-        // When "About Me" is completely off-screen below: opacity = 1
-        // When "About Me" is entering the viewport from bottom: opacity fades out
-        // When "About Me" is fully visible: opacity = 0
-        const newOpacity = 1 - entry.intersectionRatio
-        setOpacity(newOpacity)
+        setScrollOpacity(1 - entry.intersectionRatio)
       },
-      {
-        threshold: [0, 0.2, 0.4, 0.6, 0.8, 1],
-      }
+      { threshold: [0, 0.2, 0.4, 0.6, 0.8, 1] }
     )
 
     observer.observe(aboutHeading)
@@ -46,6 +39,13 @@ export function HeroSection() {
     WebkitTextFillColor: "transparent",
     backgroundClip: "text",
   } as React.CSSProperties
+
+  // Staggered spring reveal — elements animate in once loading is done
+  const reveal = (delay: number) => ({
+    initial: { opacity: 0, scale: 0.88, y: 24 },
+    animate: { opacity: 1, scale: 1, y: 0 },
+    transition: { type: "spring" as const, stiffness: 300, damping: 24, delay },
+  })
 
   return (
     <section className="relative w-full h-[calc(100vh-56px)] mt-14">
@@ -90,15 +90,20 @@ export function HeroSection() {
           animation: glowFlicker 4s ease-in-out infinite;
         }
       `}</style>
-      {/* Floating Clouds - section level, full viewport width */}
+
+      {/* Floating Clouds */}
       <div className="absolute inset-0 pointer-events-none z-20">
         <FloatingClouds />
       </div>
 
-      {/* Two equal 50% containers filling the available space */}
+      {/* Two equal 50% containers */}
       <div className="relative z-10 flex w-full h-full">
-        {/* LEFT (50%) - Profile Image centered */}
-        <div className="w-1/2 flex items-center justify-center">
+
+        {/* LEFT (50%) — Profile Image */}
+        <motion.div
+          className="w-1/2 flex items-center justify-center"
+          {...reveal(0)}
+        >
           <div className="relative" style={{ transform: "translateX(-11%)" }}>
             <div
               ref={profileImageRef}
@@ -125,28 +130,40 @@ export function HeroSection() {
                 </div>
               </LiquidMetalBorder>
             </div>
-
           </div>
-        </div>
+        </motion.div>
 
-        {/* RIGHT (50%) - Text Content centered, More about me at bottom */}
-        <div className="w-1/2 relative flex flex-col justify-center overflow-visible" style={{ zIndex: 20, paddingRight: "40px" }}>
-          {/* Text group - centered in the container */}
-          <div className="flex flex-col gap-8" style={{ alignItems: "flex-start", position: "relative", zIndex: 20 }}>
-            {/* "Hi, I am Thomas." - slight right offset */}
-            <div style={{ paddingLeft: "20px" }}>
-              <div style={{ fontSize: "80px", lineHeight: "1", fontFamily: '"Cal Sans", system-ui, sans-serif', fontWeight: 700 }}>
+        {/* RIGHT (50%) — Text Content */}
+        <div
+          className="w-1/2 relative flex flex-col justify-center overflow-visible"
+          style={{ zIndex: 20, paddingRight: "40px" }}
+        >
+          <div
+            className="flex flex-col gap-8"
+            style={{ alignItems: "flex-start", position: "relative", zIndex: 20 }}
+          >
+            {/* "Hi, I am Thomas." */}
+            <motion.div style={{ paddingLeft: "20px" }} {...reveal(0.1)}>
+              <div
+                style={{
+                  fontSize: "80px",
+                  lineHeight: "1",
+                  fontFamily: '"Cal Sans", system-ui, sans-serif',
+                  fontWeight: 700,
+                }}
+              >
                 <span className="text-white">Hi, I am </span>
-                <span className="animated-gradient-thomas">
-                  Thomas
-                </span>
+                <span className="animated-gradient-thomas">Thomas</span>
                 <span style={greyGradient}>.</span>
               </div>
-            </div>
+            </motion.div>
 
-            {/* "Welcome to my website" - shifted 25% left */}
-            <div style={{ transform: "translateX(-20%)", paddingLeft: "10%" }}>
-              {/* Row 1: Welcome + to(vertical, right of Welcome) */}
+            {/* "Welcome to my website" */}
+            <motion.div
+              style={{ transform: "translateX(-20%)", paddingLeft: "10%" }}
+              {...reveal(0.19)}
+            >
+              {/* Row 1: Welcome + to (vertical) */}
               <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
                 <span
                   className="font-display font-bold text-white leading-none"
@@ -195,35 +212,40 @@ export function HeroSection() {
                   website
                 </span>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Subheadline - Two lines */}
-            <p className="text-base md:text-xl text-zinc-500 leading-relaxed" style={{ paddingLeft: "30px", marginTop: "-4%", marginLeft: "2.5%" }}>
+            {/* Subheadline */}
+            <motion.p
+              className="text-base md:text-xl text-zinc-500 leading-relaxed"
+              style={{ paddingLeft: "30px", marginTop: "-4%", marginLeft: "2.5%" }}
+              {...reveal(0.27)}
+            >
               I am an applied informatics graduate, with strong<br />
               interest in data science and quantitative analysis.
-            </p>
+            </motion.p>
           </div>
-
         </div>
       </div>
 
-      {/* "More about me" - center of gap between image and right edge, 5% up from bottom */}
-      <div
-        ref={moreAboutMeRef}
-        className="absolute flex flex-col items-center animate-bounce cursor-pointer z-30 transition-opacity duration-300"
-        style={{
-          bottom: "5%",
-          left: "64.7%",
-          transform: "translateX(-50%)",
-          opacity: opacity,
-          pointerEvents: opacity < 0.1 ? 'none' : 'auto'
-        }}
+      {/* "More about me" — wrapper handles pop-in, inner div handles scroll fade */}
+      <motion.div
+        className="absolute flex flex-col items-center cursor-pointer z-30"
+        style={{ bottom: "5%", left: "64.7%", transform: "translateX(-50%)" }}
+        {...reveal(0.37)}
       >
-        <span className="text-sm text-zinc-400 font-medium tracking-wide transition-colors duration-300 hover:text-zinc-200">
-          More about me
-        </span>
-        <ChevronDown className="w-4 h-4 text-zinc-500 mt-1 transition-colors duration-300 hover:text-zinc-300" />
-      </div>
+        <div
+          className="flex flex-col items-center animate-bounce transition-opacity duration-300"
+          style={{
+            opacity: scrollOpacity,
+            pointerEvents: scrollOpacity < 0.1 ? "none" : "auto",
+          }}
+        >
+          <span className="text-sm text-zinc-400 font-medium tracking-wide transition-colors duration-300 hover:text-zinc-200">
+            More about me
+          </span>
+          <ChevronDown className="w-4 h-4 text-zinc-500 mt-1 transition-colors duration-300 hover:text-zinc-300" />
+        </div>
+      </motion.div>
     </section>
   )
 }

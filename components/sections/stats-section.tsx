@@ -15,29 +15,49 @@ const stats = [
 
 function AnimatedCounter({ target }: { target: number }) {
   const [count, setCount] = useState(0)
+  const [hasStarted, setHasStarted] = useState(false)
+  const ref = useRef<HTMLSpanElement>(null)
 
+  // Start only when this element scrolls into view
   useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasStarted(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.2 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  // Run counter RAF only after entering viewport
+  useEffect(() => {
+    if (!hasStarted) return
     let animationFrame: number
-    let currentValue = 0
-    const duration = 2000 // 2 seconds
+    const duration = 2000
     const startTime = Date.now()
 
     const animate = () => {
       const elapsed = Date.now() - startTime
       const progress = Math.min(elapsed / duration, 1)
-      currentValue = Math.floor(progress * target)
-      setCount(currentValue)
-
+      setCount(Math.floor(progress * target))
       if (progress < 1) {
         animationFrame = requestAnimationFrame(animate)
+      } else {
+        setCount(target)
       }
     }
 
     animationFrame = requestAnimationFrame(animate)
     return () => cancelAnimationFrame(animationFrame)
-  }, [target])
+  }, [hasStarted, target])
 
-  return <span>{count}</span>
+  return <span ref={ref}>{count}</span>
 }
 
 export function StatsSection() {

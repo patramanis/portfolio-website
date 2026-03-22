@@ -16,7 +16,6 @@ export function usePerspectiveTransform(
     const currentRotationRef = useRef({ x: 0, y: 0 })
     const isHoveringRef = useRef(false)
     const lastUpdateTimeRef = useRef(0)
-    const mouseDataRef = useRef({ x: 0, y: 0 })
 
     useEffect(() => {
         const element = elementRef.current
@@ -34,9 +33,6 @@ export function usePerspectiveTransform(
 
             const x = e.clientX - centerX
             const y = e.clientY - centerY
-
-            // Store mouse data for RAF processing
-            mouseDataRef.current = { x, y }
 
             // Check if we just started hovering (came from mouseleave)
             if (!isHoveringRef.current) {

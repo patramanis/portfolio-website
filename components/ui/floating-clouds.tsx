@@ -7,8 +7,6 @@ interface FloatingCloud {
     top: string
     left: string
     size: number
-    duration: number
-    delay: number
 }
 
 const clouds: FloatingCloud[] = [
@@ -17,30 +15,27 @@ const clouds: FloatingCloud[] = [
         top: "180px",
         left: "120px",
         size: 240,
-        duration: 7,
-        delay: 1,
     },
     {
         src: "/images/Welcome (2).png",
         top: "330px",
         left: "calc(98% - 290px)",
         size: 290,
-        duration: 6,
-        delay: 0,
     },
     {
         src: "/images/Welcome (3).png",
         top: "100px",
         left: "calc(41% - 75px)",
         size: 200,
-        duration: 8,
-        delay: 0.5,
     },
 ]
 
 export function FloatingClouds() {
     return (
-        <div className="absolute -inset-20 pointer-events-none overflow-visible" style={{ zIndex: 9999 }}>            <style>{`
+        <div
+            className="absolute -inset-20 pointer-events-none overflow-visible"
+            style={{ zIndex: 9999 }}
+        >            <style>{`
         @keyframes float1 {
           0%, 100% { transform: translateY(0px) translateX(0px); }
           25% { transform: translateY(-8px) translateX(4px); }

@@ -1,7 +1,7 @@
 "use client"
 
-import { Code, Brain, Database, Boxes } from "lucide-react"
-import { useRef, useEffect } from "react"
+import { Code, Brain, Database, Boxes, type LucideIcon } from "lucide-react"
+import { useRef, useEffect, useState } from "react"
 import { AboutWavesBackground } from "@/components/ui/about-waves-background"
 
 const interests = [
@@ -26,6 +26,44 @@ const interests = [
     description: "Built web applications, mobile apps, and data-driven tools using Python, Java, JavaScript, SQL, and C. ",
   },
 ]
+
+type Interest = { icon: LucideIcon; title: string; description: string }
+
+function InterestBox({ interest }: { interest: Interest }) {
+  const [hovered, setHovered] = useState(false)
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="p-6 rounded-2xl"
+      style={{
+        backgroundColor: hovered ? "rgba(63,63,70,0.5)" : "rgba(39,39,42,0.5)",
+        border: `1px solid ${hovered ? "rgba(82,82,91,0.5)" : "rgba(63,63,70,0.5)"}`,
+        transition: "background-color 0.45s cubic-bezier(0.4,0,0.2,1), border-color 0.45s cubic-bezier(0.4,0,0.2,1)",
+      }}
+    >
+      <div className="flex items-start gap-4">
+        <div
+          className="p-3 rounded-xl bg-zinc-700/50"
+          style={{
+            color: hovered ? "rgb(212,212,216)" : "rgb(161,161,170)",
+            transition: "color 0.45s cubic-bezier(0.4,0,0.2,1)",
+          }}
+        >
+          <interest.icon className="w-6 h-6" />
+        </div>
+        <div>
+          <h3 className="font-display text-xl font-semibold text-zinc-100 mb-2" style={{ letterSpacing: "0.03em" }}>
+            {interest.title}
+          </h3>
+          <p className="text-zinc-500 leading-relaxed">
+            {interest.description}
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export function AboutSection() {
   const meRef = useRef<HTMLSpanElement>(null)
@@ -101,24 +139,7 @@ export function AboutSection() {
         {/* Interests Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {interests.map((interest) => (
-            <div
-              key={interest.title}
-              className="group p-6 rounded-2xl bg-zinc-800/50 border border-zinc-700/50 hover:border-zinc-600/50 transition-all duration-300 hover:bg-zinc-700/50"
-            >
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-xl bg-zinc-700/50 text-zinc-400 group-hover:text-zinc-300 transition-colors">
-                  <interest.icon className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="font-display text-xl font-semibold text-zinc-100 mb-2" style={{ letterSpacing: "0.03em" }}>
-                    {interest.title}
-                  </h3>
-                  <p className="text-zinc-500 leading-relaxed">
-                    {interest.description}
-                  </p>
-                </div>
-              </div>
-            </div>
+            <InterestBox key={interest.title} interest={interest} />
           ))}
         </div>
       </div>

@@ -57,7 +57,7 @@ export function SocialsSection() {
   }
 
   return (
-    <section className="py-24 px-10 relative z-10 bg-transparent pt-56" data-socials-section style={{ overflowX: "clip", paddingBottom: "56px" }}>
+    <section className="py-24 px-10 relative z-10 bg-transparent pt-56" data-socials-section style={{ overflowX: "clip", paddingBottom: "0" }}>
       <WaveGradientBackground />
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Section Header */}
@@ -145,6 +145,9 @@ export function SocialsSection() {
           })}
         </div>
       </div>
+
+      {/* Copyright — inside the section so the wave gradient covers it fully */}
+      <p className="relative z-10 text-center text-zinc-600 text-xs mt-16 pb-10">© 2026 All rights reserved.</p>
     </section>
   )
 }

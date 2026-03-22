@@ -3,7 +3,12 @@ import type { Metadata } from "next"
 import { Manrope } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { LenisProvider } from "@/components/providers/lenis-provider"
+import { LoadingProvider } from "@/components/providers/loading-provider"
+import { PageTransitionProvider } from "@/components/providers/page-transition-provider"
 import { LavaLampBackground } from "@/components/ui/lava-lamp-background"
+import { LoadingScreen } from "@/components/ui/loading-screen"
+import { WaveTransitionOverlay } from "@/components/ui/wave-transition-overlay"
+import { Navbar } from "@/components/ui/navbar"
 import "./globals.css"
 
 const manrope = Manrope({
@@ -49,8 +54,17 @@ export default function RootLayout({
         />
       </head>
       <body className={`${manrope.variable} font-sans antialiased text-zinc-100`}>
-        <LavaLampBackground />
-        <LenisProvider>{children}</LenisProvider>
+        <LoadingProvider>
+          <LoadingScreen />
+          <LavaLampBackground />
+          <LenisProvider>
+            <PageTransitionProvider>
+              <WaveTransitionOverlay />
+              <Navbar />
+              {children}
+            </PageTransitionProvider>
+          </LenisProvider>
+        </LoadingProvider>
         <Analytics />
       </body>
     </html>

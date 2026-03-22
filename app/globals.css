@@ -129,3 +129,15 @@ html {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Wave transition overlay – continuous horizontal slide for the wave edge SVG.
+   The SVG is 200% wide so translating by –50% creates a seamless loop. */
+@keyframes waveScroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
