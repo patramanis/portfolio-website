@@ -1,5 +1,7 @@
 "use client"
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
+
 export function ScreenBackground() {
   return (
     <>
@@ -10,7 +12,7 @@ export function ScreenBackground() {
           left: 0;
           width: 100%;
           height: calc(100% + 200px);
-          background-image: url('/images/screen3.png');
+          background-image: url('${basePath}/images/screen3.png');
           background-size: cover;
           background-position: center;
           pointer-events: none;
