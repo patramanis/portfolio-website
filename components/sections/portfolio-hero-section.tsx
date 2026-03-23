@@ -88,7 +88,7 @@ export function PortfolioHeroSection() {
         ctx.textAlign = "center"
         ctx.textBaseline = "middle"
         ctx.fillStyle = "rgba(0, 0, 0, 1)"
-        ctx.fillText("Portfolio", W / 2, boxH * 0.38)
+        ctx.fillText("PORTFOLIO", W / 2, boxH * 0.38)
         ctx.globalCompositeOperation = "source-over"
       }
     }

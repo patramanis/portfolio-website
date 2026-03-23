@@ -95,7 +95,7 @@ export function ExperienceHeroSection() {
         ctx.textAlign = "center"
         ctx.textBaseline = "middle"
         ctx.fillStyle = "rgba(0, 0, 0, 1)"
-        ctx.fillText("Experience", W / 2, boxH * 0.38)
+        ctx.fillText("EXPERIENCE", W / 2, boxH * 0.38)
         ctx.globalCompositeOperation = "source-over"
       }
     }
