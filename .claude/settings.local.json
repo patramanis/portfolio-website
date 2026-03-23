@@ -4,7 +4,8 @@
       "Bash(npx next:*)",
       "Bash(pnpm build:*)",
       "Bash(npx tsc:*)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(npm run:*)"
     ]
   }
 }
