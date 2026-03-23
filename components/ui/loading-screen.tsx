@@ -5,6 +5,8 @@ import Image from "next/image"
 import { useMarkDone } from "@/components/providers/loading-provider"
 import { useTopSectionReady } from "@/components/providers/top-section-ready-provider"
 
+const imgBase = process.env.NEXT_PUBLIC_BASE_PATH || ""
+
 const LOGO_SIZE        = 100
 const REVEAL_DELAY_MS  = 380    // when to mark loading done (content starts appearing)
 const DONE_DELAY_MS    = 760    // when loading screen fully unmounts
@@ -133,7 +135,7 @@ export function LoadingScreen() {
         }}
       >
         <Image
-          src="/images/bomb.png"
+          src={`${imgBase}/images/bomb.png`}
           alt="Logo"
           width={LOGO_SIZE}
           height={LOGO_SIZE}

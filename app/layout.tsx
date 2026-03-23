@@ -17,6 +17,8 @@ const manrope = Manrope({
   variable: "--font-manrope",
 })
 
+const imgBase = process.env.NEXT_PUBLIC_BASE_PATH || ""
+
 export const metadata: Metadata = {
   title: "Thomas Patramanis",
   description:
@@ -24,10 +26,10 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/images/bomb.png",
+        url: `${imgBase}/images/bomb.png`,
       },
     ],
-    apple: "/images/bomb.png",
+    apple: `${imgBase}/images/bomb.png`,
   },
 }
 

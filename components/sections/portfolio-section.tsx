@@ -1,5 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
+
+const imgBase = process.env.NEXT_PUBLIC_BASE_PATH || ""
 import { ExternalLink, FileText } from "lucide-react"
 import { ExperienceDivider } from "@/components/ui/experience-divider"
 import { LiquidBorderCard } from "@/components/ui/liquid-border-card"
@@ -37,7 +39,7 @@ export function PortfolioSection() {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="relative w-full aspect-video rounded-xl overflow-hidden">
                       <Image
-                        src="/images/distributions.png"
+                        src={`${imgBase}/images/distributions.png`}
                         alt="Distributions"
                         fill
                         draggable={false}
@@ -46,7 +48,7 @@ export function PortfolioSection() {
                     </div>
                     <div className="relative w-full aspect-video rounded-xl overflow-hidden">
                       <Image
-                        src="/images/equitycurve.png"
+                        src={`${imgBase}/images/equitycurve.png`}
                         alt="Equity Curve"
                         fill
                         draggable={false}
@@ -175,7 +177,7 @@ export function PortfolioSection() {
                   <div className="grid grid-cols-2 gap-3">
                     <div className="relative w-full aspect-video rounded-lg overflow-hidden">
                       <Image
-                        src="/images/besttl.jfif"
+                        src={`${imgBase}/images/besttl.jfif`}
                         alt="Best Team Leader Award"
                         fill
                         draggable={false}
@@ -184,7 +186,7 @@ export function PortfolioSection() {
                     </div>
                     <div className="relative w-full aspect-video rounded-lg overflow-hidden">
                       <Image
-                        src="/images/bestteam.jfif"
+                        src={`${imgBase}/images/bestteam.jfif`}
                         alt="Best Team Award"
                         fill
                         draggable={false}
@@ -213,7 +215,7 @@ export function PortfolioSection() {
                   <div className="grid grid-cols-3 gap-3">
                     <div className="relative w-full aspect-video rounded-lg overflow-hidden">
                       <Image
-                        src="/images/pfizer1.jfif"
+                        src={`${imgBase}/images/pfizer1.jfif`}
                         alt="Pfizer CDI Presentation 1"
                         fill
                         draggable={false}
@@ -222,7 +224,7 @@ export function PortfolioSection() {
                     </div>
                     <div className="relative w-full aspect-video rounded-lg overflow-hidden">
                       <Image
-                        src="/images/pfizer2.jfif"
+                        src={`${imgBase}/images/pfizer2.jfif`}
                         alt="Pfizer CDI Presentation 2"
                         fill
                         draggable={false}
@@ -231,7 +233,7 @@ export function PortfolioSection() {
                     </div>
                     <div className="relative w-full aspect-video rounded-lg overflow-hidden">
                       <Image
-                        src="/images/pfizer3.jfif"
+                        src={`${imgBase}/images/pfizer3.jfif`}
                         alt="Pfizer CDI Presentation 3"
                         fill
                         draggable={false}

@@ -9,21 +9,23 @@ interface FloatingCloud {
     size: number
 }
 
+const imgBase = process.env.NEXT_PUBLIC_BASE_PATH || ""
+
 const clouds: FloatingCloud[] = [
     {
-        src: "/images/Welcome (1).png",
+        src: `${imgBase}/images/Welcome (1).png`,
         top: "180px",
         left: "120px",
         size: 240,
     },
     {
-        src: "/images/Welcome (2).png",
+        src: `${imgBase}/images/Welcome (2).png`,
         top: "330px",
         left: "calc(98% - 290px)",
         size: 290,
     },
     {
-        src: "/images/Welcome (3).png",
+        src: `${imgBase}/images/Welcome (3).png`,
         top: "100px",
         left: "calc(41% - 75px)",
         size: 200,

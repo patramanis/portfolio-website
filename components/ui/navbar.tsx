@@ -7,6 +7,8 @@ import { motion } from "framer-motion"
 import { useLoading } from "@/components/providers/loading-provider"
 import { usePageTransition } from "@/components/providers/page-transition-provider"
 
+const imgBase = process.env.NEXT_PUBLIC_BASE_PATH || ""
+
 const navLinks = [
   { href: "/portfolio", label: "Portfolio" },
   { href: "/experience", label: "Experience" },
@@ -42,7 +44,7 @@ export function Navbar() {
           data-nav-logo
         >
           <Image
-            src="/images/bomb.png"
+            src={`${imgBase}/images/bomb.png`}
             alt="Logo"
             width={28}
             height={28}

@@ -1,6 +1,8 @@
 "use client"
 
 import Image from "next/image"
+
+const imgBase = process.env.NEXT_PUBLIC_BASE_PATH || ""
 import { ChevronDown } from "lucide-react"
 import { useRef, useState, useEffect } from "react"
 import { motion } from "framer-motion"
@@ -425,7 +427,7 @@ export function HeroSection() {
               >
                 <div className="hero-profile-img select-none">
                   <Image
-                    src="/images/profile.png"
+                    src={`${imgBase}/images/profile.png`}
                     alt="Profile photo"
                     width={400}
                     height={500}

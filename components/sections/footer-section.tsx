@@ -4,6 +4,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { Github, X, Linkedin } from "lucide-react"
 
+const imgBase = process.env.NEXT_PUBLIC_BASE_PATH || ""
+
 const footerLinks = {
   navigation: [
     { label: "Portfolio", href: "/portfolio" },
@@ -21,7 +23,7 @@ export function FooterSection() {
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-2 transition-transform hover:scale-105">
               <Image
-                src="/images/bomb.png"
+                src={`${imgBase}/images/bomb.png`}
                 alt="Logo"
                 width={32}
                 height={32}
