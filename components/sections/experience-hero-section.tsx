@@ -38,7 +38,7 @@ export function ExperienceHeroSection() {
       if (!ctx) return
       const probe = 400
       ctx.font = `${probe}px "Climate Crisis"`
-      const measured = ctx.measureText("Experience").width
+      const measured = ctx.measureText("EXPERIENCE").width
       fontSize = Math.floor(probe * ((W * 0.82) / measured))
     }
 

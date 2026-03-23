@@ -38,7 +38,7 @@ export function PortfolioHeroSection() {
       if (!ctx) return
       const probe = 400
       ctx.font = `${probe}px "Climate Crisis"`
-      const measured = ctx.measureText("Portfolio").width
+      const measured = ctx.measureText("PORTFOLIO").width
       fontSize = Math.floor(probe * ((W * 0.82) / measured))
     }
 
