@@ -37,7 +37,7 @@ export function PortfolioHeroSection() {
       const ctx = getContext()
       if (!ctx) return
       const probe = 400
-      ctx.font = `bold ${probe}px "Permanent Marker", cursive`
+      ctx.font = `${probe}px "Climate Crisis"`
       const measured = ctx.measureText("Portfolio").width
       fontSize = Math.floor(probe * ((W * 0.82) / measured))
     }
@@ -84,7 +84,7 @@ export function PortfolioHeroSection() {
 
       if (fontSize > 0) {
         ctx.globalCompositeOperation = "destination-out"
-        ctx.font = `bold ${fontSize}px "Permanent Marker", cursive`
+        ctx.font = `${fontSize}px "Climate Crisis"`
         ctx.textAlign = "center"
         ctx.textBaseline = "middle"
         ctx.fillStyle = "rgba(0, 0, 0, 1)"
