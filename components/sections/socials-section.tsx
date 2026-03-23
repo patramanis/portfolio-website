@@ -80,7 +80,17 @@ export function SocialsSection() {
         </div>
 
         {/* Socials Grid */}
-        <div className="flex gap-4 w-full">
+        <style>{`
+          @media (max-width: 640px) {
+            .socials-grid { flex-wrap: wrap; }
+            .socials-grid > * {
+              flex: 1 1 calc(50% - 8px) !important;
+              min-width: calc(50% - 8px) !important;
+              max-width: calc(50% - 8px) !important;
+            }
+          }
+        `}</style>
+        <div className="socials-grid flex gap-4 w-full">
           {socials.map((social, index) => {
             const Icon = social.icon
             return (

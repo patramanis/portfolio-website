@@ -147,7 +147,7 @@ export function ExperienceHeroSection() {
   }, [])
 
   return (
-    <section className="relative w-full h-screen z-10">
+    <section className="relative w-full z-10" style={{ height: "100dvh" }}>
 
       {/* Animated canvas: dark gradient box + wave bottom edge + Experience cutout */}
       <canvas

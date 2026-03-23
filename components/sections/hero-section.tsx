@@ -205,7 +205,7 @@ export function HeroSection() {
            Image left 50% | Full text stack right 50%
         ══════════════════════════════════════════════════════ */
         .hero-section {
-          height: calc(100vh - 56px);
+          height: calc(100dvh - 56px);
           display: flex;
           flex-direction: column;
           padding-top:    clamp(16px, 2.5vh, 36px);
