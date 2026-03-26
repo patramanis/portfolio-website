@@ -115,7 +115,7 @@ export function PortfolioHeroSection() {
       rafId = requestAnimationFrame(animate)
     }
 
-    document.fonts.ready.then(() => {
+    document.fonts.load('400px "Climate Crisis"').then(() => {
       resize()
       rafId = requestAnimationFrame(animate)
     })
